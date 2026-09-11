@@ -1,32 +1,69 @@
-# React + TypeScript + Vite
+# websitebuildtools.com — VectorForge
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> **All-in-One SVG, Favicon & Asset Studio (100% Client-Side)**
 
-Currently, two official plugins are available:
+VectorForge is a high-performance, privacy-first web application for vector manipulation, favicon generation, asset conversion, and SVG optimization running **100% in-browser** with zero server dependencies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ⚡ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Logo & Icon Studio:**
+  - Shapes: Squircle, Circle, Square, Hexagon, Shield, Transparent
+  - Curated gradient presets & mesh glow
+  - Searchable catalog of 800+ Lucide vector icons
+  - Photo / raster image uploads with shape clipping
+  - Multi-word & multi-line brand typography with precise up/down positioning
+  - High-DPI raster exports up to 4096px (8x Ultra-HD)
+- **Production Favicon & App Icon Suite:**
+  - Multi-platform live simulators: Browser Tab (Dark/Light), Google SERP, iOS Home Screen, Android Adaptive, Windows Taskbar
+  - 1-Click ZIP bundle download (`favicon.ico`, `favicon.svg`, `apple-touch-icon.png`, `android-chrome`, `site.webmanifest`)
+  - Copy-paste `<head>` HTML snippet generator
+- **SVG Optimizer & Cleaner (SVGOMG-inspired):**
+  - Strips metadata, editor tags, comments, hidden layers
+  - Coordinate decimal precision rounding
+  - Live byte savings counter (-50%+ reduction)
+  - Side-by-side visual diff and code editor
+- **Conversion Hub:**
+  - SVG to PNG (High-DPI 1x-8x)
+  - SVG to JPG (Custom background fill & quality slider)
+  - SVG to ICO (Pure client-side multi-size binary encoder)
+  - PNG to SVG (Client-side vectorization / auto-tracing)
+  - SVG to CSS Data URI (URL-encoded & Base64)
+  - Multi-file batch processing with ZIP export
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🛠️ Tech Stack
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+- **Framework:** Vite + React 19 + TypeScript
+- **Styling:** Tailwind CSS + custom dark-mode design system
+- **Routing:** React Router v7
+- **Key Libraries:** JSZip, FileSaver, Lucide React, Canvas Confetti
+
+---
+
+## 🚀 Getting Started Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/ammyskamble/websitebuildtools.com.git
+
+# Navigate into directory
+cd websitebuildtools.com
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## 🔒 Privacy & Security
+
+VectorForge operates **100% client-side**. All rendering, rasterization, vector tracing, and zip bundling execute on your local device via HTML5 Canvas and Web Workers. No files or assets are uploaded to any external server.
