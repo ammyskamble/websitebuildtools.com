@@ -1,5 +1,6 @@
 /**
  * Canvas & SVG High-DPI Rendering Utilities
+ * Handles SVG markup, Data URLs, raster images, and Blob conversion with high resilience.
  */
 
 export interface RenderOptions {
@@ -11,13 +12,49 @@ export interface RenderOptions {
 }
 
 /**
- * Loads an SVG string into an HTMLImageElement
+ * Loads an SVG string, Data URI, or Image source into an HTMLImageElement safely
  */
-export function loadSvgImage(svgString: string): Promise<HTMLImageElement> {
+export function loadSvgOrImage(source: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    // Use Blob URL to ensure all characters and inline styles load accurately
-    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+
+    // Case 1: Already a Data URL or external URL (PNG, JPG, WebP, SVG Data URL)
+    if (
+      source.startsWith('data:image/') ||
+      source.startsWith('blob:') ||
+      source.startsWith('http://') ||
+      source.startsWith('https://')
+    ) {
+      img.onload = () => resolve(img);
+      img.onerror = (err) => reject(new Error('Failed to load image from Data URL: ' + err));
+      img.src = source;
+      return;
+    }
+
+    // Case 2: Raw SVG string markup (<svg ...)
+    let svgMarkup = source.trim();
+    if (!svgMarkup.includes('xmlns=')) {
+      svgMarkup = svgMarkup.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+
+    // If SVG has no width/height, infer from viewBox or inject fallback
+    if (!svgMarkup.includes('width=') || !svgMarkup.includes('height=')) {
+      const vbMatch = svgMarkup.match(/viewBox=["']([0-9.\s-]+)["']/);
+      if (vbMatch) {
+        const parts = vbMatch[1].trim().split(/\s+/);
+        if (parts.length === 4) {
+          const w = parseFloat(parts[2]);
+          const h = parseFloat(parts[3]);
+          if (!isNaN(w) && !isNaN(h) && w > 0 && h > 0) {
+            svgMarkup = svgMarkup.replace('<svg', `<svg width="${w}" height="${h}"`);
+          }
+        }
+      } else {
+        svgMarkup = svgMarkup.replace('<svg', '<svg width="512" height="512"');
+      }
+    }
+
+    const blob = new Blob([svgMarkup], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 
     img.onload = () => {
@@ -27,7 +64,7 @@ export function loadSvgImage(svgString: string): Promise<HTMLImageElement> {
 
     img.onerror = (err) => {
       URL.revokeObjectURL(url);
-      reject(new Error('Failed to load SVG into image: ' + err));
+      reject(new Error('Failed to parse SVG into image element: ' + err));
     };
 
     img.src = url;
@@ -35,42 +72,47 @@ export function loadSvgImage(svgString: string): Promise<HTMLImageElement> {
 }
 
 /**
- * Loads any Image source (File, Data URL, Object URL) into an HTMLImageElement
+ * Backward-compatible alias for loadSvgOrImage
+ */
+export const loadSvgImage = loadSvgOrImage;
+
+/**
+ * Loads any Image source (File, Data URL, Object URL, SVG string) into an HTMLImageElement
  */
 export function loadImageSource(src: string | File | Blob): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
-    const img = new Image();
-    let objectUrl = '';
-
     if (typeof src === 'string') {
-      img.src = src;
-    } else {
-      objectUrl = URL.createObjectURL(src);
-      img.src = objectUrl;
+      loadSvgOrImage(src).then(resolve).catch(reject);
+      return;
     }
 
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(src);
+
     img.onload = () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      URL.revokeObjectURL(objectUrl);
       resolve(img);
     };
 
     img.onerror = (err) => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      URL.revokeObjectURL(objectUrl);
       reject(err);
     };
+
+    img.src = objectUrl;
   });
 }
 
 /**
- * Renders an SVG string to a canvas at a target resolution and returns a Blob
+ * Renders an SVG string OR raster image to a canvas at target resolution and returns a Blob
  */
 export async function renderSvgToBlob(
-  svgString: string,
+  source: string,
   options: RenderOptions
 ): Promise<Blob> {
   const { width, height, format = 'png', quality = 0.95, backgroundColor } = options;
 
-  const img = await loadSvgImage(svgString);
+  const img = await loadSvgOrImage(source);
 
   const canvas = document.createElement('canvas');
   canvas.width = width;
@@ -91,7 +133,7 @@ export async function renderSvgToBlob(
     ctx.fillRect(0, 0, width, height);
   }
 
-  // Draw image at full target resolution
+  // Draw image scaled to target dimensions
   ctx.drawImage(img, 0, 0, width, height);
 
   const mimeType = format === 'jpeg' ? 'image/jpeg' : format === 'webp' ? 'image/webp' : 'image/png';

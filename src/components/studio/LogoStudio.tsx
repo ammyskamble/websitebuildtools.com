@@ -134,23 +134,95 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
     return GRADIENT_PRESETS.find((g) => g.id === state.gradientId) || GRADIENT_PRESETS[0];
   }, [state.gradientId]);
 
-  // Handle Photo / Raster file upload (PNG, JPG, WebP, GIF, SVG)
+  const [isOptimizingPhoto, setIsOptimizingPhoto] = useState(false);
+
+  // Handle Photo / Raster file upload (PNG, JPG, WebP, GIF, SVG) with max 20MB limit & offscreen canvas downscaling
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
+    if (file.size > MAX_FILE_SIZE) {
+      alert(`File "${file.name}" exceeds the 20MB limit (${(file.size / (1024 * 1024)).toFixed(1)} MB). Please choose a photo under 20MB.`);
+      return;
+    }
+
+    setIsOptimizingPhoto(true);
     const reader = new FileReader();
+
     reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      if (dataUrl) {
+      const rawDataUrl = event.target?.result as string;
+      if (!rawDataUrl) {
+        setIsOptimizingPhoto(false);
+        return;
+      }
+
+      // If it's an SVG file, load directly
+      if (file.type === 'image/svg+xml' || file.name.toLowerCase().endsWith('.svg')) {
         setState((s) => ({
           ...s,
           contentType: 'photo',
-          photoDataUrl: dataUrl,
+          photoDataUrl: rawDataUrl,
         }));
+        setIsOptimizingPhoto(false);
+        return;
       }
+
+      // Downscale photo client-side to max 1200px to prevent browser DOM hang or re-render lag
+      const img = new Image();
+      img.onload = () => {
+        let w = img.naturalWidth || img.width;
+        let h = img.naturalHeight || img.height;
+        const maxDim = 1200;
+
+        if (w > maxDim || h > maxDim) {
+          const ratio = Math.min(maxDim / w, maxDim / h);
+          w = Math.round(w * ratio);
+          h = Math.round(h * ratio);
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, w, h);
+          // High quality optimized PNG data URL
+          const optimizedDataUrl = canvas.toDataURL('image/png');
+          setState((s) => ({
+            ...s,
+            contentType: 'photo',
+            photoDataUrl: optimizedDataUrl,
+          }));
+        } else {
+          setState((s) => ({
+            ...s,
+            contentType: 'photo',
+            photoDataUrl: rawDataUrl,
+          }));
+        }
+        setIsOptimizingPhoto(false);
+      };
+
+      img.onerror = () => {
+        setState((s) => ({
+          ...s,
+          contentType: 'photo',
+          photoDataUrl: rawDataUrl,
+        }));
+        setIsOptimizingPhoto(false);
+      };
+
+      img.src = rawDataUrl;
     };
+
+    reader.onerror = () => {
+      setIsOptimizingPhoto(false);
+      alert('Error reading uploaded photo.');
+    };
+
     reader.readAsDataURL(file);
+    e.target.value = '';
   };
 
   // Generate SVG Code string for preview and high-DPI rendering
@@ -656,14 +728,14 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   </div>
                   <div className="flex-1 min-w-0 text-center sm:text-left">
                     <p className="text-xs font-semibold text-white">Custom Photo / Avatar</p>
-                    <p className="text-[11px] text-slate-400">Supports PNG, JPG, WebP, GIF, SVG</p>
+                    <p className="text-[11px] text-slate-400">Max 20MB • PNG, JPG, WebP, GIF, SVG</p>
                   </div>
-                  <label className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold cursor-pointer shadow-glow-sm transition-colors">
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>Upload Photo</span>
+                  <label className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold cursor-pointer shadow-glow-sm transition-colors ${isOptimizingPhoto ? 'opacity-70 pointer-events-none' : ''}`}>
+                    <Upload className={`w-3.5 h-3.5 ${isOptimizingPhoto ? 'animate-spin' : ''}`} />
+                    <span>{isOptimizingPhoto ? 'Optimizing Photo...' : 'Upload Photo'}</span>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/*, .svg"
                       onChange={handlePhotoUpload}
                       className="hidden"
                     />

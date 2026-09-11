@@ -169,7 +169,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
       {/* Active Tool */}
-      <UniversalConverter initialMode={mode} />
+      <UniversalConverter key={mode} initialMode={mode} />
 
       {/* SEO Step-by-Step Instructions */}
       <section className="glass-panel rounded-3xl p-8 sm:p-12 border border-dark-border">

@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 import confetti from 'canvas-confetti';
 import {
   Upload, Download, Copy, Check, Sliders, Image as ImageIcon,
-  Sparkles, Layers, RefreshCw, FileCode, ArrowRight, Shield, Zap
+  Sparkles, Layers, RefreshCw, FileCode, ArrowRight, Shield, Zap, AlertCircle
 } from 'lucide-react';
 import { renderSvgToBlob, downloadBlob, downloadText } from '../../lib/canvas-renderer';
 import { createIcoFromPngs } from '../../lib/ico-encoder';
@@ -27,18 +27,58 @@ interface BatchFileItem {
   size: number;
   content: string; // SVG text or image Data URL
   status: 'pending' | 'processing' | 'done' | 'error';
+  errorMessage?: string;
   convertedBlob?: Blob;
+  convertedBlobUrl?: string;
   convertedData?: string;
+}
+
+const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
+
+const DEFAULT_SAMPLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <linearGradient id="sample-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" rx="120" fill="url(#sample-grad)"/>
+  <circle cx="250" cy="250" r="110" fill="none" stroke="#ffffff" stroke-width="24" />
+  <circle cx="250" cy="250" r="36" fill="#ffffff" />
+</svg>`;
+
+// Default sample raster icon for png-to-svg mode
+function createDefaultRasterSample(): string {
+  const canvas = document.createElement('canvas');
+  canvas.width = 300;
+  canvas.height = 300;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, 300, 300);
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(150, 150, 95, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(150, 150, 45, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  return canvas.toDataURL('image/png');
 }
 
 export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialMode }) => {
   const [mode, setMode] = useState<ConverterMode>(initialMode);
 
+  useEffect(() => {
+    setMode(initialMode);
+  }, [initialMode]);
+
   // Settings
   const [resolutionMultiplier, setResolutionMultiplier] = useState<number>(2); // 1x, 2x, 4x, 8x
-  const [customWidth, setCustomWidth] = useState<number>(1024);
-  const [customHeight, setCustomHeight] = useState<number>(1024);
-  const [maintainAspect, setMaintainAspect] = useState<boolean>(true);
+  const [customWidth, setCustomWidth] = useState<number>(512);
+  const [customHeight, setCustomHeight] = useState<number>(512);
   const [transparentBg, setTransparentBg] = useState<boolean>(true);
   const [bgColor, setBgColor] = useState<string>('#ffffff');
   const [jpegQuality, setJpegQuality] = useState<number>(0.92);
@@ -57,58 +97,64 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
   // Files
   const [files, setFiles] = useState<BatchFileItem[]>([]);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [copied, setCopied] = useState<boolean>(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Default sample file when empty
+  // Initialize sample file tailored to mode
   useEffect(() => {
-    if (files.length === 0) {
-      const sampleSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#8b5cf6"/>
-    </linearGradient>
-  </defs>
-  <rect width="500" height="500" rx="120" fill="url(#g)"/>
-  <circle cx="250" cy="250" r="120" fill="none" stroke="#ffffff" stroke-width="24" />
-  <circle cx="250" cy="250" r="40" fill="#ffffff" />
-</svg>`;
-
+    if (mode === 'png-to-svg') {
+      const sampleImg = createDefaultRasterSample();
       setFiles([
         {
-          id: 'sample-1',
+          id: 'sample-raster',
+          name: 'sample-icon.png',
+          size: Math.round(sampleImg.length * 0.75),
+          content: sampleImg,
+          status: 'pending',
+        },
+      ]);
+    } else {
+      setFiles([
+        {
+          id: 'sample-vector',
           name: 'sample-vector.svg',
-          size: sampleSvg.length,
-          content: sampleSvg,
+          size: DEFAULT_SAMPLE_SVG.length,
+          content: DEFAULT_SAMPLE_SVG,
           status: 'pending',
         },
       ]);
     }
-  }, [files.length]);
+  }, [mode]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFiles = Array.from(e.target.files || []);
     if (uploadedFiles.length === 0) return;
 
-    const newItems: BatchFileItem[] = [];
-
     uploadedFiles.forEach((file) => {
-      const isSvg = file.type === 'image/svg+xml' || file.name.endsWith('.svg');
+      // 20MB Max File Size limit
+      if (file.size > MAX_FILE_SIZE) {
+        alert(`File "${file.name}" exceeds the 20MB limit (${(file.size / (1024 * 1024)).toFixed(1)} MB). Please select an image under 20MB.`);
+        return;
+      }
+
+      const isSvg = file.type === 'image/svg+xml' || file.name.toLowerCase().endsWith('.svg');
       const reader = new FileReader();
 
       reader.onload = (event) => {
-        const result = event.target?.result as string;
-        newItems.push({
+        const content = event.target?.result as string;
+        if (!content) return;
+
+        const newItem: BatchFileItem = {
           id: Math.random().toString(36).substring(2, 9),
           name: file.name,
           size: file.size,
-          content: result,
+          content,
           status: 'pending',
-        });
+        };
 
-        if (newItems.length === uploadedFiles.length) {
-          setFiles((prev) => [...prev.filter((f) => f.id !== 'sample-1'), ...newItems]);
-        }
+        setFiles((prev) => {
+          const cleaned = prev.filter((f) => !f.id.startsWith('sample-'));
+          return [...cleaned, newItem];
+        });
       };
 
       if (isSvg && mode !== 'png-to-svg') {
@@ -117,34 +163,39 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
         reader.readAsDataURL(file);
       }
     });
+
+    // Reset input value so the same file can be re-uploaded if needed
+    e.target.value = '';
   };
 
   // Convert Single Item
   const processItem = async (item: BatchFileItem): Promise<BatchFileItem> => {
     try {
       if (mode === 'svg-to-png') {
-        const targetW = customWidth * resolutionMultiplier;
-        const targetH = customHeight * resolutionMultiplier;
+        const targetW = Math.max(16, Math.round(customWidth * resolutionMultiplier));
+        const targetH = Math.max(16, Math.round(customHeight * resolutionMultiplier));
         const blob = await renderSvgToBlob(item.content, {
           width: targetW,
           height: targetH,
           format: 'png',
           backgroundColor: transparentBg ? undefined : bgColor,
         });
-        return { ...item, status: 'done', convertedBlob: blob };
+        const url = URL.createObjectURL(blob);
+        return { ...item, status: 'done', convertedBlob: blob, convertedBlobUrl: url };
       }
 
       if (mode === 'svg-to-jpg') {
-        const targetW = customWidth * resolutionMultiplier;
-        const targetH = customHeight * resolutionMultiplier;
+        const targetW = Math.max(16, Math.round(customWidth * resolutionMultiplier));
+        const targetH = Math.max(16, Math.round(customHeight * resolutionMultiplier));
         const blob = await renderSvgToBlob(item.content, {
           width: targetW,
           height: targetH,
           format: 'jpeg',
           quality: jpegQuality,
-          backgroundColor: bgColor,
+          backgroundColor: bgColor || '#ffffff',
         });
-        return { ...item, status: 'done', convertedBlob: blob };
+        const url = URL.createObjectURL(blob);
+        return { ...item, status: 'done', convertedBlob: blob, convertedBlobUrl: url };
       }
 
       if (mode === 'svg-to-ico') {
@@ -159,7 +210,8 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
           { pngBlob: blob32, size: 32 },
           { pngBlob: blob48, size: 48 },
         ]);
-        return { ...item, status: 'done', convertedBlob: icoBlob };
+        const url = URL.createObjectURL(icoBlob);
+        return { ...item, status: 'done', convertedBlob: icoBlob, convertedBlobUrl: url };
       }
 
       if (mode === 'png-to-svg') {
@@ -176,10 +228,18 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
       if (mode === 'svg-to-data-uri') {
         let uri = '';
         if (uriFormat === 'base64') {
-          const encoded = btoa(unescape(encodeURIComponent(item.content)));
-          uri = `data:image/svg+xml;base64,${encoded}`;
+          if (item.content.startsWith('data:image/')) {
+            uri = item.content;
+          } else {
+            const encoded = btoa(unescape(encodeURIComponent(item.content)));
+            uri = `data:image/svg+xml;base64,${encoded}`;
+          }
         } else {
-          uri = `data:image/svg+xml;utf8,${encodeURIComponent(item.content)}`;
+          if (item.content.startsWith('data:image/')) {
+            uri = item.content;
+          } else {
+            uri = `data:image/svg+xml;utf8,${encodeURIComponent(item.content)}`;
+          }
         }
 
         let formattedOutput = uri;
@@ -193,14 +253,19 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
       }
 
       return item;
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error converting file', item.name, err);
-      return { ...item, status: 'error' };
+      return {
+        ...item,
+        status: 'error',
+        errorMessage: err?.message || 'Failed to process file format',
+      };
     }
   };
 
   // Convert all items
   const handleConvertAll = async () => {
+    if (files.length === 0) return;
     setIsProcessing(true);
     try {
       const updated: BatchFileItem[] = [];
@@ -210,11 +275,14 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
       }
       setFiles(updated);
 
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.8 },
-      });
+      const hasSuccess = updated.some((f) => f.status === 'done');
+      if (hasSuccess) {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.8 },
+        });
+      }
     } finally {
       setIsProcessing(false);
     }
@@ -223,7 +291,11 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
   // Download all as ZIP
   const handleDownloadAllZip = async () => {
     const zip = new JSZip();
+    let count = 0;
+
     for (const item of files) {
+      if (item.status !== 'done') continue;
+
       const ext =
         mode === 'svg-to-png'
           ? 'png'
@@ -240,9 +312,16 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
 
       if (item.convertedBlob) {
         zip.file(outFilename, item.convertedBlob);
+        count++;
       } else if (item.convertedData) {
         zip.file(outFilename, item.convertedData);
+        count++;
       }
+    }
+
+    if (count === 0) {
+      alert('Please click "Convert All Files Now" first.');
+      return;
     }
 
     const zipContent = await zip.generateAsync({ type: 'blob' });
@@ -278,8 +357,8 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
   const handleCopySingle = (item: BatchFileItem) => {
     if (item.convertedData) {
       navigator.clipboard.writeText(item.convertedData);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopiedId(item.id);
+      setTimeout(() => setCopiedId(null), 2000);
     }
   };
 
@@ -352,7 +431,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
             <input
               type="file"
               multiple
-              accept={mode === 'png-to-svg' ? '.png, .jpg, .jpeg, .webp' : '.svg'}
+              accept=".svg, .png, .jpg, .jpeg, .webp, .ico, .bmp, image/*"
               onChange={handleFileUpload}
               className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
             />
@@ -360,12 +439,12 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
               <Upload className="w-6 h-6" />
             </div>
             <h3 className="text-sm font-bold text-white">
-              Drag & drop {mode === 'png-to-svg' ? 'raster images' : 'SVG vectors'} here
+              Drag & drop {mode === 'png-to-svg' ? 'raster images (PNG, JPG, WebP)' : 'vectors (SVG) or images'} here
             </h3>
             <p className="text-xs text-slate-400 mt-1 max-w-sm">
-              Support multi-file batch upload. 100% processed locally in your browser.
+              Batch convert multiple files up to <strong className="text-brand-300">20MB each</strong>. 100% processed locally in your browser.
             </p>
-            <span className="mt-3 px-3 py-1 rounded-lg bg-dark-surface border border-dark-border text-[11px] text-slate-300 font-medium">
+            <span className="mt-3 px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border text-xs text-slate-200 font-medium group-hover:bg-brand-500/20 group-hover:border-brand-500/40 transition-colors">
               Browse Files from Computer
             </span>
           </div>
@@ -390,13 +469,26 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
               {files.map((file) => (
                 <div
                   key={file.id}
-                  className="flex items-center justify-between p-3 rounded-xl bg-dark-surface/60 border border-dark-border hover:border-slate-500 transition-colors"
+                  className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${
+                    file.status === 'done'
+                      ? 'bg-emerald-500/10 border-emerald-500/30'
+                      : file.status === 'error'
+                      ? 'bg-rose-500/10 border-rose-500/30'
+                      : 'bg-dark-surface/60 border-dark-border hover:border-slate-500'
+                  }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-9 h-9 rounded-lg bg-dark-bg p-1 border border-dark-border flex items-center justify-center shrink-0">
-                      {file.content.includes('<svg') ? (
+                    <div className="w-10 h-10 rounded-lg bg-dark-bg p-1 border border-dark-border flex items-center justify-center shrink-0 overflow-hidden bg-checkered">
+                      {file.convertedBlobUrl ? (
+                        <img src={file.convertedBlobUrl} alt="converted" className="w-full h-full object-contain" />
+                      ) : file.convertedData ? (
                         <div
-                          className="w-full h-full"
+                          className="w-full h-full flex items-center justify-center"
+                          dangerouslySetInnerHTML={{ __html: file.convertedData }}
+                        />
+                      ) : file.content.trim().startsWith('<svg') || file.content.includes('<svg') ? (
+                        <div
+                          className="w-full h-full flex items-center justify-center"
                           dangerouslySetInnerHTML={{ __html: file.content }}
                         />
                       ) : (
@@ -405,9 +497,25 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                     </div>
                     <div className="truncate">
                       <p className="text-xs font-semibold text-white truncate">{file.name}</p>
-                      <p className="text-[10px] text-slate-400 font-mono">
-                        {(file.size / 1024).toFixed(1)} KB • {file.status.toUpperCase()}
-                      </p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-[10px] text-slate-400 font-mono">
+                          {(file.size / 1024).toFixed(1)} KB
+                        </span>
+                        <span
+                          className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
+                            file.status === 'done'
+                              ? 'bg-emerald-500/20 text-emerald-400'
+                              : file.status === 'error'
+                              ? 'bg-rose-500/20 text-rose-400'
+                              : 'bg-slate-700/50 text-slate-400'
+                          }`}
+                        >
+                          {file.status}
+                        </span>
+                      </div>
+                      {file.errorMessage && (
+                        <p className="text-[10px] text-rose-400 mt-0.5 truncate">{file.errorMessage}</p>
+                      )}
                     </div>
                   </div>
 
@@ -418,15 +526,15 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                         {mode === 'svg-to-data-uri' ? (
                           <button
                             onClick={() => handleCopySingle(file)}
-                            className="p-1.5 rounded-lg bg-brand-500/20 text-brand-300 hover:bg-brand-500/30 text-xs flex items-center gap-1 font-medium"
+                            className="px-3 py-1.5 rounded-lg bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 text-xs flex items-center gap-1 font-semibold transition-colors"
                           >
-                            <Copy className="w-3.5 h-3.5" />
-                            <span>Copy</span>
+                            {copiedId === file.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                            <span>{copiedId === file.id ? 'Copied!' : 'Copy'}</span>
                           </button>
                         ) : (
                           <button
                             onClick={() => handleDownloadSingle(file)}
-                            className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-xs flex items-center gap-1 font-medium"
+                            className="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs flex items-center gap-1 font-semibold transition-colors"
                           >
                             <Download className="w-3.5 h-3.5" />
                             <span>Save</span>
@@ -434,7 +542,15 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                         )}
                       </>
                     ) : (
-                      <span className="text-[11px] text-slate-500 font-medium">Ready</span>
+                      <button
+                        onClick={async () => {
+                          const updated = await processItem(file);
+                          setFiles((prev) => prev.map((f) => (f.id === file.id ? updated : f)));
+                        }}
+                        className="px-2.5 py-1 rounded-lg bg-dark-surface hover:bg-dark-hover border border-dark-border text-slate-300 text-xs font-medium"
+                      >
+                        Convert
+                      </button>
                     )}
                   </div>
                 </div>
@@ -449,7 +565,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
               >
                 <Zap className="w-4 h-4" />
-                <span>{isProcessing ? 'Converting...' : 'Convert All Files Now'}</span>
+                <span>{isProcessing ? 'Processing files...' : 'Convert All Files Now'}</span>
               </button>
 
               {files.some((f) => f.status === 'done' && (f.convertedBlob || f.convertedData)) && (
@@ -485,7 +601,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                         onClick={() => setResolutionMultiplier(mult)}
                         className={`py-1.5 rounded-lg font-semibold transition-colors ${
                           resolutionMultiplier === mult
-                            ? 'bg-brand-500 text-white'
+                            ? 'bg-brand-500 text-white shadow-glow-sm'
                             : 'text-slate-400 hover:text-white'
                         }`}
                       >
@@ -664,7 +780,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                   <div className="grid grid-cols-2 gap-2 bg-dark-surface p-1 rounded-xl border border-dark-border">
                     <button
                       onClick={() => setUriFormat('url-encoded')}
-                      className={`py-1 rounded-lg font-medium transition-colors ${
+                      className={`py-1.5 rounded-lg font-medium transition-colors ${
                         uriFormat === 'url-encoded' ? 'bg-brand-500 text-white' : 'text-slate-400'
                       }`}
                     >
@@ -672,7 +788,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                     </button>
                     <button
                       onClick={() => setUriFormat('base64')}
-                      className={`py-1 rounded-lg font-medium transition-colors ${
+                      className={`py-1.5 rounded-lg font-medium transition-colors ${
                         uriFormat === 'base64' ? 'bg-brand-500 text-white' : 'text-slate-400'
                       }`}
                     >
