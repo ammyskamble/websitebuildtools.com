@@ -35,6 +35,8 @@ export const App: React.FC = () => {
             <Route path="/tools/svg-optimizer" element={<SvgOptimizerPage />} />
 
             {/* High-Intent Programmatic SEO Conversion Hub */}
+            <Route path="/convert" element={<ConverterPage mode="svg-to-png" />} />
+            <Route path="/converters" element={<ConverterPage mode="svg-to-png" />} />
             <Route path="/convert/svg-to-png" element={<ConverterPage mode="svg-to-png" />} />
             <Route path="/convert/svg-to-jpg" element={<ConverterPage mode="svg-to-jpg" />} />
             <Route path="/convert/svg-to-ico" element={<ConverterPage mode="svg-to-ico" />} />

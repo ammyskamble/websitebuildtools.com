@@ -62,51 +62,70 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Converters Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-dark-hover transition-all"
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <Link
+              to="/convert/svg-to-png"
+              onClick={() => setDropdownOpen(false)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                location.pathname.startsWith('/convert')
+                  ? 'bg-brand-500/15 text-brand-400 border border-brand-500/30'
+                  : 'text-slate-300 hover:text-white hover:bg-dark-hover'
+              }`}
             >
-              Converters <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
+              <span>Converters</span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setDropdownOpen(!dropdownOpen);
+                }}
+              />
+            </Link>
 
             {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-56 p-2 rounded-xl glass-panel shadow-2xl border border-dark-border z-50 animate-in fade-in slide-in-from-top-2">
+              <div
+                className="absolute top-full left-0 mt-1 w-60 p-2 rounded-xl glass-panel shadow-2xl border border-dark-border z-50 animate-in fade-in slide-in-from-top-2"
+                onClick={() => setDropdownOpen(false)}
+              >
                 <Link
                   to="/convert/svg-to-png"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-blue-400" />
-                  SVG to PNG (High-DPI)
+                  <span>SVG to PNG (High-DPI)</span>
                 </Link>
                 <Link
                   to="/convert/svg-to-jpg"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  SVG to JPG
+                  <span>SVG to JPG</span>
                 </Link>
                 <Link
                   to="/convert/svg-to-ico"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-purple-400" />
-                  SVG to ICO (Multi-size)
+                  <span>SVG to ICO (Multi-size)</span>
                 </Link>
                 <Link
                   to="/convert/png-to-svg"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-pink-400" />
-                  PNG to SVG (Vectorize)
+                  <span>PNG to SVG (Vectorize)</span>
                 </Link>
                 <Link
                   to="/convert/svg-to-data-uri"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  SVG to CSS Data URI
+                  <span>SVG to CSS Data URI</span>
                 </Link>
               </div>
             )}

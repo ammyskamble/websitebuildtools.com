@@ -282,6 +282,15 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
           spread: 60,
           origin: { y: 0.8 },
         });
+
+        // If single file converted, automatically trigger download or copy
+        if (updated.length === 1 && updated[0].status === 'done') {
+          if (mode === 'svg-to-data-uri') {
+            handleCopySingle(updated[0]);
+          } else {
+            handleDownloadSingle(updated[0]);
+          }
+        }
       }
     } finally {
       setIsProcessing(false);
