@@ -7,6 +7,7 @@ import {
 import { optimizeSvg, formatSvgCode, OptimizeOptions, OptimizationResult } from '../../lib/svg-optimizer';
 import { downloadText } from '../../lib/canvas-renderer';
 import { convertSvgToAstroComponent, downloadAstroFile } from '../../lib/astro-generator';
+import { InstantMultiFormatExporter } from '../ui/InstantMultiFormatExporter';
 
 const DEFAULT_SAMPLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" viewBox="0 0 500 500" width="500" height="500">
   <!-- Generator: Adobe Illustrator 28.0, SVG Export Plug-In -->
@@ -125,30 +126,20 @@ export const SvgOptimizer: React.FC = () => {
           </p>
         </div>
 
-        {/* Action Buttons */}
+        {/* Instant Multi-Format Action Buttons */}
         <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={handleCopy}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl glass-card text-xs font-medium text-slate-300 hover:text-white transition-colors"
-          >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? 'Copied Minified SVG!' : 'Copy Code'}</span>
-          </button>
-
-          <button
-            onClick={handleDownloadAstro}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-semibold text-xs transition-colors shadow-sm"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Download .astro</span>
-          </button>
+          <InstantMultiFormatExporter
+            source={result.optimizedSvg}
+            filename="optimized-vector"
+            variant="bar"
+          />
 
           <button
             onClick={handleDownload}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all"
           >
             <Download className="w-4 h-4" />
-            <span>Download Optimized SVG</span>
+            <span>Download SVG</span>
           </button>
         </div>
       </div>
@@ -337,6 +328,15 @@ export const SvgOptimizer: React.FC = () => {
                 />
               </div>
             )}
+
+            {/* Instant Multi-Format Exporters Bar */}
+            <div className="p-3.5 bg-dark-surface/60 border-t border-dark-border/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-[11px] font-bold text-brand-300 uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+                <span>Instant Multi-Format Exporters:</span>
+              </span>
+              <InstantMultiFormatExporter source={result.optimizedSvg} filename="optimized-vector" variant="bar" />
+            </div>
           </div>
         </div>
 

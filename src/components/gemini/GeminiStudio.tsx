@@ -24,6 +24,7 @@ import {
   downloadFile,
   downloadText
 } from '../../lib/code-importer';
+import { InstantMultiFormatExporter } from '../ui/InstantMultiFormatExporter';
 import { generateFaviconPack } from '../../lib/zip-generator';
 
 export const GeminiStudio: React.FC = () => {
@@ -592,9 +593,16 @@ export const GeminiStudio: React.FC = () => {
 
           {/* Export Action Hub */}
           <div className="glass-card rounded-2xl p-6 border border-dark-border space-y-4">
-            <span className="text-xs font-bold text-white uppercase tracking-wider block">
-              Instant Multi-Format Exporters
-            </span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border/80 pb-3">
+              <span className="text-xs font-bold text-white uppercase tracking-wider block">
+                Instant Multi-Format Exporters
+              </span>
+              <InstantMultiFormatExporter
+                source={codeContent}
+                filename="gemini-vector"
+                variant="bar"
+              />
+            </div>
 
             {/* Row 1: SVG & Favicon ICO */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

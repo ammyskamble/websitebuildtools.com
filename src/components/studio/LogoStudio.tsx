@@ -11,6 +11,7 @@ import { IconPickerModal } from '../ui/IconPickerModal';
 import { GeminiModal } from '../gemini/GeminiModal';
 import { renderSvgToBlob, downloadBlob, downloadText } from '../../lib/canvas-renderer';
 import { convertSvgToAstroComponent, downloadAstroFile, toPascalCase } from '../../lib/astro-generator';
+import { InstantMultiFormatExporter } from '../ui/InstantMultiFormatExporter';
 
 export interface LogoStudioState {
   shape: ShapeType;
@@ -593,6 +594,19 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
               <Download className="w-4 h-4" />
               <span>{exporting ? 'Rendering...' : exportFormat === 'astro' ? 'Export .ASTRO Component' : `Export ${exportFormat.toUpperCase()}`}</span>
             </button>
+          </div>
+
+          {/* Instant 1-Click Multi-Format Exporter */}
+          <div className="pt-3 border-t border-dark-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <span className="text-[11px] font-bold text-brand-300 uppercase tracking-wider flex items-center gap-1.5 shrink-0">
+              <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+              <span>Instant Multi-Format Exporters:</span>
+            </span>
+            <InstantMultiFormatExporter
+              source={generatedSvg}
+              filename={state.textContent || 'logo-brand'}
+              variant="bar"
+            />
           </div>
         </div>
 

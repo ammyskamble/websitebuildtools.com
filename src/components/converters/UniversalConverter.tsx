@@ -12,6 +12,7 @@ import { renderSvgToBlob, downloadBlob, downloadText } from '../../lib/canvas-re
 import { createIcoFromPngs } from '../../lib/ico-encoder';
 import { vectorizeImageWithStats, VectorizeResult, VectorizeTraceMode } from '../../lib/image-vectorizer';
 import { convertSvgToAstroComponent, downloadAstroFile, toPascalCase } from '../../lib/astro-generator';
+import { InstantMultiFormatExporter } from '../ui/InstantMultiFormatExporter';
 
 export type ConverterMode =
   | 'svg-to-png'
@@ -1126,47 +1127,64 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
           </div>
 
           {/* Underneath Canvas: Export Actions & Batch Download Bar (Matching LogoStudio) */}
-          <div className="w-full glass-card rounded-2xl p-4 sm:p-5 border border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              {isRasterToVector && (
-                <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Scissors className="w-4 h-4 text-amber-400" />
-                  <span>
-                    Active Engine: <strong className="text-white capitalize">{traceMode} Contour</strong>
-                  </span>
-                </div>
-              )}
-              {isVectorToRaster && (
-                <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <Zap className="w-4 h-4 text-brand-400" />
-                  <span>
-                    DPI: <strong className="text-white">{resolutionMultiplier}x ({customWidth * resolutionMultiplier}px)</strong>
-                  </span>
-                </div>
-              )}
-            </div>
+          <div className="w-full glass-card rounded-2xl p-4 sm:p-5 border border-dark-border space-y-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                {isRasterToVector && (
+                  <div className="flex items-center gap-2 text-xs text-slate-300">
+                    <Scissors className="w-4 h-4 text-amber-400" />
+                    <span>
+                      Active Engine: <strong className="text-white capitalize">{traceMode} Contour</strong>
+                    </span>
+                  </div>
+                )}
+                {isVectorToRaster && (
+                  <div className="flex items-center gap-2 text-xs text-slate-300">
+                    <Zap className="w-4 h-4 text-brand-400" />
+                    <span>
+                      DPI: <strong className="text-white">{resolutionMultiplier}x ({customWidth * resolutionMultiplier}px)</strong>
+                    </span>
+                  </div>
+                )}
+              </div>
 
-            <div className="flex items-center gap-2.5 w-full sm:w-auto">
-              <button
-                onClick={handleConvertAll}
-                disabled={isProcessing || files.length === 0}
-                className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
-              >
-                <Zap className="w-4 h-4" />
-                <span>{isProcessing ? 'Processing files...' : 'Convert All Files'}</span>
-              </button>
-
-              {files.some((f) => f.status === 'done' || livePreviewResult?.convertedData) && (
+              <div className="flex items-center gap-2.5 w-full sm:w-auto">
                 <button
-                  onClick={handleDownloadAllZip}
-                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-semibold text-xs transition-colors"
-                  title="Download all converted files as ZIP archive"
+                  onClick={handleConvertAll}
+                  disabled={isProcessing || files.length === 0}
+                  className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
                 >
-                  <Download className="w-4 h-4" />
-                  <span>ZIP Bundle</span>
+                  <Zap className="w-4 h-4" />
+                  <span>{isProcessing ? 'Processing files...' : 'Convert All Files'}</span>
                 </button>
-              )}
+
+                {files.some((f) => f.status === 'done' || livePreviewResult?.convertedData) && (
+                  <button
+                    onClick={handleDownloadAllZip}
+                    className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-semibold text-xs transition-colors"
+                    title="Download all converted files as ZIP archive"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>ZIP Bundle</span>
+                  </button>
+                )}
+              </div>
             </div>
+
+            {/* Instant Multi-Format Exporters Bar */}
+            {(livePreviewResult?.convertedData || activeFile?.convertedData || activeFile?.convertedBlobUrl || activeFile?.content) && (
+              <div className="pt-3 border-t border-dark-border/60 flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+                <span className="text-[11px] font-bold text-brand-300 uppercase tracking-wider flex items-center gap-1.5 shrink-0">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+                  <span>Instant Multi-Format Exporters:</span>
+                </span>
+                <InstantMultiFormatExporter
+                  source={livePreviewResult?.convertedData || activeFile?.convertedData || activeFile?.convertedBlobUrl || activeFile?.content || ''}
+                  filename={activeFile?.name || 'converted-asset'}
+                  variant="bar"
+                />
+              </div>
+            )}
           </div>
         </div>
 
