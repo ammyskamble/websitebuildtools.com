@@ -75,6 +75,11 @@ export const Footer: React.FC = () => {
                   SVG to CSS Data URI
                 </Link>
               </li>
+              <li>
+                <Link to="/convert/svg-to-astro" className="hover:text-amber-300 transition-colors">
+                  SVG to Astro (.astro)
+                </Link>
+              </li>
             </ul>
           </div>
 

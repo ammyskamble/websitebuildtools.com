@@ -7,6 +7,7 @@ import { LogoMakerPage } from './pages/LogoMakerPage';
 import { FaviconGeneratorPage } from './pages/FaviconGeneratorPage';
 import { SvgOptimizerPage } from './pages/SvgOptimizerPage';
 import { ConverterPage } from './pages/ConverterPage';
+import { GeminiStudioPage } from './pages/GeminiStudioPage';
 
 // Scroll to top helper on route change
 function ScrollToTop() {
@@ -33,6 +34,8 @@ export const App: React.FC = () => {
             <Route path="/tools/logo-maker" element={<LogoMakerPage />} />
             <Route path="/tools/favicon-generator" element={<FaviconGeneratorPage />} />
             <Route path="/tools/svg-optimizer" element={<SvgOptimizerPage />} />
+            <Route path="/tools/gemini-ai" element={<GeminiStudioPage />} />
+            <Route path="/tools/ai-generator" element={<GeminiStudioPage />} />
 
             {/* High-Intent Programmatic SEO Conversion Hub */}
             <Route path="/convert" element={<ConverterPage mode="svg-to-png" />} />
@@ -42,6 +45,7 @@ export const App: React.FC = () => {
             <Route path="/convert/svg-to-ico" element={<ConverterPage mode="svg-to-ico" />} />
             <Route path="/convert/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
             <Route path="/convert/svg-to-data-uri" element={<ConverterPage mode="svg-to-data-uri" />} />
+            <Route path="/convert/svg-to-astro" element={<ConverterPage mode="svg-to-astro" />} />
 
             {/* Fallback to Home */}
             <Route path="*" element={<HomePage />} />

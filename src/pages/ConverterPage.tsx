@@ -162,6 +162,35 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         },
       ],
     },
+    'svg-to-astro': {
+      guideTitle: 'How to convert SVG to production-ready .astro components',
+      steps: [
+        {
+          title: 'Upload SVG Icons or Illustrations',
+          desc: 'Select one or more SVG files to convert into Astro framework components.',
+        },
+        {
+          title: 'Automated Component Wrapping',
+          desc: 'VectorForge extracts SVG attributes, cleans up XML metadata, and embeds standard Props interfaces with class:list and Astro.props spread.',
+        },
+        {
+          title: 'Save .astro Component or ZIP Bundle',
+          desc: 'Download individual .astro files or batch export as a single ZIP archive to drop directly into your Astro src/components/ folder.',
+        },
+      ],
+      faqs: [
+        {
+          question: 'Why convert SVG to an Astro component instead of an <img> tag?',
+          answer:
+            'Astro components allow dynamic styling with Tailwind CSS or CSS classes, dynamic size overrides via props, and zero client-side JavaScript overhead since Astro compiles them to pure static HTML at build time.',
+        },
+        {
+          question: 'Does this work with all Astro versions?',
+          answer:
+            'Yes! The generated .astro template uses standard Astro Props interfaces and class:list syntax compatible with Astro v3, v4, and v5+.',
+        },
+      ],
+    },
   };
 
   const currentConfig = contentConfig[mode];

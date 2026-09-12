@@ -1,14 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import confetti from 'canvas-confetti';
 import {
-  Download, Copy, Check, Palette, Sparkles, Upload, Image as ImageIcon,
-  Type, Sliders, ArrowUp, ArrowDown, MoveVertical, MoveHorizontal, RotateCw,
-  Plus, Trash2
+  Download, Copy, Check, Palette, Sparkles, Upload,
+  Type, ArrowUp, ArrowDown, MoveVertical, MoveHorizontal,
+  Trash2
 } from 'lucide-react';
-import { ICONS_CATALOG } from '../../lib/icons-catalog';
+import { ICONS_CATALOG, renderLucideToSvgMarkup } from '../../lib/icons-catalog';
 import { GRADIENT_PRESETS, SOLID_PALETTES, ShapeType } from '../../lib/color-presets';
 import { IconPickerModal } from '../ui/IconPickerModal';
+import { GeminiModal } from '../gemini/GeminiModal';
 import { renderSvgToBlob, downloadBlob, downloadText } from '../../lib/canvas-renderer';
+import { convertSvgToAstroComponent, downloadAstroFile, toPascalCase } from '../../lib/astro-generator';
 
 export interface LogoStudioState {
   shape: ShapeType;
@@ -120,10 +122,11 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
   });
 
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [isGeminiModalOpen, setIsGeminiModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [pngResolution, setPngResolution] = useState<number>(1024); // 512, 1024, 2048, 4096
-  const [exportFormat, setExportFormat] = useState<'png' | 'svg' | 'webp' | 'jpeg'>('png');
+  const [exportFormat, setExportFormat] = useState<'png' | 'svg' | 'astro' | 'webp' | 'jpeg'>('png');
   const [jpegQuality, setJpegQuality] = useState<number>(0.92);
 
   const currentIconItem = useMemo(() => {
@@ -337,16 +340,27 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
       const iconCenterY = center + state.iconOffsetY;
       const transform = `transform="translate(${center}, ${iconCenterY}) rotate(${state.iconRotation}) translate(-${center}, -${iconCenterY})"`;
 
-      if (state.iconId === 'custom' && state.customSvgMarkup) {
+      if (currentIconItem?.emoji) {
+        const fontSize = Math.round(contentDim * 0.82);
         iconMarkup = `<g ${transform} ${state.iconShadow ? 'filter="url(#icon-shadow)"' : ''}>
-          <svg x="${offset}" y="${offset + state.iconOffsetY}" width="${contentDim}" height="${contentDim}" viewBox="0 0 24 24" fill="none" stroke="${state.iconColor}" stroke-width="${state.iconStrokeWidth}">
-            ${state.customSvgMarkup.replace(/<svg[^>]*>|<\/svg>/gi, '')}
+          <text x="${center}" y="${iconCenterY + Math.round(fontSize * 0.05)}" font-size="${fontSize}px" text-anchor="middle" dominant-baseline="central" font-family="'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif">
+            ${currentIconItem.emoji}
+          </text>
+        </g>`;
+      } else if (state.iconId === 'custom' && state.customSvgMarkup) {
+        const vbMatch = state.customSvgMarkup.match(/viewBox=["']([^"']+)["']/i);
+        const innerVb = vbMatch ? vbMatch[1] : '0 0 512 512';
+        const innerContent = state.customSvgMarkup.replace(/<svg[^>]*>|<\/svg>/gi, '');
+        iconMarkup = `<g ${transform} ${state.iconShadow ? 'filter="url(#icon-shadow)"' : ''}>
+          <svg x="${offset}" y="${offset + state.iconOffsetY}" width="${contentDim}" height="${contentDim}" viewBox="${innerVb}">
+            ${innerContent}
           </svg>
         </g>`;
       } else {
+        const lucideSvgElements = renderLucideToSvgMarkup(currentIconItem?.icon) || getLucidePaths(state.iconId);
         iconMarkup = `<g ${transform} ${state.iconShadow ? 'filter="url(#icon-shadow)"' : ''}>
           <svg x="${offset}" y="${offset + state.iconOffsetY}" width="${contentDim}" height="${contentDim}" viewBox="0 0 24 24" fill="none" stroke="${state.iconColor}" stroke-width="${state.iconStrokeWidth}" stroke-linecap="round" stroke-linejoin="round">
-            ${getLucidePaths(state.iconId)}
+            ${lucideSvgElements}
           </svg>
         </g>`;
       }
@@ -390,13 +404,17 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
   ${iconMarkup}
   ${textMarkup}
 </svg>`;
-  }, [state, activeGradient]);
+  }, [state, activeGradient, currentIconItem]);
 
   const handleExport = async () => {
     setExporting(true);
     try {
       if (exportFormat === 'svg') {
         downloadText(generatedSvg, 'vectorforge-logo.svg');
+      } else if (exportFormat === 'astro') {
+        const componentName = toPascalCase(state.textContent || currentIconItem.name || 'BrandLogo');
+        const astroCode = convertSvgToAstroComponent(generatedSvg, { componentName });
+        downloadAstroFile(astroCode, `${componentName}.astro`);
       } else {
         const blob = await renderSvgToBlob(generatedSvg, {
           width: pngResolution,
@@ -427,7 +445,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const IconComponent = currentIconItem.icon;
+  const IconComponent = currentIconItem?.icon || Sparkles;
 
   return (
     <div className="w-full">
@@ -516,22 +534,22 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
           <div className="w-full mt-4 glass-card rounded-2xl p-5 border border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1 bg-dark-surface p-1 rounded-xl border border-dark-border">
-                {(['png', 'svg', 'webp', 'jpeg'] as const).map((fmt) => (
+                {(['png', 'svg', 'astro', 'webp', 'jpeg'] as const).map((fmt) => (
                   <button
                     key={fmt}
                     onClick={() => setExportFormat(fmt)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-semibold uppercase transition-colors ${
                       exportFormat === fmt
-                        ? 'bg-brand-500 text-white'
+                        ? 'bg-brand-500 text-white shadow-sm'
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    {fmt}
+                    {fmt === 'astro' ? '.astro' : fmt}
                   </button>
                 ))}
               </div>
 
-              {exportFormat !== 'svg' && (
+              {exportFormat !== 'svg' && exportFormat !== 'astro' && (
                 <select
                   value={pngResolution}
                   onChange={(e) => setPngResolution(Number(e.target.value))}
@@ -542,6 +560,12 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   <option value={2048}>2048 x 2048 px (4x Retina)</option>
                   <option value={4096}>4096 x 4096 px (8x Ultra-HD)</option>
                 </select>
+              )}
+
+              {exportFormat === 'astro' && (
+                <span className="text-[11px] text-amber-300/90 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
+                  ⚡ Ready-to-use Astro component with Props
+                </span>
               )}
 
               {exportFormat === 'jpeg' && (
@@ -567,7 +591,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
             >
               <Download className="w-4 h-4" />
-              <span>{exporting ? 'Rendering...' : `Export ${exportFormat.toUpperCase()}`}</span>
+              <span>{exporting ? 'Rendering...' : exportFormat === 'astro' ? 'Export .ASTRO Component' : `Export ${exportFormat.toUpperCase()}`}</span>
             </button>
           </div>
         </div>
@@ -618,22 +642,38 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 <div className="flex items-center justify-between p-3 rounded-xl bg-dark-surface/80 border border-dark-border">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center">
-                      <IconComponent className="w-5 h-5" />
+                      {currentIconItem?.emoji ? (
+                        <span className="text-2xl select-none leading-none">{currentIconItem.emoji}</span>
+                      ) : (
+                        <IconComponent className="w-5 h-5" />
+                      )}
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-white">
-                        {state.iconId === 'custom' ? 'Custom SVG Upload' : currentIconItem.name}
+                        {state.iconId === 'custom' ? 'Custom SVG Upload' : currentIconItem?.name || 'Icon'}
                       </p>
-                      <p className="text-[11px] text-slate-400">Click Browse to pick from 800+ icons</p>
+                      <p className="text-[11px] text-slate-400">Click Browse to pick from 400+ icons & emojis</p>
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => setIsPickerOpen(true)}
-                    className="px-3 py-1.5 rounded-lg bg-brand-500/15 hover:bg-brand-500/25 border border-brand-500/30 text-brand-300 text-xs font-medium transition-colors"
-                  >
-                    Browse Icons
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsGeminiModalOpen(true)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-brand-500/20 to-indigo-500/20 hover:from-brand-500/30 hover:to-indigo-500/30 border border-brand-500/40 text-brand-300 text-xs font-medium transition-all shadow-glow-sm"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+                      <span>Gemini AI</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsPickerOpen(true)}
+                      className="px-3 py-1.5 rounded-lg bg-brand-500/15 hover:bg-brand-500/25 border border-brand-500/30 text-brand-300 text-xs font-medium transition-colors"
+                    >
+                      Browse Icons
+                    </button>
+                  </div>
                 </div>
 
                 {/* Sliders: Scale (expanded size), Position Up/Down, Rotation */}
@@ -1148,6 +1188,20 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             contentType: 'icon',
             iconId,
             customSvgMarkup: customSvg || s.customSvgMarkup,
+          }));
+        }}
+      />
+
+      {/* Gemini AI Modal */}
+      <GeminiModal
+        isOpen={isGeminiModalOpen}
+        onClose={() => setIsGeminiModalOpen(false)}
+        onSelectSvg={(customSvg) => {
+          setState((s) => ({
+            ...s,
+            contentType: 'icon',
+            iconId: 'custom',
+            customSvgMarkup: customSvg,
           }));
         }}
       />

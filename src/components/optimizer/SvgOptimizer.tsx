@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { optimizeSvg, formatSvgCode, OptimizeOptions, OptimizationResult } from '../../lib/svg-optimizer';
 import { downloadText } from '../../lib/canvas-renderer';
+import { convertSvgToAstroComponent, downloadAstroFile } from '../../lib/astro-generator';
 
 const DEFAULT_SAMPLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" viewBox="0 0 500 500" width="500" height="500">
   <!-- Generator: Adobe Illustrator 28.0, SVG Export Plug-In -->
@@ -34,8 +35,9 @@ const DEFAULT_SAMPLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:inksca
 export const SvgOptimizer: React.FC = () => {
   const [rawSvg, setRawSvg] = useState<string>(DEFAULT_SAMPLE_SVG);
   const [copied, setCopied] = useState(false);
-  const [viewMode, setViewMode] = useState<'preview' | 'code' | 'diff'>('preview');
+  const [viewMode, setViewMode] = useState<'preview' | 'code' | 'diff' | 'astro'>('preview');
   const [isPretty, setIsPretty] = useState(false);
+  const [copiedAstro, setCopiedAstro] = useState(false);
 
   const [options, setOptions] = useState<OptimizeOptions>({
     removeComments: true,
@@ -56,6 +58,10 @@ export const SvgOptimizer: React.FC = () => {
   const displayedSvgCode = useMemo(() => {
     return isPretty ? formatSvgCode(result.optimizedSvg) : result.optimizedSvg;
   }, [result.optimizedSvg, isPretty]);
+
+  const astroCode = useMemo(() => {
+    return convertSvgToAstroComponent(result.optimizedSvg, { componentName: 'OptimizedIcon' });
+  }, [result.optimizedSvg]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -79,8 +85,23 @@ export const SvgOptimizer: React.FC = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleCopyAstro = () => {
+    navigator.clipboard.writeText(astroCode);
+    setCopiedAstro(true);
+    setTimeout(() => setCopiedAstro(false), 2000);
+  };
+
   const handleDownload = () => {
     downloadText(result.optimizedSvg, 'optimized.svg');
+    confetti({
+      particleCount: 40,
+      spread: 50,
+      origin: { y: 0.8 },
+    });
+  };
+
+  const handleDownloadAstro = () => {
+    downloadAstroFile(astroCode, 'OptimizedIcon.astro');
     confetti({
       particleCount: 40,
       spread: 50,
@@ -105,13 +126,21 @@ export const SvgOptimizer: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={handleCopy}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl glass-card text-xs font-medium text-slate-300 hover:text-white transition-colors"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'Copied Minified SVG!' : 'Copy Code'}</span>
+          </button>
+
+          <button
+            onClick={handleDownloadAstro}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-semibold text-xs transition-colors shadow-sm"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Download .astro</span>
           </button>
 
           <button
@@ -185,6 +214,7 @@ export const SvgOptimizer: React.FC = () => {
                   <span>Side-by-Side Diff</span>
                 </button>
                 <button
+                  type="button"
                   onClick={() => setViewMode('code')}
                   className={`flex items-center gap-1.5 px-3 py-1 rounded-md font-medium transition-colors ${
                     viewMode === 'code' ? 'bg-brand-500 text-white' : 'text-slate-400 hover:text-white'
@@ -193,11 +223,22 @@ export const SvgOptimizer: React.FC = () => {
                   <Code2 className="w-3.5 h-3.5" />
                   <span>Code Editor</span>
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('astro')}
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-md font-medium transition-colors ${
+                    viewMode === 'astro' ? 'bg-brand-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  <span>Astro (.astro)</span>
+                </button>
               </div>
 
               <div className="flex items-center gap-2">
                 {viewMode === 'code' && (
                   <button
+                    type="button"
                     onClick={() => setIsPretty(!isPretty)}
                     className="text-xs px-2.5 py-1 rounded-lg bg-dark-surface hover:bg-dark-hover border border-dark-border text-slate-300"
                   >
@@ -256,6 +297,42 @@ export const SvgOptimizer: React.FC = () => {
                   onChange={(e) => setRawSvg(e.target.value)}
                   rows={16}
                   className="w-full font-mono text-xs text-slate-300 bg-transparent focus:outline-none leading-relaxed resize-y"
+                  spellCheck={false}
+                />
+              </div>
+            )}
+
+            {viewMode === 'astro' && (
+              <div className="p-4 bg-dark-bg space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
+                  <span className="text-amber-200">
+                    ⚡ <strong>Astro Ready:</strong> Clean component with <code className="text-white bg-dark-bg/80 px-1 py-0.5 rounded">Props</code>, <code className="text-white bg-dark-bg/80 px-1 py-0.5 rounded">class:list</code> and responsive size support.
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleCopyAstro}
+                      className="px-2.5 py-1 rounded-lg bg-dark-surface hover:bg-dark-hover border border-dark-border text-slate-200 text-xs font-medium flex items-center gap-1.5"
+                    >
+                      {copiedAstro ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copiedAstro ? 'Copied Astro Code!' : 'Copy Code'}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDownloadAstro}
+                      className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs font-medium flex items-center gap-1.5"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download .astro</span>
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  readOnly
+                  value={astroCode}
+                  rows={16}
+                  className="w-full font-mono text-xs text-amber-100/90 bg-dark-bg/60 p-3 rounded-xl border border-dark-border/80 focus:outline-none leading-relaxed resize-y"
                   spellCheck={false}
                 />
               </div>

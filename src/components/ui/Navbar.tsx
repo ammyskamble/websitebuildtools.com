@@ -60,6 +60,20 @@ export const Navbar: React.FC = () => {
           >
             SVG Optimizer
           </Link>
+          <Link
+            to="/tools/gemini-ai"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              isActive('/tools/gemini-ai')
+                ? 'bg-gradient-to-r from-brand-500/20 to-indigo-500/20 text-brand-300 border border-brand-500/40 shadow-glow-sm'
+                : 'text-slate-300 hover:text-white hover:bg-dark-hover'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+            <span>Gemini AI</span>
+            <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-brand-500/25 text-brand-300 border border-brand-500/40">
+              NEW
+            </span>
+          </Link>
 
           {/* Converters Dropdown */}
           <div
@@ -127,6 +141,13 @@ export const Navbar: React.FC = () => {
                   <span className="w-2 h-2 rounded-full bg-amber-400" />
                   <span>SVG to CSS Data URI</span>
                 </Link>
+                <Link
+                  to="/convert/svg-to-astro"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-amber-300 hover:bg-amber-500/20 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-amber-400" />
+                  <span>SVG to Astro (.astro)</span>
+                </Link>
               </div>
             )}
           </div>
@@ -181,6 +202,17 @@ export const Navbar: React.FC = () => {
           >
             SVG Optimizer
           </Link>
+          <Link
+            to="/tools/gemini-ai"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-brand-300 bg-brand-500/10 hover:bg-brand-500/20 border border-brand-500/30"
+          >
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-brand-400" />
+              <span>Gemini AI Studio</span>
+            </span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/30 font-bold">NEW</span>
+          </Link>
           <div className="pt-2 border-t border-dark-border/60">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider px-3">Converters</span>
             <div className="grid grid-cols-2 gap-1 mt-1">
@@ -188,6 +220,8 @@ export const Navbar: React.FC = () => {
               <Link to="/convert/svg-to-jpg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to JPG</Link>
               <Link to="/convert/svg-to-ico" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to ICO</Link>
               <Link to="/convert/png-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">PNG to SVG</Link>
+              <Link to="/convert/svg-to-data-uri" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to Data URI</Link>
+              <Link to="/convert/svg-to-astro" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-amber-300 hover:bg-dark-hover rounded">SVG to Astro</Link>
             </div>
           </div>
         </div>

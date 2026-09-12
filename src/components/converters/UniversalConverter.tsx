@@ -9,13 +9,15 @@ import {
 import { renderSvgToBlob, downloadBlob, downloadText } from '../../lib/canvas-renderer';
 import { createIcoFromPngs } from '../../lib/ico-encoder';
 import { vectorizeImage } from '../../lib/image-vectorizer';
+import { convertSvgToAstroComponent, downloadAstroFile, toPascalCase } from '../../lib/astro-generator';
 
 export type ConverterMode =
   | 'svg-to-png'
   | 'svg-to-jpg'
   | 'svg-to-ico'
   | 'png-to-svg'
-  | 'svg-to-data-uri';
+  | 'svg-to-data-uri'
+  | 'svg-to-astro';
 
 interface UniversalConverterProps {
   initialMode: ConverterMode;
@@ -252,6 +254,13 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
         return { ...item, status: 'done', convertedData: formattedOutput };
       }
 
+      if (mode === 'svg-to-astro') {
+        const baseName = item.name.replace(/\.[^/.]+$/, '');
+        const compName = toPascalCase(baseName || 'AstroIcon');
+        const astroStr = convertSvgToAstroComponent(item.content, { componentName: compName });
+        return { ...item, status: 'done', convertedData: astroStr };
+      }
+
       return item;
     } catch (err: any) {
       console.error('Error converting file', item.name, err);
@@ -314,10 +323,12 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
           ? 'ico'
           : mode === 'png-to-svg'
           ? 'svg'
+          : mode === 'svg-to-astro'
+          ? 'astro'
           : 'txt';
 
       const baseName = item.name.replace(/\.[^/.]+$/, '');
-      const outFilename = `${baseName}.${ext}`;
+      const outFilename = mode === 'svg-to-astro' ? `${toPascalCase(baseName || 'AstroIcon')}.astro` : `${baseName}.${ext}`;
 
       if (item.convertedBlob) {
         zip.file(outFilename, item.convertedBlob);
@@ -338,6 +349,13 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
   };
 
   const handleDownloadSingle = (item: BatchFileItem) => {
+    if (mode === 'svg-to-astro') {
+      const baseName = item.name.replace(/\.[^/.]+$/, '');
+      const compName = toPascalCase(baseName || 'AstroIcon');
+      downloadAstroFile(item.convertedData || '', `${compName}.astro`);
+      return;
+    }
+
     const ext =
       mode === 'svg-to-png'
         ? 'png'
@@ -397,6 +415,11 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
       desc: 'Encode vector icons into inline background-image url("data:image/svg+xml,...") or Base64 strings for zero-request web assets.',
       badge: 'Zero Network Request',
     },
+    'svg-to-astro': {
+      title: 'SVG to Astro Component Converter',
+      desc: 'Convert raw SVG vectors into reusable, typed .astro components with Props interfaces, class:list support, and customizable sizes.',
+      badge: 'Astro Framework',
+    },
   };
 
   return (
@@ -415,7 +438,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
 
         {/* Quick Mode Switcher */}
         <div className="flex items-center gap-1 bg-dark-card p-1 rounded-xl border border-dark-border overflow-x-auto text-xs">
-          {(['svg-to-png', 'svg-to-jpg', 'svg-to-ico', 'png-to-svg', 'svg-to-data-uri'] as ConverterMode[]).map(
+          {(['svg-to-png', 'svg-to-jpg', 'svg-to-ico', 'png-to-svg', 'svg-to-data-uri', 'svg-to-astro'] as ConverterMode[]).map(
             (m) => (
               <button
                 key={m}
@@ -424,7 +447,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                   mode === m ? 'bg-brand-500 text-white shadow-glow-sm' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                {m.replace(/-/g, ' ').toUpperCase()}
+                {m === 'svg-to-astro' ? 'SVG TO ASTRO' : m.replace(/-/g, ' ').toUpperCase()}
               </button>
             )
           )}
