@@ -1,3 +1,7 @@
+https://websitebuildtools.pages.dev/*
+  X-Robots-Tag: noindex
+
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN

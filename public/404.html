@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DE117098LF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DE117098LF');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404: Page Not Found | SvgFav.com</title>
+    <meta name="description" content="The requested page or vector tool was not found on SvgFav.com. Explore our in-browser vector converters and favicon generator." />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#080a11" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%233b82f6'/><stop offset='100%' stop-color='%238b5cf6'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><path d='M30 32 L50 72 L70 32 L58 32 L50 52 L42 32 Z' fill='white'/><circle cx='50' cy='24' r='6' fill='%2360a5fa'/></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background-color: #080a11;
+        color: #f1f5f9;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        position: relative;
+        overflow-x: hidden;
+      }
+      .ambient-glow {
+        position: absolute;
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(59, 108, 246, 0.15) 0%, rgba(139, 92, 246, 0.05) 60%, transparent 80%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .content {
+        position: relative;
+        z-index: 1;
+        max-width: 640px;
+        text-align: center;
+        width: 100%;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        background: rgba(59, 108, 246, 0.1);
+        border: 1px solid rgba(59, 108, 246, 0.25);
+        color: #60a5fa;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+      }
+      .error-code {
+        font-size: clamp(6rem, 15vw, 9.5rem);
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 50%, #475569 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.04em;
+        margin-bottom: 1rem;
+        user-select: none;
+      }
+      h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.75rem;
+      }
+      p {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+      }
+      .btn-row {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 2.5rem;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #254deb 0%, #3b6cf6 100%);
+        color: #ffffff;
+        box-shadow: 0 0 20px -3px rgba(59, 108, 246, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #1d3bcc 0%, #254deb 100%);
+        transform: translateY(-1px);
+      }
+      .btn-secondary {
+        background: #0f1422;
+        color: #cbd5e1;
+        border: 1px solid #1f2940;
+      }
+      .btn-secondary:hover {
+        background: #151b2d;
+        color: #ffffff;
+      }
+      .quick-links {
+        border-top: 1px solid rgba(31, 41, 64, 0.6);
+        padding-top: 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      .tool-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 8px;
+        background: rgba(15, 20, 34, 0.6);
+        border: 1px solid rgba(31, 41, 64, 0.7);
+        color: #94a3b8;
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      .tool-pill:hover {
+        border-color: #3b6cf6;
+        color: #ffffff;
+        background: #151b2d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ambient-glow"></div>
+    <div class="content">
+      <div class="badge">404 &bull; Missing Route</div>
+      <div class="error-code">404</div>
+      <h1>Lost in Vector Space</h1>
+      <p>The page or tool path you are looking for has been moved, renamed, or does not exist in our vector coordinate system.</p>
+      
+      <div class="btn-row">
+        <a href="/" class="btn btn-primary">Return to Homepage</a>
+        <button onclick="window.history.back()" class="btn btn-secondary">Go Back</button>
+      </div>
+
+      <div class="quick-links">
+        <a href="/tools/favicon-generator" class="tool-pill">Favicon Suite</a>
+        <a href="/convert/png-to-svg" class="tool-pill">PNG to SVG</a>
+        <a href="/tools/logo-maker" class="tool-pill">Logo Maker</a>
+        <a href="/tools/svg-optimizer" class="tool-pill">SVG Optimizer</a>
+        <a href="/tools/gemini-ai" class="tool-pill">AI Vector Studio</a>
+      </div>
+    </div>
+  </body>
+</html>

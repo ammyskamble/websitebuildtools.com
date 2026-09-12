@@ -28,6 +28,7 @@ export interface SeoHeadProps {
   canonicalUrl?: string;
   keywords?: string;
   ogImage?: string;
+  noindex?: boolean;
   applicationCategory?: string;
   hreflangAlternates?: HreflangAlternate[];
   breadcrumbs?: BreadcrumbItem[];
@@ -54,6 +55,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
   canonicalUrl,
   keywords,
   ogImage,
+  noindex,
   hreflangAlternates,
   breadcrumbs,
   faqs,
@@ -83,6 +85,18 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
       }
       metaKeywords.setAttribute('content', keywords);
     }
+
+    // 2c. Robots Meta
+    let metaRobots = document.querySelector('meta[name="robots"]');
+    if (!metaRobots) {
+      metaRobots = document.createElement('meta');
+      metaRobots.setAttribute('name', 'robots');
+      document.head.appendChild(metaRobots);
+    }
+    metaRobots.setAttribute(
+      'content',
+      noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+    );
 
     // 3. Update Canonical Link
     const currentUrl = canonicalUrl || window.location.href.split('?')[0];
@@ -244,8 +258,11 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
       if (scriptTag && scriptTag.parentNode) {
         scriptTag.parentNode.removeChild(scriptTag);
       }
+      if (noindex && metaRobots) {
+        metaRobots.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+      }
     };
-  }, [title, description, canonicalUrl, keywords, hreflangAlternates, breadcrumbs, faqs, howTo, softwareApp]);
+  }, [title, description, canonicalUrl, keywords, ogImage, noindex, hreflangAlternates, breadcrumbs, faqs, howTo, softwareApp]);
 
   return null;
 };

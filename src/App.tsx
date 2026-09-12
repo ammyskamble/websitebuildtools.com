@@ -13,6 +13,9 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { AboutUsPage } from './pages/AboutUsPage';
 import { TermsConditionsPage } from './pages/TermsConditionsPage';
 import { ContactUsPage } from './pages/ContactUsPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { ServerErrorPage } from './pages/ServerErrorPage';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 // Canonical redirect & Scroll to top helper on route change
 function CanonicalRedirect() {
@@ -38,7 +41,8 @@ export const App: React.FC = () => {
         <Navbar />
 
         <main className="flex-1">
-          <Routes>
+          <ErrorBoundary>
+            <Routes>
             {/* Core Home & Studios */}
             <Route path="/" element={<HomePage />} />
             <Route path="/tools/logo-maker" element={<LogoMakerPage />} />
@@ -101,9 +105,14 @@ export const App: React.FC = () => {
             <Route path="/contact" element={<ContactUsPage />} />
             <Route path="/:lang/contact" element={<ContactUsPage />} />
 
-            {/* Fallback to Home */}
-            <Route path="*" element={<HomePage />} />
+            {/* Error Pages & Handlers */}
+            <Route path="/404" element={<NotFoundPage />} />
+            <Route path="/500" element={<ServerErrorPage />} />
+
+            {/* Fallback to 404 Not Found */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
+        </ErrorBoundary>
         </main>
 
         <Footer />
