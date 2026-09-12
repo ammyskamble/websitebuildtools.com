@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-dark-border bg-dark-bg/90 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand Col */}
           <div className="space-y-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
@@ -142,9 +142,64 @@ export const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
+
+          {/* Company & Legal */}
+          <div>
+            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">Company & Legal</h4>
+            <ul className="space-y-2 text-xs text-slate-400">
+              <li>
+                <Link to="/privacy-policy" className="hover:text-brand-400 transition-colors">
+                  Privacy Policy (GDPR / LGPD)
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms-and-conditions" className="hover:text-brand-400 transition-colors">
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link to="/about-us" className="hover:text-brand-400 transition-colors">
+                  About SvgFav.com
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact-us" className="hover:text-brand-400 transition-colors font-medium text-brand-300">
+                  Contact Us & Support
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-dark-border/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        {/* Global Languages Strip */}
+        <div className="mt-10 pt-6 border-t border-dark-border/40 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-400">International Editions:</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <Link to="/privacy-policy" className="hover:text-slate-300 transition-colors">🇺🇸 United States (EN)</Link>
+              <span>·</span>
+              <Link to="/de/privacy-policy" className="hover:text-slate-300 transition-colors">🇩🇪 Deutschland (DE)</Link>
+              <span>·</span>
+              <Link to="/fr/privacy-policy" className="hover:text-slate-300 transition-colors">🇫🇷 France (FR)</Link>
+              <span>·</span>
+              <Link to="/pt/privacy-policy" className="hover:text-slate-300 transition-colors">🇧🇷 Brasil (PT)</Link>
+              <span>·</span>
+              <Link to="/es/privacy-policy" className="hover:text-slate-300 transition-colors">🇪🇸 España (ES)</Link>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Link to="/privacy-policy" className="hover:text-slate-300 transition-colors">Privacy</Link>
+            <span>·</span>
+            <Link to="/terms-and-conditions" className="hover:text-slate-300 transition-colors">Terms</Link>
+            <span>·</span>
+            <Link to="/about-us" className="hover:text-slate-300 transition-colors">About</Link>
+            <span>·</span>
+            <Link to="/contact-us" className="hover:text-slate-300 transition-colors">Contact</Link>
+          </div>
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-dark-border/40 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>© {new Date().getFullYear()} SvgFav.com Studio. Open web utility.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">

@@ -9,6 +9,10 @@ import { SvgOptimizerPage } from './pages/SvgOptimizerPage';
 import { ConverterPage } from './pages/ConverterPage';
 import { GeminiStudioPage } from './pages/GeminiStudioPage';
 import { PicsvgAlternativePage } from './pages/PicsvgAlternativePage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { AboutUsPage } from './pages/AboutUsPage';
+import { TermsConditionsPage } from './pages/TermsConditionsPage';
+import { ContactUsPage } from './pages/ContactUsPage';
 
 // Scroll to top helper on route change
 function ScrollToTop() {
@@ -72,6 +76,25 @@ export const App: React.FC = () => {
             {/* Competitor Alternative Landing Page */}
             <Route path="/alternatives/picsvg" element={<PicsvgAlternativePage />} />
             <Route path="/picsvg-alternative" element={<PicsvgAlternativePage />} />
+
+            {/* Standard Legal & Informational Pages with i18n Routing */}
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/:lang/privacy-policy" element={<PrivacyPolicyPage />} />
+
+            <Route path="/terms-and-conditions" element={<TermsConditionsPage />} />
+            <Route path="/:lang/terms-and-conditions" element={<TermsConditionsPage />} />
+            <Route path="/terms" element={<TermsConditionsPage />} />
+            <Route path="/:lang/terms" element={<TermsConditionsPage />} />
+
+            <Route path="/about-us" element={<AboutUsPage />} />
+            <Route path="/:lang/about-us" element={<AboutUsPage />} />
+            <Route path="/about" element={<AboutUsPage />} />
+            <Route path="/:lang/about" element={<AboutUsPage />} />
+
+            <Route path="/contact-us" element={<ContactUsPage />} />
+            <Route path="/:lang/contact-us" element={<ContactUsPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
+            <Route path="/:lang/contact" element={<ContactUsPage />} />
 
             {/* Fallback to Home */}
             <Route path="*" element={<HomePage />} />

@@ -7,56 +7,24 @@ import { LogoStudio } from '../components/studio/LogoStudio';
 import { ComparisonTable } from '../components/ui/ComparisonTable';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
 import { SeoHead } from '../components/seo/SeoHead';
+import { SEO_FAQS } from '../data/seoFaqs';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
-  const homeFaqs = [
-    {
-      question: 'What is a favicon and why is favicon.ico still essential? (Favicon: Was ist das? / favicon o que é)',
-      answer:
-        'A favicon (favorite icon) is the small visual logo representing your website in browser tabs, bookmark bars, mobile home screen shortcuts, and Google Search results. While modern browsers support vector favicon.svg with dark mode styling, a true binary favicon.ico container containing 16x16, 32x32, and 48x48 pixel frames remains essential for universal compatibility with legacy browsers, desktop taskbars, and feed readers.',
-    },
-    {
-      question: 'How do I convert PNG to SVG or JPG to SVG online for free? (PNG zu SVG / conversor png em svg)',
-      answer:
-        'With SvgFav.com, simply drag and drop your PNG or JPG file into our free online svg converter. Our client-side image tracing algorithm calculates pixel luminance directly on an HTML5 Canvas, detects edge contours based on your desired smoothing tolerance, and constructs clean, scalable XML SVG vector paths with zero server uploads.',
-    },
-    {
-      question: 'Can I generate cutting machine files like Christmas SVGs or institutional emblems like PMDF SVG?',
-      answer:
-        'Yes! Millions of crafters and designers use SvgFav to prepare vector files for Cricut Design Space, Silhouette Studio, Glowforge, and CNC cutters. Whether you are creating holiday holiday crafts like a festive christmas svg or vectorizing high-contrast institutional badges like the Brazilian pmdf svg (svg pmdf), our adjustable contour smoothing eliminates jagged blade chatter and double-line cut errors.',
-    },
-    {
-      question: 'Is SvgFav.com truly 100% client-side? Are my images uploaded anywhere?',
-      answer:
-        'Yes! All SVG rendering, canvas rasterization, binary ICO encoding, vectorization, and ZIP generation run entirely inside your browser using HTML5 Canvas, Web Workers, and JavaScript. Your files never leave your computer, ensuring maximum privacy and zero latency.',
-    },
-    {
-      question: 'How does SvgFav.com comply with GDPR (DSGVO) in Germany, France, and international data laws?',
-      answer:
-        'Because SvgFav.com executes 100% in-browser on your local machine, no images, graphics, or personal data are ever uploaded, cached, or stored on remote cloud servers. This architecture provides effortless compliance with European GDPR (DSGVO / RGPD), Brazilian LGPD, and strict enterprise privacy policies.',
-    },
-    {
-      question: 'What formats are included in the Favicon Pack download?',
-      answer:
-        'The one-click ZIP download bundles multi-resolution favicon.ico (16x16, 32x32, 48x48), modern vector favicon.svg with dark mode support, high-res apple-touch-icon.png (180x180), android-chrome-192x192.png, android-chrome-512x512.png, and a valid site.webmanifest configuration with pre-generated HTML tags.',
-    },
-    {
-      question: 'What makes SvgFav.com faster than other online converters?',
-      answer:
-        'Traditional tools upload your file to a remote server, queue it, run slow backend scripts, and make you wait for a download link. SvgFav.com executes with zero network overhead directly on your GPU/CPU via client-side canvas rendering.',
-    },
-  ];
+  const allFaqItems = SEO_FAQS.map(f => ({
+    question: f.question,
+    answer: f.answer
+  }));
 
   return (
     <div className="w-full space-y-16">
       <SeoHead
         title="SvgFav.com — Free Online SVG Converter, Favicon Generator & Vector Studio"
         description="Free online SVG converter and favicon generator. Convert PNG to SVG, JPG to SVG, and images to scalable vector files 100% in-browser. Multi-format favicon.ico creator."
-        keywords="svg converter, Jpg to svg, Convert to svg, Png to svg, SVG-Datei, PNG zu SVG, SVG para PNG, png para svg, conversor png em svg, pmdf svg, svg pmdf, Image to svg, svg, svg file, svg converter free, online svg converter, christmas svg, what is a favicon, favicon generator, favicon, favicon.ico, favicon creator, icon maker, favicon generator online, gerador de favicon, favicon o que é, Favicon: Was ist das?"
+        keywords="svg converter, Jpg to svg, Convert to svg, Png to svg, SVG-Datei, PNG zu SVG, SVG para PNG, png para svg, conversor png em svg, pmdf svg, svg pmdf, Image to svg, svg, svg file, svg converter free, online svg converter, christmas svg, what is a favicon, favicon generator, favicon, favicon.ico, favicon creator, icon maker, favicon generator online, gerador de favicon, favicon o que é, Favicon: Was ist das?, svg o que é, o que é svg, arquivo svg o que é, o que é um arquivo svg, was ist eine svg datei, was ist svg, ist svg eine vektordatei, what is an svg file, what is svg, what is svg file, how to add favicon in html, o que é favicon, o que é favicon do site, favicon was ist das, where to convert png to svg, how to convert png to svg, Como converter PNG para SVG, Wie konvertiert man PNG in SVG?"
         canonicalUrl="https://svgfav.com/"
-        faqs={homeFaqs}
+        faqs={allFaqItems}
         softwareApp={{
           name: 'SvgFav.com',
           description: 'All-in-One Online SVG Converter, Favicon Generator & Vector Studio (100% Client-Side)',
@@ -508,7 +476,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Technical FAQ */}
-      <FaqAccordion items={homeFaqs} />
+      <FaqAccordion items={SEO_FAQS} />
     </div>
   );
 };

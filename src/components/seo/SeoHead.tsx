@@ -17,6 +17,11 @@ export interface HowToStep {
   image?: string;
 }
 
+export interface HreflangAlternate {
+  lang: string;
+  url: string;
+}
+
 export interface SeoHeadProps {
   title: string;
   description: string;
@@ -24,6 +29,7 @@ export interface SeoHeadProps {
   keywords?: string;
   ogImage?: string;
   applicationCategory?: string;
+  hreflangAlternates?: HreflangAlternate[];
   breadcrumbs?: BreadcrumbItem[];
   faqs?: FaqItem[];
   howTo?: {
@@ -48,6 +54,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
   canonicalUrl,
   keywords,
   ogImage,
+  hreflangAlternates,
   breadcrumbs,
   faqs,
   howTo,
@@ -86,6 +93,19 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute('href', currentUrl);
+
+    // 3b. Update hreflang tags
+    // First remove previous dynamic hreflang tags
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
+    if (hreflangAlternates && hreflangAlternates.length > 0) {
+      hreflangAlternates.forEach(alt => {
+        const link = document.createElement('link');
+        link.setAttribute('rel', 'alternate');
+        link.setAttribute('hreflang', alt.lang);
+        link.setAttribute('href', alt.url);
+        document.head.appendChild(link);
+      });
+    }
 
     // 4. Update OpenGraph & Twitter Tags
     const ogImageSrc = ogImage || 'https://svgfav.com/og-image.png';
@@ -225,7 +245,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
         scriptTag.parentNode.removeChild(scriptTag);
       }
     };
-  }, [title, description, canonicalUrl, breadcrumbs, faqs, howTo, softwareApp]);
+  }, [title, description, canonicalUrl, keywords, hreflangAlternates, breadcrumbs, faqs, howTo, softwareApp]);
 
   return null;
 };
