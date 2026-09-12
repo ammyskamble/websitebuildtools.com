@@ -121,32 +121,56 @@ export const Navbar: React.FC = () => {
                   <span>SVG to JPG</span>
                 </Link>
                 <Link
-                  to="/convert/svg-to-ico"
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
-                >
-                  <span className="w-2 h-2 rounded-full bg-purple-400" />
-                  <span>SVG to ICO (Multi-size)</span>
-                </Link>
-                <Link
-                  to="/convert/png-to-svg"
+                  to="/png-to-svg"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-pink-400" />
                   <span>PNG to SVG (Vectorize)</span>
                 </Link>
                 <Link
-                  to="/convert/svg-to-data-uri"
+                  to="/jpg-to-svg"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
                 >
-                  <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  <span>SVG to CSS Data URI</span>
+                  <span className="w-2 h-2 rounded-full bg-orange-400" />
+                  <span>JPG to SVG (No 4MB Limit)</span>
                 </Link>
                 <Link
-                  to="/convert/svg-to-astro"
+                  to="/image-to-svg"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span>Image to SVG (Cricut/Laser)</span>
+                </Link>
+                <Link
+                  to="/svg-to-png"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-blue-400" />
+                  <span>SVG to PNG (High-DPI)</span>
+                </Link>
+                <Link
+                  to="/svg-to-ico"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-purple-400" />
+                  <span>SVG to ICO (Multi-size)</span>
+                </Link>
+                <Link
+                  to="/svg-to-astro"
                   className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-amber-300 hover:bg-amber-500/20 transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-amber-400" />
                   <span>SVG to Astro (.astro)</span>
+                </Link>
+
+                <div className="my-1 border-t border-dark-border/60" />
+
+                <Link
+                  to="/alternatives/picsvg"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors"
+                >
+                  <span>Picsvg Alternative</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/30 text-emerald-200">100% Private</span>
                 </Link>
               </div>
             )}
@@ -214,14 +238,33 @@ export const Navbar: React.FC = () => {
             <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/30 font-bold">NEW</span>
           </Link>
           <div className="pt-2 border-t border-dark-border/60">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider px-3">Converters</span>
-            <div className="grid grid-cols-2 gap-1 mt-1">
-              <Link to="/convert/svg-to-png" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to PNG</Link>
-              <Link to="/convert/svg-to-jpg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to JPG</Link>
-              <Link to="/convert/svg-to-ico" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to ICO</Link>
-              <Link to="/convert/png-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">PNG to SVG</Link>
-              <Link to="/convert/svg-to-data-uri" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to Data URI</Link>
-              <Link to="/convert/svg-to-astro" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-amber-300 hover:bg-dark-hover rounded">SVG to Astro</Link>
+            <div className="flex items-center justify-between px-3">
+              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Direct Converters</span>
+              <Link
+                to="/alternatives/picsvg"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-[11px] font-semibold text-brand-400 hover:text-brand-300"
+              >
+                vs Picsvg
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1 mt-1.5">
+              <Link to="/png-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-brand-300 font-medium hover:bg-dark-hover rounded">PNG to SVG</Link>
+              <Link to="/jpg-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-brand-300 font-medium hover:bg-dark-hover rounded">JPG to SVG</Link>
+              <Link to="/image-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-brand-300 font-medium hover:bg-dark-hover rounded">Image to SVG</Link>
+              <Link to="/svg-to-png" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to PNG</Link>
+              <Link to="/svg-to-ico" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-dark-hover rounded">SVG to ICO</Link>
+              <Link to="/svg-to-astro" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-amber-300 hover:bg-dark-hover rounded">SVG to Astro</Link>
+            </div>
+            <div className="mt-2 pt-2 border-t border-dark-border/40 px-3">
+              <Link
+                to="/alternatives/picsvg"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-1 text-xs text-emerald-400 hover:text-emerald-300"
+              >
+                <span>⚡ Picsvg Alternative (100% Private)</span>
+                <span className="text-[10px] bg-emerald-500/20 px-1.5 py-0.5 rounded border border-emerald-500/30">Free</span>
+              </Link>
             </div>
           </div>
         </div>

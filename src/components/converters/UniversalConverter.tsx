@@ -16,6 +16,8 @@ export type ConverterMode =
   | 'svg-to-jpg'
   | 'svg-to-ico'
   | 'png-to-svg'
+  | 'jpg-to-svg'
+  | 'image-to-svg'
   | 'svg-to-data-uri'
   | 'svg-to-astro';
 
@@ -103,12 +105,12 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
 
   // Initialize sample file tailored to mode
   useEffect(() => {
-    if (mode === 'png-to-svg') {
+    if (mode === 'png-to-svg' || mode === 'jpg-to-svg' || mode === 'image-to-svg') {
       const sampleImg = createDefaultRasterSample();
       setFiles([
         {
           id: 'sample-raster',
-          name: 'sample-icon.png',
+          name: mode === 'jpg-to-svg' ? 'sample-logo.jpg' : 'sample-icon.png',
           size: Math.round(sampleImg.length * 0.75),
           content: sampleImg,
           status: 'pending',
@@ -216,7 +218,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
         return { ...item, status: 'done', convertedBlob: icoBlob, convertedBlobUrl: url };
       }
 
-      if (mode === 'png-to-svg') {
+      if (mode === 'png-to-svg' || mode === 'jpg-to-svg' || mode === 'image-to-svg') {
         const svgStr = await vectorizeImage(item.content, {
           threshold,
           invert: invertVector,
@@ -321,7 +323,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
           ? 'jpg'
           : mode === 'svg-to-ico'
           ? 'ico'
-          : mode === 'png-to-svg'
+          : (mode === 'png-to-svg' || mode === 'jpg-to-svg' || mode === 'image-to-svg')
           ? 'svg'
           : mode === 'svg-to-astro'
           ? 'astro'
@@ -376,7 +378,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
       downloadText(
         item.convertedData,
         outFilename,
-        mode === 'png-to-svg' ? 'image/svg+xml' : 'text/plain'
+        (mode === 'png-to-svg' || mode === 'jpg-to-svg' || mode === 'image-to-svg') ? 'image/svg+xml' : 'text/plain'
       );
     }
   };
@@ -406,9 +408,19 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
       badge: 'Multi-Res Binary',
     },
     'png-to-svg': {
-      title: 'PNG / Image to Vector SVG Converter',
-      desc: 'Trace raster pixel images into clean, scalable SVG vector paths 100% in your browser using client-side edge contouring.',
+      title: 'Free In-Browser PNG to SVG Converter',
+      desc: 'Trace raster PNG images into clean, scalable SVG vector paths 100% in your browser using client-side edge contouring.',
       badge: 'Client Vectorizer',
+    },
+    'jpg-to-svg': {
+      title: 'Free In-Browser JPG / JPEG to SVG Converter',
+      desc: 'Convert JPG photographs, scanned drawings, and logos into clean, infinitely scalable vector SVG paths with zero server uploads.',
+      badge: '100% Private',
+    },
+    'image-to-svg': {
+      title: 'Universal Image to SVG Vectorizer (Cricut & Laser Ready)',
+      desc: 'Trace any image format (PNG, JPG, WebP, BMP) into optimized vector paths for laser cutters, vinyl plotters, Cricut, and graphic design.',
+      badge: 'Cricut & Laser Ready',
     },
     'svg-to-data-uri': {
       title: 'SVG to CSS / HTML Data URI Generator',
@@ -438,7 +450,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
 
         {/* Quick Mode Switcher */}
         <div className="flex items-center gap-1 bg-dark-card p-1 rounded-xl border border-dark-border overflow-x-auto text-xs">
-          {(['svg-to-png', 'svg-to-jpg', 'svg-to-ico', 'png-to-svg', 'svg-to-data-uri', 'svg-to-astro'] as ConverterMode[]).map(
+          {(['png-to-svg', 'jpg-to-svg', 'image-to-svg', 'svg-to-png', 'svg-to-ico', 'svg-to-jpg', 'svg-to-data-uri', 'svg-to-astro'] as ConverterMode[]).map(
             (m) => (
               <button
                 key={m}
@@ -451,6 +463,19 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
               </button>
             )
           )}
+        </div>
+      </div>
+
+      {/* Trust Badges Bar: Anti-Picsvg competitive advantage */}
+      <div className="flex flex-wrap items-center justify-between gap-3 py-2.5 px-4 rounded-2xl bg-gradient-to-r from-brand-500/10 via-dark-surface/60 to-purple-500/10 border border-brand-500/20 text-xs text-slate-300">
+        <div className="flex items-center gap-2">
+          <Shield className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span><strong className="text-white">100% Client-Side & Private:</strong> Files never leave your browser. Zero server uploads.</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[11px] text-slate-400">
+          <span className="flex items-center gap-1.5"><Zap className="w-3.5 h-3.5 text-amber-400" /> Unlimited Size (No 4MB Limit)</span>
+          <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-brand-400" /> 100% Ad-Free</span>
+          <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-400" /> Cricut & Laser Ready</span>
         </div>
       </div>
 

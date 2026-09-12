@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Shield, Zap, Check, ArrowRight, Sparkles, ExternalLink } from 'lucide-react';
 import { UniversalConverter } from '../components/converters/UniversalConverter';
 import type { ConverterMode } from '../components/converters/UniversalConverter';
 import { ComparisonTable } from '../components/ui/ComparisonTable';
@@ -12,12 +14,124 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
   const contentConfig: Record<
     ConverterMode,
     {
+      pageTitle: string;
+      metaDescription: string;
       guideTitle: string;
       steps: { title: string; desc: string }[];
       faqs: { question: string; answer: string }[];
     }
   > = {
+    'png-to-svg': {
+      pageTitle: 'Free In-Browser PNG to SVG Converter (100% Private & No Upload)',
+      metaDescription: 'Convert PNG to SVG vector free online with zero server uploads. High-precision vectorizer for logos, sketches, Cricut cut files, and graphics.',
+      guideTitle: 'How to vectorize raster PNG images into SVG paths',
+      steps: [
+        {
+          title: 'Upload Image or Drawing',
+          desc: 'Upload a black & white logo, icon, sketch, or silhouette PNG/JPG image. Supports files up to 20MB without server upload.',
+        },
+        {
+          title: 'Tune Tracing Threshold',
+          desc: 'Adjust the luminance threshold and smoothing sliders to dial in the edge precision and contour curvature.',
+        },
+        {
+          title: 'Export Vector SVG',
+          desc: 'Download clean vector path code ready to scale infinitely in Figma, Illustrator, Cricut Design Space, or web code.',
+        },
+      ],
+      faqs: [
+        {
+          question: 'How does the client-side vectorizer work?',
+          answer:
+            'The algorithm loads your image onto an offscreen HTML5 canvas, runs luminance thresholding to separate foreground from background, and builds polygon path data in real time directly inside your browser.',
+        },
+        {
+          question: 'What type of images produce the best vectorization results?',
+          answer:
+            'High-contrast logos, black & white line drawings, icons, signatures, silhouettes, and glyphs produce the cleanest vector results.',
+        },
+        {
+          question: 'Is it safe to convert proprietary logos and client designs?',
+          answer:
+            'Unlike legacy converters like Picsvg that transmit your artwork to remote web servers, VectorForge executes 100% locally on your computer. Your files never leave your device.',
+        },
+      ],
+    },
+    'jpg-to-svg': {
+      pageTitle: 'Free JPG to SVG Converter Online (No 4MB Limit • 100% Client-Side)',
+      metaDescription: 'Convert JPG to SVG vector free online with zero server uploads. Trace photos, sketches, and logos into infinitely scalable vectors.',
+      guideTitle: 'How to convert JPG to SVG vector without losing quality',
+      steps: [
+        {
+          title: 'Select JPG / JPEG Photo or Logo',
+          desc: 'Drop your JPG file into the converter. Images up to 20MB are processed 100% in your browser without server uploads.',
+        },
+        {
+          title: 'Tune Edge Contrast & Smoothing',
+          desc: 'Use the live threshold slider to extract crisp silhouette edges and the smoothing slider to eliminate pixelation.',
+        },
+        {
+          title: 'Download Scalable SVG',
+          desc: 'Export infinitely scalable vector paths ready for printing, cutting machines (Cricut), and responsive web graphics.',
+        },
+      ],
+      faqs: [
+        {
+          question: 'Can I convert colored JPGs into SVG vectors?',
+          answer:
+            'Yes! VectorForge calculates luminance and contrast values across your JPG pixels to trace sharp, clean vector paths.',
+        },
+        {
+          question: 'Is it safe to convert proprietary logos and sketches online?',
+          answer:
+            'Unlike legacy cloud converters like Picsvg that upload your images to external servers, VectorForge processes 100% of the vectorization directly inside your browser memory using HTML5 Canvas. Your confidential files never touch any external server.',
+        },
+        {
+          question: 'Is there a 4MB file limit like other tools?',
+          answer:
+            'No! VectorForge has no 4MB restriction. You can easily process large high-resolution JPGs up to 20MB+ smoothly.',
+        },
+      ],
+    },
+    'image-to-svg': {
+      pageTitle: 'Universal Image to SVG Vectorizer (Cricut & Laser Cutting Ready)',
+      metaDescription: 'Convert any image (PNG, JPG, WebP) to clean SVG vectors for Cricut Design Space, Glowforge laser cutters, and embroidery machines.',
+      guideTitle: 'How to convert any image (PNG, JPG, WebP) to SVG for Cricut & Laser Cutters',
+      steps: [
+        {
+          title: 'Upload Any Image Format',
+          desc: 'Supports PNG, JPG, JPEG, WebP, BMP, and GIF. Perfect for Cricut Design Space, Glowforge, Silhouette, and CNC routers.',
+        },
+        {
+          title: 'Optimize Cut Paths & Curves',
+          desc: 'Adjust smoothing tolerance to simplify vector anchor points, resulting in faster cutter toolpaths and clean cuts.',
+        },
+        {
+          title: 'Export Production Vector',
+          desc: 'Download clean SVG markup with closed paths ready to import straight into design suites and laser cutting software.',
+        },
+      ],
+      faqs: [
+        {
+          question: 'Does this generate clean SVG cut files for Cricut and Silhouette?',
+          answer:
+            'Yes! VectorForge traces unified outline polygons with closed vector paths, making them immediately compatible with Cricut Design Space, Silhouette Studio, Glowforge, and xTool without double-line cut errors.',
+        },
+        {
+          question: 'Can I convert hand-drawn sketches or signatures to SVG?',
+          answer:
+            'Absolutely. Photograph or scan your sketch, upload the image, and adjust the threshold slider to isolate the ink strokes into vector curves.',
+        },
+        {
+          question: 'Why choose VectorForge over Picsvg for Cricut and crafts?',
+          answer:
+            'Picsvg has intrusive video ads, a restrictive 4MB limit, and uploads files to an external server. VectorForge gives you unlimited file size, ad-free instant processing, adjustable path smoothing, and 100% privacy.',
+        },
+      ],
+    },
     'svg-to-png': {
+      pageTitle: 'Free SVG to High-DPI PNG Transparent Converter (Up to 8x 4096px)',
+      metaDescription: 'Rasterize SVG to high-resolution PNG transparent images. Free client-side converter with 1x to 8x 4K/8K retina multipliers.',
       guideTitle: 'How to convert SVG to High-Resolution PNG with transparency',
       steps: [
         {
@@ -47,6 +161,8 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       ],
     },
     'svg-to-jpg': {
+      pageTitle: 'Free SVG to JPG / JPEG Converter with Background Fill',
+      metaDescription: 'Convert SVG vectors to JPG with custom background colors and quality sliders. 100% client-side conversion with zero compression artifacts.',
       guideTitle: 'How to convert SVG to JPG with solid background fill',
       steps: [
         {
@@ -76,6 +192,8 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       ],
     },
     'svg-to-ico': {
+      pageTitle: 'Free SVG to Multi-Size Windows ICO Favicon Converter',
+      metaDescription: 'Convert SVG to real binary multi-resolution .ico favicon files (16x16, 32x32, 48x48) in your browser with zero server uploads.',
       guideTitle: 'How to convert SVG to multi-size Windows ICO files',
       steps: [
         {
@@ -104,36 +222,9 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         },
       ],
     },
-    'png-to-svg': {
-      guideTitle: 'How to vectorize raster PNG images into SVG paths',
-      steps: [
-        {
-          title: 'Upload Image or Drawing',
-          desc: 'Upload a black & white logo, icon, sketch, or silhouette PNG/JPG image.',
-        },
-        {
-          title: 'Tune Tracing Threshold',
-          desc: 'Adjust the luminance threshold and smoothing sliders to dial in the edge precision and contour curvature.',
-        },
-        {
-          title: 'Export Vector SVG',
-          desc: 'Download clean vector path code ready to scale infinitely in Figma, Illustrator, or web code.',
-        },
-      ],
-      faqs: [
-        {
-          question: 'How does the client-side vectorizer work?',
-          answer:
-            'The algorithm loads your image onto an offscreen canvas, runs luminance thresholding to separate foreground from background, and builds polygon path data (<path d="..." fill-rule="evenodd" />) in real time.',
-        },
-        {
-          question: 'What type of images produce the best vectorization results?',
-          answer:
-            'High-contrast logos, black & white line drawings, icons, signatures, and glyphs produce the cleanest vector results.',
-        },
-      ],
-    },
     'svg-to-data-uri': {
+      pageTitle: 'Free SVG to CSS / HTML Data URI Generator',
+      metaDescription: 'Encode SVG vectors into inline background-image url("data:image/svg+xml,...") and Base64 strings for instant zero-request rendering.',
       guideTitle: 'How to convert SVG into CSS background-image Data URIs',
       steps: [
         {
@@ -163,6 +254,8 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       ],
     },
     'svg-to-astro': {
+      pageTitle: 'Free SVG to Production Astro (.astro) Component Converter',
+      metaDescription: 'Convert SVG icons into typed, production-ready .astro components with Props interfaces and class:list styling support.',
       guideTitle: 'How to convert SVG to production-ready .astro components',
       steps: [
         {
@@ -193,12 +286,88 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
     },
   };
 
-  const currentConfig = contentConfig[mode];
+  const currentConfig = contentConfig[mode] || contentConfig['png-to-svg'];
+
+  useEffect(() => {
+    document.title = `${currentConfig.pageTitle} — VectorForge`;
+  }, [currentConfig.pageTitle]);
+
+  // Structured Data (Schema.org) for Googlebot Rich Snippets
+  const schemaData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        name: `VectorForge ${currentConfig.pageTitle}`,
+        applicationCategory: 'DesignApplication',
+        operatingSystem: 'All',
+        browserRequirements: 'Requires HTML5 Canvas and WebAssembly capable browser',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+        },
+        featureList: [
+          '100% Client-Side Processing',
+          'No File Uploads to Remote Servers',
+          'Zero File Size Limits',
+          'Instant Real-Time Vector Tracing',
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: currentConfig.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
+  };
+
+  const isVectorizingMode = mode === 'png-to-svg' || mode === 'jpg-to-svg' || mode === 'image-to-svg';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
-      {/* Active Tool */}
+      {/* Dynamic JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
+
+      {/* Active Tool Viewport */}
       <UniversalConverter key={mode} initialMode={mode} />
+
+      {/* Anti-Picsvg Comparison Callout Banner for Vectorizer pages */}
+      {isVectorizingMode && (
+        <section className="glass-panel rounded-3xl p-6 sm:p-8 border border-brand-500/30 bg-gradient-to-r from-brand-900/20 via-dark-card to-purple-900/20">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-bold text-brand-400 uppercase tracking-wider">
+                <Sparkles className="w-4 h-4" />
+                <span>Next-Generation Vectorizer vs Legacy Tools</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Tired of Picsvg's 4MB limit, intrusive ads, and server uploads?
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300">
+                VectorForge processes your files <strong>100% client-side</strong> on your computer's GPU. No files are uploaded to external servers, there are zero 4MB size constraints, and the entire studio is ad-free.
+              </p>
+            </div>
+
+            <Link
+              to="/alternatives/picsvg"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shrink-0 shadow-glow transition-all active:scale-95"
+            >
+              <span>See Picsvg vs VectorForge Comparison</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* SEO Step-by-Step Instructions */}
       <section className="glass-panel rounded-3xl p-8 sm:p-12 border border-dark-border">

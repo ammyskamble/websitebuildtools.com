@@ -8,6 +8,7 @@ import { FaviconGeneratorPage } from './pages/FaviconGeneratorPage';
 import { SvgOptimizerPage } from './pages/SvgOptimizerPage';
 import { ConverterPage } from './pages/ConverterPage';
 import { GeminiStudioPage } from './pages/GeminiStudioPage';
+import { PicsvgAlternativePage } from './pages/PicsvgAlternativePage';
 
 // Scroll to top helper on route change
 function ScrollToTop() {
@@ -38,14 +39,32 @@ export const App: React.FC = () => {
             <Route path="/tools/ai-generator" element={<GeminiStudioPage />} />
 
             {/* High-Intent Programmatic SEO Conversion Hub */}
-            <Route path="/convert" element={<ConverterPage mode="svg-to-png" />} />
-            <Route path="/converters" element={<ConverterPage mode="svg-to-png" />} />
+            <Route path="/convert" element={<ConverterPage mode="png-to-svg" />} />
+            <Route path="/converters" element={<ConverterPage mode="png-to-svg" />} />
+
+            {/* Direct High-Value SEO Landing Pages */}
+            <Route path="/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
+            <Route path="/jpg-to-svg" element={<ConverterPage mode="jpg-to-svg" />} />
+            <Route path="/image-to-svg" element={<ConverterPage mode="image-to-svg" />} />
+            <Route path="/svg-to-png" element={<ConverterPage mode="svg-to-png" />} />
+            <Route path="/svg-to-jpg" element={<ConverterPage mode="svg-to-jpg" />} />
+            <Route path="/svg-to-ico" element={<ConverterPage mode="svg-to-ico" />} />
+            <Route path="/svg-to-data-uri" element={<ConverterPage mode="svg-to-data-uri" />} />
+            <Route path="/svg-to-astro" element={<ConverterPage mode="svg-to-astro" />} />
+
+            {/* Canonical /convert/* sub-routes */}
+            <Route path="/convert/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
+            <Route path="/convert/jpg-to-svg" element={<ConverterPage mode="jpg-to-svg" />} />
+            <Route path="/convert/image-to-svg" element={<ConverterPage mode="image-to-svg" />} />
             <Route path="/convert/svg-to-png" element={<ConverterPage mode="svg-to-png" />} />
             <Route path="/convert/svg-to-jpg" element={<ConverterPage mode="svg-to-jpg" />} />
             <Route path="/convert/svg-to-ico" element={<ConverterPage mode="svg-to-ico" />} />
-            <Route path="/convert/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
             <Route path="/convert/svg-to-data-uri" element={<ConverterPage mode="svg-to-data-uri" />} />
             <Route path="/convert/svg-to-astro" element={<ConverterPage mode="svg-to-astro" />} />
+
+            {/* Competitor Alternative Landing Page */}
+            <Route path="/alternatives/picsvg" element={<PicsvgAlternativePage />} />
+            <Route path="/picsvg-alternative" element={<PicsvgAlternativePage />} />
 
             {/* Fallback to Home */}
             <Route path="*" element={<HomePage />} />

@@ -48,36 +48,41 @@ export const Footer: React.FC = () => {
 
           {/* Converters */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">Conversion Hub</h4>
+            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">Vector Converters</h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <Link to="/convert/svg-to-png" className="hover:text-brand-400 transition-colors">
+                <Link to="/png-to-svg" className="hover:text-brand-400 transition-colors font-medium text-brand-300/90">
+                  PNG to SVG (Free In-Browser)
+                </Link>
+              </li>
+              <li>
+                <Link to="/jpg-to-svg" className="hover:text-brand-400 transition-colors font-medium text-brand-300/90">
+                  JPG to SVG (Instant Vectorizer)
+                </Link>
+              </li>
+              <li>
+                <Link to="/image-to-svg" className="hover:text-brand-400 transition-colors font-medium text-brand-300/90">
+                  Image to SVG (All Formats)
+                </Link>
+              </li>
+              <li>
+                <Link to="/svg-to-png" className="hover:text-brand-400 transition-colors">
                   SVG to PNG (High-DPI 4K)
                 </Link>
               </li>
               <li>
-                <Link to="/convert/svg-to-jpg" className="hover:text-brand-400 transition-colors">
-                  SVG to JPG
-                </Link>
-              </li>
-              <li>
-                <Link to="/convert/svg-to-ico" className="hover:text-brand-400 transition-colors">
+                <Link to="/svg-to-ico" className="hover:text-brand-400 transition-colors">
                   SVG to Windows ICO
                 </Link>
               </li>
               <li>
-                <Link to="/convert/png-to-svg" className="hover:text-brand-400 transition-colors">
-                  PNG to SVG (Auto-Vectorize)
-                </Link>
-              </li>
-              <li>
-                <Link to="/convert/svg-to-data-uri" className="hover:text-brand-400 transition-colors">
-                  SVG to CSS Data URI
-                </Link>
-              </li>
-              <li>
-                <Link to="/convert/svg-to-astro" className="hover:text-amber-300 transition-colors">
+                <Link to="/svg-to-astro" className="hover:text-amber-300 transition-colors">
                   SVG to Astro (.astro)
+                </Link>
+              </li>
+              <li className="pt-1">
+                <Link to="/alternatives/picsvg" className="text-emerald-400 hover:text-emerald-300 transition-colors font-semibold flex items-center gap-1">
+                  <span>⚡ Picsvg Alternative (100% Private)</span>
                 </Link>
               </li>
             </ul>
