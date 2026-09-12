@@ -7,7 +7,6 @@ import {
 import { optimizeSvg, formatSvgCode, OptimizeOptions, OptimizationResult } from '../../lib/svg-optimizer';
 import { downloadText } from '../../lib/canvas-renderer';
 import { convertSvgToAstroComponent, downloadAstroFile } from '../../lib/astro-generator';
-import { InstantAssetExporter } from '../ui/InstantAssetExporter';
 
 const DEFAULT_SAMPLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" viewBox="0 0 500 500" width="500" height="500">
   <!-- Generator: Adobe Illustrator 28.0, SVG Export Plug-In -->
@@ -126,30 +125,31 @@ export const SvgOptimizer: React.FC = () => {
           </p>
         </div>
 
-        {/* Action Buttons & Instant Exporters */}
+        {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl glass-card text-xs font-medium text-slate-300 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl glass-card text-xs font-medium text-slate-300 hover:text-white transition-colors"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? 'Copied!' : 'Copy SVG'}</span>
+            <span>{copied ? 'Copied Minified SVG!' : 'Copy Code'}</span>
           </button>
 
           <button
             onClick={handleDownloadAstro}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-semibold text-xs transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-semibold text-xs transition-colors shadow-sm"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>.astro</span>
+            <span>Download .astro</span>
           </button>
 
-          <InstantAssetExporter
-            svgOrImageUrl={result.optimizedSvg}
-            baseFilename="optimized-vector"
-            appName="SVG Optimizer"
-            layout="bar"
-          />
+          <button
+            onClick={handleDownload}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all"
+          >
+            <Download className="w-4 h-4" />
+            <span>Download Optimized SVG</span>
+          </button>
         </div>
       </div>
 
@@ -338,14 +338,6 @@ export const SvgOptimizer: React.FC = () => {
               </div>
             )}
           </div>
-
-          {/* Dedicated Instant Multi-Format Exporters Panel */}
-          <InstantAssetExporter
-            svgOrImageUrl={result.optimizedSvg}
-            baseFilename="optimized-vector"
-            appName="SVG Optimizer"
-            layout="panel"
-          />
         </div>
 
         {/* Right Column: Optimization Rules Toggles */}
