@@ -2,5 +2,9 @@
 https://websitebuildtools.pages.dev/* https://svgfav.com/:splat 301!
 https://*.pages.dev/* https://svgfav.com/:splat 301!
 
+# Static file passthroughs (must be BEFORE the SPA catch-all)
+/robots.txt   /robots.txt   200
+/sitemap.xml  /sitemap.xml  200
+
 # SPA 200 rewrite for client-side routing
 /*    /index.html   200
