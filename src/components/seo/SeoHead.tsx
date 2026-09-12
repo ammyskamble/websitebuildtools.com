@@ -21,6 +21,8 @@ export interface SeoHeadProps {
   title: string;
   description: string;
   canonicalUrl?: string;
+  keywords?: string;
+  ogImage?: string;
   applicationCategory?: string;
   breadcrumbs?: BreadcrumbItem[];
   faqs?: FaqItem[];
@@ -44,6 +46,8 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
   title,
   description,
   canonicalUrl,
+  keywords,
+  ogImage,
   breadcrumbs,
   faqs,
   howTo,
@@ -62,6 +66,17 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
     }
     metaDesc.setAttribute('content', description);
 
+    // 2b. Keywords Meta
+    if (keywords) {
+      let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.setAttribute('name', 'keywords');
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.setAttribute('content', keywords);
+    }
+
     // 3. Update Canonical Link
     const currentUrl = canonicalUrl || window.location.href.split('?')[0];
     let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -72,15 +87,22 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
     }
     canonicalLink.setAttribute('href', currentUrl);
 
-    // 4. Update OpenGraph Tags
+    // 4. Update OpenGraph & Twitter Tags
+    const ogImageSrc = ogImage || 'https://svgfav.com/og-image.png';
     const ogTags: Record<string, string> = {
       'og:title': title,
       'og:description': description,
       'og:url': currentUrl,
       'og:type': 'website',
+      'og:site_name': 'SvgFav.com',
+      'og:image': ogImageSrc,
+      'og:locale': 'en_US',
       'twitter:card': 'summary_large_image',
+      'twitter:site': '@svgfav',
+      'twitter:creator': '@svgfav',
       'twitter:title': title,
       'twitter:description': description,
+      'twitter:image': ogImageSrc,
     };
 
     Object.entries(ogTags).forEach(([property, content]) => {
@@ -95,6 +117,18 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
         document.head.appendChild(tag);
       }
       tag.setAttribute('content', content);
+    });
+
+    // 4b. International Alternate Locales for Target Countries (US, IN, DE, FR, CA, AU, BR)
+    const alternateLocales = ['en_IN', 'de_DE', 'fr_FR', 'pt_BR', 'en_CA', 'en_AU'];
+    alternateLocales.forEach((locale) => {
+      let localeTag = document.querySelector(`meta[property="og:locale:alternate"][content="${locale}"]`);
+      if (!localeTag) {
+        localeTag = document.createElement('meta');
+        localeTag.setAttribute('property', 'og:locale:alternate');
+        localeTag.setAttribute('content', locale);
+        document.head.appendChild(localeTag);
+      }
     });
 
     // 5. Inject JSON-LD Schema
