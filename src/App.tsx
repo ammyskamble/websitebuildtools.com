@@ -14,13 +14,18 @@ import { AboutUsPage } from './pages/AboutUsPage';
 import { TermsConditionsPage } from './pages/TermsConditionsPage';
 import { ContactUsPage } from './pages/ContactUsPage';
 
-// Scroll to top helper on route change
-function ScrollToTop() {
-  const { pathname } = useLocation();
+// Canonical redirect & Scroll to top helper on route change
+function CanonicalRedirect() {
+  const { pathname, search, hash } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+
+    // If loaded on *.pages.dev, immediately redirect to https://svgfav.com
+    if (typeof window !== 'undefined' && window.location.hostname.endsWith('.pages.dev')) {
+      window.location.replace(`https://svgfav.com${pathname}${search}${hash}`);
+    }
+  }, [pathname, search, hash]);
 
   return null;
 }
@@ -28,7 +33,7 @@ function ScrollToTop() {
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop />
+      <CanonicalRedirect />
       <div className="min-h-screen flex flex-col bg-[#080a11] text-slate-100 selection:bg-brand-500 selection:text-white font-sans antialiased">
         <Navbar />
 

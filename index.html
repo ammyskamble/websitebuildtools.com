@@ -2,6 +2,15 @@
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
+    <!-- Immediate Canonical Domain Redirection (*.pages.dev -> svgfav.com) -->
+    <script>
+      (function() {
+        if (typeof window !== 'undefined' && window.location && window.location.hostname && window.location.hostname.endsWith('.pages.dev')) {
+          var target = 'https://svgfav.com' + window.location.pathname + window.location.search + window.location.hash;
+          window.location.replace(target);
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%233b82f6'/><stop offset='100%' stop-color='%238b5cf6'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><path d='M30 32 L50 72 L70 32 L58 32 L50 52 L42 32 Z' fill='white'/><circle cx='50' cy='24' r='6' fill='%2360a5fa'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SvgFav.com — Free Online SVG Converter, Favicon Generator & Vector Studio</title>
