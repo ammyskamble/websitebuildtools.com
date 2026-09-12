@@ -855,439 +855,326 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
       </div>
 
       {/* ========================================================================= */}
-      {/* ⭐ DUAL CANVAS VISUAL INSPECTOR & LIVE PREVIEW SUITE (Picsvg Beating UI) */}
+      {/* 🌟 UNIFIED 7:5 WORKSPACE GRID (Matching LogoStudio & SvgOptimizer Ratio) */}
       {/* ========================================================================= */}
-      <div className="glass-panel rounded-2xl border border-dark-border overflow-hidden shadow-2xl space-y-0">
-        {/* Canvas Toolbar Header */}
-        <div className="px-4 py-3 bg-dark-surface/90 border-b border-dark-border flex flex-wrap items-center justify-between gap-3">
-          {/* Active File Label & Selector */}
-          <div className="flex items-center gap-2.5">
-            <span className="flex items-center gap-1.5 text-xs font-bold text-white uppercase tracking-wider">
-              <Eye className="w-4 h-4 text-brand-400" />
-              <span>Canvas Visual Studio</span>
-            </span>
-            {activeFile && (
-              <span className="px-2.5 py-0.5 rounded-md bg-dark-card border border-dark-border text-[11px] font-mono text-brand-300 truncate max-w-[180px] sm:max-w-xs">
-                {activeFile.name}
-              </span>
-            )}
-            {livePreviewResult?.stats && (
-              <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-400 font-mono">
-                <span>{livePreviewResult.stats.width}×{livePreviewResult.stats.height}px</span>
-                {livePreviewResult.stats.pathCount > 0 && (
-                  <span className="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
-                    {livePreviewResult.stats.pathCount} Paths ({livePreviewResult.stats.nodeCount} Nodes)
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        {/* ========================================================================= */}
+        {/* LEFT COLUMN (lg:col-span-7): HERO CANVAS STAGE & EXPORT BAR */}
+        {/* ========================================================================= */}
+        <div className="lg:col-span-7 flex flex-col space-y-4">
+          {/* Main Canvas Card */}
+          <div className="glass-panel rounded-3xl border border-dark-border overflow-hidden shadow-2xl space-y-0">
+            {/* Canvas Toolbar Header */}
+            <div className="px-4 py-3 bg-dark-surface/90 border-b border-dark-border flex flex-wrap items-center justify-between gap-3">
+              {/* Active File Label & Selector */}
+              <div className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 text-xs font-bold text-white uppercase tracking-wider">
+                  <Eye className="w-4 h-4 text-brand-400" />
+                  <span>Visual Studio</span>
+                </span>
+                {activeFile && (
+                  <span className="px-2.5 py-0.5 rounded-md bg-dark-card border border-dark-border text-[11px] font-mono text-brand-300 truncate max-w-[130px] sm:max-w-[180px]">
+                    {activeFile.name}
                   </span>
                 )}
-              </div>
-            )}
-          </div>
-
-          {/* Canvas View Controls */}
-          <div className="flex items-center gap-2">
-            {/* Layout Toggles */}
-            <div className="flex items-center gap-1 bg-dark-bg p-1 rounded-lg border border-dark-border text-xs">
-              <button
-                onClick={() => setPreviewLayout('side-by-side')}
-                className={`p-1.5 rounded flex items-center gap-1 transition-colors ${
-                  previewLayout === 'side-by-side' ? 'bg-brand-500 text-white font-medium shadow-sm' : 'text-slate-400 hover:text-white'
-                }`}
-                title="Side-by-Side Dual View"
-              >
-                <Columns className="w-3.5 h-3.5" />
-                <span className="hidden md:inline text-[11px]">Side-by-Side</span>
-              </button>
-              <button
-                onClick={() => setPreviewLayout('split-slider')}
-                className={`p-1.5 rounded flex items-center gap-1 transition-colors ${
-                  previewLayout === 'split-slider' ? 'bg-brand-500 text-white font-medium shadow-sm' : 'text-slate-400 hover:text-white'
-                }`}
-                title="Before/After Split Slider"
-              >
-                <SplitSquareVertical className="w-3.5 h-3.5" />
-                <span className="hidden md:inline text-[11px]">Split Slider</span>
-              </button>
-              <button
-                onClick={() => setPreviewLayout('focus-converted')}
-                className={`p-1.5 rounded flex items-center gap-1 transition-colors ${
-                  previewLayout === 'focus-converted' ? 'bg-brand-500 text-white font-medium shadow-sm' : 'text-slate-400 hover:text-white'
-                }`}
-                title="Focus Converted Vector"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span className="hidden md:inline text-[11px]">Output</span>
-              </button>
-            </div>
-
-            {/* Canvas Background Theme */}
-            <div className="flex items-center gap-1 bg-dark-bg p-1 rounded-lg border border-dark-border">
-              <button
-                onClick={() => setCanvasBg('checkered')}
-                className={`w-6 h-6 rounded border ${canvasBg === 'checkered' ? 'border-brand-400 shadow-glow-sm' : 'border-transparent'} bg-checkered`}
-                title="Transparent Alpha Checkered"
-              />
-              <button
-                onClick={() => setCanvasBg('dark')}
-                className={`w-6 h-6 rounded border ${canvasBg === 'dark' ? 'border-brand-400 shadow-glow-sm' : 'border-transparent'} bg-[#090d16]`}
-                title="Dark Stage"
-              />
-              <button
-                onClick={() => setCanvasBg('white')}
-                className={`w-6 h-6 rounded border ${canvasBg === 'white' ? 'border-brand-400 shadow-glow-sm' : 'border-transparent'} bg-white`}
-                title="Solid White"
-              />
-            </div>
-
-            {/* Zoom Controls */}
-            <div className="flex items-center gap-1 bg-dark-bg p-1 rounded-lg border border-dark-border text-xs text-slate-400">
-              <button
-                onClick={() => setZoomLevel((z) => Math.max(0.5, Number((z - 0.25).toFixed(2))))}
-                className="p-1 hover:text-white rounded"
-                title="Zoom Out"
-              >
-                <ZoomOut className="w-3.5 h-3.5" />
-              </button>
-              <span className="text-[10px] font-mono px-1 text-slate-300 w-9 text-center">
-                {Math.round(zoomLevel * 100)}%
-              </span>
-              <button
-                onClick={() => setZoomLevel((z) => Math.min(3, Number((z + 0.25).toFixed(2))))}
-                className="p-1 hover:text-white rounded"
-                title="Zoom In"
-              >
-                <ZoomIn className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={() => setZoomLevel(1)}
-                className="p-1 hover:text-white rounded"
-                title="Reset Zoom (100%)"
-              >
-                <RotateCcw className="w-3 h-3" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* The Viewport Stage */}
-        <div className="relative w-full min-h-[420px] max-h-[560px] bg-dark-bg/95 flex flex-col justify-center overflow-hidden select-none">
-          {/* Layout 1: Side by Side Dual View */}
-          {previewLayout === 'side-by-side' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 h-[440px] divide-y md:divide-y-0 md:divide-x divide-dark-border">
-              {/* Left Canvas: Original File */}
-              <div className="relative h-full flex flex-col">
-                <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-md bg-dark-bg/80 backdrop-blur border border-dark-border/80 text-[11px] font-semibold text-slate-300 flex items-center gap-1.5 shadow-sm">
-                  <ImageIcon className="w-3 h-3 text-slate-400" />
-                  <span>Original {isRasterToVector ? 'Raster Bitmap' : 'Vector SVG'}</span>
-                </div>
-                <div className={`w-full h-full ${bgStyleClass} relative flex items-center justify-center overflow-hidden`}>
-                  {renderOriginalCanvas()}
-                </div>
+                {livePreviewResult?.stats && (
+                  <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+                    <span>{livePreviewResult.stats.width}×{livePreviewResult.stats.height}px</span>
+                    {livePreviewResult.stats.pathCount > 0 && (
+                      <span className="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 text-[10px]">
+                        {livePreviewResult.stats.pathCount} Paths ({livePreviewResult.stats.nodeCount} Nodes)
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
 
-              {/* Right Canvas: Converted Output */}
-              <div className="relative h-full flex flex-col">
-                <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-md bg-dark-bg/80 backdrop-blur border border-dark-border/80 text-[11px] font-semibold text-brand-300 flex items-center gap-1.5 shadow-sm">
-                  <Sparkles className="w-3 h-3 text-brand-400" />
-                  <span>Converted {isRasterToVector ? 'SVG Vector (Infinitely Scalable)' : 'Target Format'}</span>
+              {/* Canvas View Controls */}
+              <div className="flex items-center gap-2">
+                {/* Layout Toggles */}
+                <div className="flex items-center gap-1 bg-dark-bg p-1 rounded-lg border border-dark-border text-xs">
+                  <button
+                    onClick={() => setPreviewLayout('side-by-side')}
+                    className={`p-1.5 rounded flex items-center gap-1 transition-colors ${
+                      previewLayout === 'side-by-side' ? 'bg-brand-500 text-white font-medium shadow-sm' : 'text-slate-400 hover:text-white'
+                    }`}
+                    title="Side-by-Side Dual View"
+                  >
+                    <Columns className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline text-[11px]">Side-by-Side</span>
+                  </button>
+                  <button
+                    onClick={() => setPreviewLayout('split-slider')}
+                    className={`p-1.5 rounded flex items-center gap-1 transition-colors ${
+                      previewLayout === 'split-slider' ? 'bg-brand-500 text-white font-medium shadow-sm' : 'text-slate-400 hover:text-white'
+                    }`}
+                    title="Before/After Split Slider"
+                  >
+                    <SplitSquareVertical className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline text-[11px]">Split</span>
+                  </button>
+                  <button
+                    onClick={() => setPreviewLayout('focus-converted')}
+                    className={`p-1.5 rounded flex items-center gap-1 transition-colors ${
+                      previewLayout === 'focus-converted' ? 'bg-brand-500 text-white font-medium shadow-sm' : 'text-slate-400 hover:text-white'
+                    }`}
+                    title="Focus Converted Vector"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline text-[11px]">Output</span>
+                  </button>
                 </div>
 
-                {/* Top Right Quick Actions */}
-                <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
-                  {(livePreviewResult?.convertedData || activeFile?.convertedData) && (
-                    <button
-                      onClick={() => activeFile && handleCopySingle(activeFile)}
-                      className="px-2.5 py-1 rounded-md bg-dark-bg/80 hover:bg-brand-500/30 text-brand-300 text-[11px] font-medium border border-dark-border flex items-center gap-1 shadow-sm transition-colors"
-                      title="Copy SVG Code"
-                    >
-                      {copiedId === activeFile?.id ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
-                      <span>{copiedId === activeFile?.id ? 'Copied' : 'Copy SVG'}</span>
-                    </button>
-                  )}
-                  {activeFile && (
-                    <button
-                      onClick={() => handleDownloadSingle(activeFile)}
-                      className="px-2.5 py-1 rounded-md bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-[11px] font-medium border border-emerald-500/30 flex items-center gap-1 shadow-sm transition-colors"
-                      title="Download converted file"
-                    >
-                      <Download className="w-3 h-3" />
-                      <span>Download</span>
-                    </button>
-                  )}
+                {/* Canvas Background Theme */}
+                <div className="flex items-center gap-1 bg-dark-bg p-1 rounded-lg border border-dark-border">
+                  <button
+                    onClick={() => setCanvasBg('checkered')}
+                    className={`w-5 h-5 rounded border ${canvasBg === 'checkered' ? 'border-brand-400 shadow-glow-sm' : 'border-transparent'} bg-checkered`}
+                    title="Transparent Alpha Checkered"
+                  />
+                  <button
+                    onClick={() => setCanvasBg('dark')}
+                    className={`w-5 h-5 rounded border ${canvasBg === 'dark' ? 'border-brand-400 shadow-glow-sm' : 'border-transparent'} bg-[#090d16]`}
+                    title="Dark Stage"
+                  />
+                  <button
+                    onClick={() => setCanvasBg('white')}
+                    className={`w-5 h-5 rounded border ${canvasBg === 'white' ? 'border-brand-400 shadow-glow-sm' : 'border-transparent'} bg-white`}
+                    title="Solid White"
+                  />
                 </div>
 
-                <div className={`w-full h-full ${bgStyleClass} relative flex items-center justify-center overflow-hidden`}>
+                {/* Zoom Controls */}
+                <div className="flex items-center gap-1 bg-dark-bg p-1 rounded-lg border border-dark-border text-xs text-slate-400">
+                  <button
+                    onClick={() => setZoomLevel((z) => Math.max(0.5, Number((z - 0.25).toFixed(2))))}
+                    className="p-1 hover:text-white rounded"
+                    title="Zoom Out"
+                  >
+                    <ZoomOut className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="text-[10px] font-mono px-0.5 text-slate-300 w-8 text-center">
+                    {Math.round(zoomLevel * 100)}%
+                  </span>
+                  <button
+                    onClick={() => setZoomLevel((z) => Math.min(3, Number((z + 0.25).toFixed(2))))}
+                    className="p-1 hover:text-white rounded"
+                    title="Zoom In"
+                  >
+                    <ZoomIn className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => setZoomLevel(1)}
+                    className="p-1 hover:text-white rounded"
+                    title="Reset Zoom (100%)"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* The Viewport Stage */}
+            <div className="relative w-full min-h-[440px] max-h-[520px] bg-dark-bg/95 flex flex-col justify-center overflow-hidden select-none">
+              {/* Layout 1: Side by Side Dual View */}
+              {previewLayout === 'side-by-side' && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 h-[440px] divide-y sm:divide-y-0 sm:divide-x divide-dark-border">
+                  {/* Left Canvas: Original File */}
+                  <div className="relative h-full flex flex-col">
+                    <div className="absolute top-3 left-3 z-10 px-2 py-0.5 rounded-md bg-dark-bg/85 backdrop-blur border border-dark-border/80 text-[10px] font-semibold text-slate-300 flex items-center gap-1 shadow-sm">
+                      <ImageIcon className="w-3 h-3 text-slate-400" />
+                      <span>Original</span>
+                    </div>
+                    <div className={`w-full h-full ${bgStyleClass} relative flex items-center justify-center overflow-hidden`}>
+                      {renderOriginalCanvas()}
+                    </div>
+                  </div>
+
+                  {/* Right Canvas: Converted Output */}
+                  <div className="relative h-full flex flex-col">
+                    <div className="absolute top-3 left-3 z-10 px-2 py-0.5 rounded-md bg-dark-bg/85 backdrop-blur border border-dark-border/80 text-[10px] font-semibold text-brand-300 flex items-center gap-1 shadow-sm">
+                      <Sparkles className="w-3 h-3 text-brand-400" />
+                      <span>Converted</span>
+                    </div>
+
+                    {/* Top Right Quick Actions */}
+                    <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
+                      {(livePreviewResult?.convertedData || activeFile?.convertedData) && (
+                        <button
+                          onClick={() => activeFile && handleCopySingle(activeFile)}
+                          className="px-2 py-1 rounded-md bg-dark-bg/80 hover:bg-brand-500/30 text-brand-300 text-[10px] font-medium border border-dark-border flex items-center gap-1 shadow-sm transition-colors"
+                          title="Copy SVG Code"
+                        >
+                          {copiedId === activeFile?.id ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                          <span>{copiedId === activeFile?.id ? 'Copied' : 'Copy'}</span>
+                        </button>
+                      )}
+                      {activeFile && (
+                        <button
+                          onClick={() => handleDownloadSingle(activeFile)}
+                          className="px-2 py-1 rounded-md bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-[10px] font-medium border border-emerald-500/30 flex items-center gap-1 shadow-sm transition-colors"
+                          title="Download converted file"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>Save</span>
+                        </button>
+                      )}
+                    </div>
+
+                    <div className={`w-full h-full ${bgStyleClass} relative flex items-center justify-center overflow-hidden`}>
+                      {renderConvertedCanvas()}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Layout 2: Split Before/After Interactive Drag Slider */}
+              {previewLayout === 'split-slider' && (
+                <div
+                  ref={splitContainerRef}
+                  onMouseMove={handleSplitMouseMove}
+                  onMouseUp={handleSplitMouseUp}
+                  onMouseLeave={handleSplitMouseUp}
+                  className={`relative w-full h-[440px] ${bgStyleClass} overflow-hidden cursor-ew-resize`}
+                >
+                  {/* Full background: Converted Vector */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    {renderConvertedCanvas()}
+                  </div>
+
+                  {/* Clipped overlay: Original Bitmap */}
+                  <div
+                    className="absolute inset-y-0 left-0 overflow-hidden pointer-events-none border-r-2 border-brand-400 shadow-2xl"
+                    style={{ width: `${splitPosition}%` }}
+                  >
+                    <div
+                      className="w-full h-full flex items-center justify-center"
+                      style={{
+                        width: splitContainerRef.current ? `${splitContainerRef.current.clientWidth}px` : '100%',
+                      }}
+                    >
+                      {renderOriginalCanvas()}
+                    </div>
+                  </div>
+
+                  {/* Draggable Divider Handle */}
+                  <div
+                    onMouseDown={handleSplitMouseDown}
+                    className="absolute top-0 bottom-0 -ml-3.5 z-20 flex flex-col items-center justify-center cursor-ew-resize select-none"
+                    style={{ left: `${splitPosition}%` }}
+                  >
+                    <div className="w-7 h-7 rounded-full bg-brand-500 text-white flex items-center justify-center shadow-glow border-2 border-white text-[10px] font-bold">
+                      ↔
+                    </div>
+                  </div>
+
+                  {/* Badges on split */}
+                  <div className="absolute bottom-3 left-3 z-10 px-2 py-0.5 rounded-md bg-dark-bg/85 backdrop-blur border border-dark-border text-[10px] text-slate-300 font-semibold shadow-sm">
+                    ◀ Original
+                  </div>
+                  <div className="absolute bottom-3 right-3 z-10 px-2 py-0.5 rounded-md bg-dark-bg/85 backdrop-blur border border-dark-border text-[10px] text-brand-300 font-semibold shadow-sm">
+                    Converted Vector ▶
+                  </div>
+                </div>
+              )}
+
+              {/* Layout 3: Focused Views */}
+              {previewLayout === 'focus-converted' && (
+                <div className={`relative w-full h-[440px] ${bgStyleClass} flex items-center justify-center overflow-hidden`}>
+                  <div className="absolute top-3 left-3 z-10 px-2 py-0.5 rounded-md bg-dark-bg/80 backdrop-blur border border-dark-border text-[10px] font-semibold text-brand-300 flex items-center gap-1.5 shadow-sm">
+                    <Sparkles className="w-3 h-3 text-brand-400" />
+                    <span>Full Converted Output</span>
+                  </div>
                   {renderConvertedCanvas()}
                 </div>
-              </div>
-            </div>
-          )}
+              )}
 
-          {/* Layout 2: Split Before/After Interactive Drag Slider */}
-          {previewLayout === 'split-slider' && (
-            <div
-              ref={splitContainerRef}
-              onMouseMove={handleSplitMouseMove}
-              onMouseUp={handleSplitMouseUp}
-              onMouseLeave={handleSplitMouseUp}
-              className={`relative w-full h-[440px] ${bgStyleClass} overflow-hidden cursor-ew-resize`}
-            >
-              {/* Full background: Converted Vector */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                {renderConvertedCanvas()}
-              </div>
-
-              {/* Clipped overlay: Original Bitmap */}
-              <div
-                className="absolute inset-y-0 left-0 overflow-hidden pointer-events-none border-r-2 border-brand-400 shadow-2xl"
-                style={{ width: `${splitPosition}%` }}
-              >
-                <div
-                  className="w-full h-full flex items-center justify-center"
-                  style={{
-                    width: splitContainerRef.current ? `${splitContainerRef.current.clientWidth}px` : '100%',
-                  }}
-                >
+              {previewLayout === 'focus-original' && (
+                <div className={`relative w-full h-[440px] ${bgStyleClass} flex items-center justify-center overflow-hidden`}>
+                  <div className="absolute top-3 left-3 z-10 px-2 py-0.5 rounded-md bg-dark-bg/80 backdrop-blur border border-dark-border text-[10px] font-semibold text-slate-300 flex items-center gap-1.5 shadow-sm">
+                    <ImageIcon className="w-3 h-3 text-slate-400" />
+                    <span>Original Source File</span>
+                  </div>
                   {renderOriginalCanvas()}
                 </div>
-              </div>
-
-              {/* Draggable Divider Handle */}
-              <div
-                onMouseDown={handleSplitMouseDown}
-                className="absolute top-0 bottom-0 -ml-3.5 z-20 flex flex-col items-center justify-center cursor-ew-resize select-none"
-                style={{ left: `${splitPosition}%` }}
-              >
-                <div className="w-7 h-7 rounded-full bg-brand-500 text-white flex items-center justify-center shadow-glow border-2 border-white text-[10px] font-bold">
-                  ↔
-                </div>
-              </div>
-
-              {/* Badges on split */}
-              <div className="absolute bottom-3 left-3 z-10 px-2.5 py-1 rounded-md bg-dark-bg/85 backdrop-blur border border-dark-border text-[11px] text-slate-300 font-semibold shadow-sm">
-                ◀ Original
-              </div>
-              <div className="absolute bottom-3 right-3 z-10 px-2.5 py-1 rounded-md bg-dark-bg/85 backdrop-blur border border-dark-border text-[11px] text-brand-300 font-semibold shadow-sm">
-                Converted Vector ▶
-              </div>
-            </div>
-          )}
-
-          {/* Layout 3: Focused View */}
-          {previewLayout === 'focus-converted' && (
-            <div className={`relative w-full h-[440px] ${bgStyleClass} flex items-center justify-center overflow-hidden`}>
-              <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-md bg-dark-bg/80 backdrop-blur border border-dark-border text-[11px] font-semibold text-brand-300 flex items-center gap-1.5 shadow-sm">
-                <Sparkles className="w-3 h-3 text-brand-400" />
-                <span>Full Converted View</span>
-              </div>
-              {renderConvertedCanvas()}
-            </div>
-          )}
-
-          {previewLayout === 'focus-original' && (
-            <div className={`relative w-full h-[440px] ${bgStyleClass} flex items-center justify-center overflow-hidden`}>
-              <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-md bg-dark-bg/80 backdrop-blur border border-dark-border text-[11px] font-semibold text-slate-300 flex items-center gap-1.5 shadow-sm">
-                <ImageIcon className="w-3 h-3 text-slate-400" />
-                <span>Original Source File</span>
-              </div>
-              {renderOriginalCanvas()}
-            </div>
-          )}
-        </div>
-
-        {/* Multi-file quick selection strip (if multiple files uploaded) */}
-        {files.length > 1 && (
-          <div className="px-4 py-2 bg-dark-surface/60 border-t border-dark-border flex items-center gap-2 overflow-x-auto text-xs">
-            <span className="text-[11px] text-slate-400 font-semibold uppercase tracking-wider shrink-0">
-              Active File:
-            </span>
-            {files.map((file, idx) => (
-              <button
-                key={file.id}
-                onClick={() => setSelectedFileId(file.id)}
-                className={`px-3 py-1 rounded-lg border text-xs font-mono transition-colors shrink-0 flex items-center gap-1.5 ${
-                  activeFile?.id === file.id
-                    ? 'bg-brand-500/20 border-brand-500/50 text-white font-semibold'
-                    : 'bg-dark-card border-dark-border text-slate-400 hover:text-white'
-                }`}
-              >
-                <span>#{idx + 1}</span>
-                <span className="truncate max-w-[120px]">{file.name}</span>
-                {file.status === 'done' && <Check className="w-3 h-3 text-emerald-400" />}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* ========================================================================= */}
-      {/* 🛠️ CONTROLS & BATCH FILE QUEUE */}
-      {/* ========================================================================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left: Drag & Drop Zone + Files List */}
-        <div className="lg:col-span-7 space-y-4">
-          {/* Dropzone Card */}
-          <div className="glass-panel rounded-2xl p-7 border-2 border-dashed border-dark-border hover:border-brand-500/60 transition-colors flex flex-col items-center justify-center text-center relative group">
-            <input
-              type="file"
-              multiple
-              accept=".svg, .png, .jpg, .jpeg, .webp, .ico, .bmp, image/*"
-              onChange={handleFileUpload}
-              className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
-            />
-            <div className="w-12 h-12 rounded-2xl bg-brand-500/15 text-brand-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-              <Upload className="w-6 h-6" />
-            </div>
-            <h3 className="text-sm font-bold text-white">
-              Drag & drop {isRasterToVector ? 'raster images (PNG, JPG, WebP)' : 'vectors (SVG) or images'} here
-            </h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm">
-              Batch convert multiple files up to <strong className="text-brand-300">20MB each</strong>. 100% processed locally in your browser.
-            </p>
-            <span className="mt-3 px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border text-xs text-slate-200 font-medium group-hover:bg-brand-500/20 group-hover:border-brand-500/40 transition-colors">
-              Browse Files from Computer
-            </span>
-          </div>
-
-          {/* Files List Table */}
-          <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-white uppercase tracking-wider">
-                Batch Queue ({files.length} {files.length === 1 ? 'file' : 'files'})
-              </span>
-              {files.length > 0 && (
-                <button
-                  onClick={() => {
-                    setFiles([]);
-                    setSelectedFileId('');
-                  }}
-                  className="text-[11px] text-rose-400 hover:underline"
-                >
-                  Clear All
-                </button>
               )}
             </div>
 
-            <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
-              {files.map((file) => (
-                <div
-                  key={file.id}
-                  onClick={() => setSelectedFileId(file.id)}
-                  className={`flex items-center justify-between p-3 rounded-xl border transition-colors cursor-pointer ${
-                    activeFile?.id === file.id
-                      ? 'border-brand-500 bg-brand-500/10'
-                      : file.status === 'done'
-                      ? 'bg-emerald-500/10 border-emerald-500/30'
-                      : file.status === 'error'
-                      ? 'bg-rose-500/10 border-rose-500/30'
-                      : 'bg-dark-surface/60 border-dark-border hover:border-slate-500'
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-lg bg-dark-bg p-1 border border-dark-border flex items-center justify-center shrink-0 overflow-hidden bg-checkered">
-                      {file.convertedBlobUrl ? (
-                        <img src={file.convertedBlobUrl} alt="converted" className="w-full h-full object-contain" />
-                      ) : file.convertedData ? (
-                        <div
-                          className="w-full h-full flex items-center justify-center"
-                          dangerouslySetInnerHTML={{ __html: file.convertedData }}
-                        />
-                      ) : file.content.trim().startsWith('<svg') || file.content.includes('<svg') ? (
-                        <div
-                          className="w-full h-full flex items-center justify-center"
-                          dangerouslySetInnerHTML={{ __html: file.content }}
-                        />
-                      ) : (
-                        <img src={file.content} alt={file.name} className="w-full h-full object-contain" />
-                      )}
-                    </div>
-                    <div className="truncate">
-                      <p className="text-xs font-semibold text-white truncate">{file.name}</p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[10px] text-slate-400 font-mono">
-                          {(file.size / 1024).toFixed(1)} KB
-                        </span>
-                        <span
-                          className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
-                            file.status === 'done'
-                              ? 'bg-emerald-500/20 text-emerald-400'
-                              : file.status === 'error'
-                              ? 'bg-rose-500/20 text-rose-400'
-                              : 'bg-slate-700/50 text-slate-400'
-                          }`}
-                        >
-                          {file.status}
-                        </span>
-                      </div>
-                      {file.errorMessage && (
-                        <p className="text-[10px] text-rose-400 mt-0.5 truncate">{file.errorMessage}</p>
-                      )}
-                    </div>
-                  </div>
+            {/* Multi-file quick selection strip (if multiple files uploaded) */}
+            {files.length > 1 && (
+              <div className="px-4 py-2 bg-dark-surface/60 border-t border-dark-border flex items-center gap-2 overflow-x-auto text-xs">
+                <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider shrink-0">
+                  Previewing:
+                </span>
+                {files.map((file, idx) => (
+                  <button
+                    key={file.id}
+                    onClick={() => setSelectedFileId(file.id)}
+                    className={`px-2.5 py-0.5 rounded-md border text-[11px] font-mono transition-colors shrink-0 flex items-center gap-1 ${
+                      activeFile?.id === file.id
+                        ? 'bg-brand-500/20 border-brand-500/50 text-white font-semibold'
+                        : 'bg-dark-card border-dark-border text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    <span>#{idx + 1}</span>
+                    <span className="truncate max-w-[100px]">{file.name}</span>
+                    {file.status === 'done' && <Check className="w-3 h-3 text-emerald-400" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-                  {/* Actions for Item */}
-                  <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-                    {file.status === 'done' ? (
-                      <>
-                        {mode === 'svg-to-data-uri' ? (
-                          <button
-                            onClick={() => handleCopySingle(file)}
-                            className="px-3 py-1.5 rounded-lg bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 text-xs flex items-center gap-1 font-semibold transition-colors"
-                          >
-                            {copiedId === file.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                            <span>{copiedId === file.id ? 'Copied!' : 'Copy'}</span>
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handleDownloadSingle(file)}
-                            className="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs flex items-center gap-1 font-semibold transition-colors"
-                          >
-                            <Download className="w-3.5 h-3.5" />
-                            <span>Save</span>
-                          </button>
-                        )}
-                      </>
-                    ) : (
-                      <button
-                        onClick={async () => {
-                          const updated = await processItem(file);
-                          setFiles((prev) => prev.map((f) => (f.id === file.id ? updated : f)));
-                        }}
-                        className="px-2.5 py-1 rounded-lg bg-dark-surface hover:bg-dark-hover border border-dark-border text-slate-300 text-xs font-medium"
-                      >
-                        Convert
-                      </button>
-                    )}
-                  </div>
+          {/* Underneath Canvas: Export Actions & Batch Download Bar (Matching LogoStudio) */}
+          <div className="w-full glass-card rounded-2xl p-4 sm:p-5 border border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              {isRasterToVector && (
+                <div className="flex items-center gap-2 text-xs text-slate-300">
+                  <Scissors className="w-4 h-4 text-amber-400" />
+                  <span>
+                    Active Engine: <strong className="text-white capitalize">{traceMode} Contour</strong>
+                  </span>
                 </div>
-              ))}
+              )}
+              {isVectorToRaster && (
+                <div className="flex items-center gap-2 text-xs text-slate-300">
+                  <Zap className="w-4 h-4 text-brand-400" />
+                  <span>
+                    DPI: <strong className="text-white">{resolutionMultiplier}x ({customWidth * resolutionMultiplier}px)</strong>
+                  </span>
+                </div>
+              )}
             </div>
 
-            {/* Batch Action Buttons */}
-            <div className="pt-3 border-t border-dark-border flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 w-full sm:w-auto">
               <button
                 onClick={handleConvertAll}
                 disabled={isProcessing || files.length === 0}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
               >
                 <Zap className="w-4 h-4" />
-                <span>{isProcessing ? 'Processing files...' : 'Convert All Files Now'}</span>
+                <span>{isProcessing ? 'Processing files...' : 'Convert All Files'}</span>
               </button>
 
               {files.some((f) => f.status === 'done' || livePreviewResult?.convertedData) && (
                 <button
                   onClick={handleDownloadAllZip}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-semibold text-xs transition-colors"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-semibold text-xs transition-colors"
+                  title="Download all converted files as ZIP archive"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Download All as ZIP</span>
+                  <span>ZIP Bundle</span>
                 </button>
               )}
             </div>
           </div>
         </div>
 
-        {/* Right: Specific Converter Controls */}
-        <div className="lg:col-span-5 space-y-4">
+        {/* ========================================================================= */}
+        {/* RIGHT COLUMN (lg:col-span-5): REAL-TIME SETTINGS & UPLOAD QUEUE */}
+        {/* ========================================================================= */}
+        <div className="lg:col-span-5 space-y-5">
+          {/* Card 1: Real-Time Engine Settings Panel */}
           <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-4">
             <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
               <Sliders className="w-4 h-4 text-brand-400" />
@@ -1580,6 +1467,129 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Card 2: Dropzone & Upload Target */}
+          <div className="glass-panel rounded-2xl p-5 border-2 border-dashed border-dark-border hover:border-brand-500/60 transition-colors flex flex-col items-center justify-center text-center relative group">
+            <input
+              type="file"
+              multiple
+              accept=".svg, .png, .jpg, .jpeg, .webp, .ico, .bmp, image/*"
+              onChange={handleFileUpload}
+              className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
+            />
+            <div className="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+              <Upload className="w-5 h-5" />
+            </div>
+            <h3 className="text-xs font-bold text-white">
+              Drag & drop {isRasterToVector ? 'images (PNG, JPG, WebP)' : 'vectors (SVG) or images'}
+            </h3>
+            <p className="text-[11px] text-slate-400 mt-0.5">
+              Supports up to <strong className="text-brand-300">20MB each</strong>. 100% in-browser.
+            </p>
+            <span className="mt-2.5 px-3 py-1 rounded-lg bg-dark-surface border border-dark-border text-xs text-slate-200 font-medium group-hover:bg-brand-500/20 group-hover:border-brand-500/40 transition-colors">
+              Browse from Computer
+            </span>
+          </div>
+
+          {/* Card 3: Batch Queue List */}
+          <div className="glass-card rounded-2xl p-4 border border-dark-border space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold text-white uppercase tracking-wider">
+                Files Queue ({files.length})
+              </span>
+              {files.length > 0 && (
+                <button
+                  onClick={() => {
+                    setFiles([]);
+                    setSelectedFileId('');
+                  }}
+                  className="text-[10px] text-rose-400 hover:underline"
+                >
+                  Clear All
+                </button>
+              )}
+            </div>
+
+            <div className="space-y-1.5 max-h-[220px] overflow-y-auto pr-1">
+              {files.map((file) => (
+                <div
+                  key={file.id}
+                  onClick={() => setSelectedFileId(file.id)}
+                  className={`flex items-center justify-between p-2 rounded-xl border transition-colors cursor-pointer ${
+                    activeFile?.id === file.id
+                      ? 'border-brand-500 bg-brand-500/15'
+                      : file.status === 'done'
+                      ? 'bg-emerald-500/10 border-emerald-500/25'
+                      : file.status === 'error'
+                      ? 'bg-rose-500/10 border-rose-500/25'
+                      : 'bg-dark-surface/60 border-dark-border hover:border-slate-500'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-8 h-8 rounded-lg bg-dark-bg p-0.5 border border-dark-border flex items-center justify-center shrink-0 overflow-hidden bg-checkered">
+                      {file.convertedBlobUrl ? (
+                        <img src={file.convertedBlobUrl} alt="converted" className="w-full h-full object-contain" />
+                      ) : file.convertedData ? (
+                        <div
+                          className="w-full h-full flex items-center justify-center"
+                          dangerouslySetInnerHTML={{ __html: file.convertedData }}
+                        />
+                      ) : file.content.trim().startsWith('<svg') || file.content.includes('<svg') ? (
+                        <div
+                          className="w-full h-full flex items-center justify-center"
+                          dangerouslySetInnerHTML={{ __html: file.content }}
+                        />
+                      ) : (
+                        <img src={file.content} alt={file.name} className="w-full h-full object-contain" />
+                      )}
+                    </div>
+                    <div className="truncate">
+                      <p className="text-[11px] font-semibold text-white truncate">{file.name}</p>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span className="text-[9px] text-slate-400 font-mono">
+                          {(file.size / 1024).toFixed(1)} KB
+                        </span>
+                        <span
+                          className={`text-[8px] px-1 py-0.2 rounded font-bold uppercase ${
+                            file.status === 'done'
+                              ? 'bg-emerald-500/20 text-emerald-400'
+                              : file.status === 'error'
+                              ? 'bg-rose-500/20 text-rose-400'
+                              : 'bg-slate-700/50 text-slate-400'
+                          }`}
+                        >
+                          {file.status}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions for Item */}
+                  <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                    {file.status === 'done' ? (
+                      <button
+                        onClick={() => handleDownloadSingle(file)}
+                        className="p-1 rounded-md bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-[10px] font-semibold transition-colors"
+                        title="Save file"
+                      >
+                        <Download className="w-3 h-3" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={async () => {
+                          const updated = await processItem(file);
+                          setFiles((prev) => prev.map((f) => (f.id === file.id ? updated : f)));
+                        }}
+                        className="px-2 py-0.5 rounded-md bg-dark-surface hover:bg-dark-hover border border-dark-border text-slate-300 text-[10px] font-medium"
+                      >
+                        Convert
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
