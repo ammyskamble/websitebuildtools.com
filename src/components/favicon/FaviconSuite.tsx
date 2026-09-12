@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 import { generateFaviconPack, getHtmlHeadSnippet } from '../../lib/zip-generator';
 import { getAstroFaviconLayoutSnippet } from '../../lib/astro-generator';
+import { renderSvgToBlob } from '../../lib/canvas-renderer';
 import { GeminiModal } from '../gemini/GeminiModal';
-import { InstantMultiFormatExporter } from '../ui/InstantMultiFormatExporter';
 
 interface FaviconSuiteProps {
   initialSvg?: string;
@@ -129,23 +129,15 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
           </p>
         </div>
 
-        {/* Instant Multi-Format Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <InstantMultiFormatExporter
-            source={svgSource}
-            filename={siteName || 'favicon'}
-            variant="bar"
-          />
-
-          <button
-            onClick={handleDownloadZip}
-            disabled={isBundling}
-            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
-          >
-            <Download className="w-4 h-4" />
-            <span>{isBundling ? 'Building ZIP Pack...' : 'Download ZIP Pack'}</span>
-          </button>
-        </div>
+        {/* Action Button */}
+        <button
+          onClick={handleDownloadZip}
+          disabled={isBundling}
+          className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
+        >
+          <Download className="w-4 h-4" />
+          <span>{isBundling ? 'Building ZIP Pack...' : 'Download Favicon Pack (.zip)'}</span>
+        </button>
       </div>
 
       {/* Main Grid: Upload & Controls on Left, Realistic Simulators on Right */}
@@ -525,13 +517,6 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
               </div>
             )}
           </div>
-
-          {/* Instant Multi-Format Exporters Panel */}
-          <InstantMultiFormatExporter
-            source={svgSource}
-            filename={siteName || 'favicon'}
-            variant="panel"
-          />
 
           {/* Code Snippet Generator */}
           <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-3">
