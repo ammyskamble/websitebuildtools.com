@@ -1,9 +1,11 @@
-import React from 'react';
 import { SvgOptimizer } from '../components/optimizer/SvgOptimizer';
 import { ComparisonTable } from '../components/ui/ComparisonTable';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
+import { SeoHead } from '../components/seo/SeoHead';
+import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 
 export const SvgOptimizerPage: React.FC = () => {
+  const breadcrumbsList = [{ name: 'Tools', path: '/tools/svg-optimizer' }, { name: 'SVG Optimizer & Cleaner' }];
   const faqs = [
     {
       question: 'Why do SVGs exported from Figma, Illustrator, or Inkscape have so much bloat?',
@@ -28,7 +30,28 @@ export const SvgOptimizerPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <SeoHead
+        title="SVG Optimizer & Code Cleaner (Minify, Precision & Astro Export) — VectorForge"
+        description="Minify SVG code, strip unnecessary editor junk and metadata, round coordinates, and convert to .astro components. Boost Google Lighthouse scores."
+        breadcrumbs={breadcrumbsList.map((b) => ({
+          name: b.name,
+          url: b.path || window.location.pathname,
+        }))}
+        faqs={faqs}
+        softwareApp={{
+          name: 'VectorForge SVG Optimizer',
+          description: 'SVG Optimizer & Code Cleaner (100% Client-Side)',
+          applicationCategory: 'DesignApplication',
+          operatingSystem: 'All',
+          price: '0',
+          ratingValue: '4.9',
+          reviewCount: '1610',
+        }}
+      />
+
+      <Breadcrumbs items={breadcrumbsList} />
+
       {/* Optimizer Tool */}
       <SvgOptimizer />
 

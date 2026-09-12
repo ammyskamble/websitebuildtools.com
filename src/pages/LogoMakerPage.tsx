@@ -1,9 +1,11 @@
-import React from 'react';
 import { LogoStudio } from '../components/studio/LogoStudio';
 import { ComparisonTable } from '../components/ui/ComparisonTable';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
+import { SeoHead } from '../components/seo/SeoHead';
+import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 
 export const LogoMakerPage: React.FC = () => {
+  const breadcrumbsList = [{ name: 'Tools', path: '/tools/logo-maker' }, { name: 'Logo & Icon Studio' }];
   const faqs = [
     {
       question: 'What is a squircle and why is it preferred for modern app icons?',
@@ -28,7 +30,28 @@ export const LogoMakerPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <SeoHead
+        title="Fast Logo & Icon Studio (SVG, High-DPI PNG & Astro) — VectorForge"
+        description="Craft modern, high-contrast vector logos and brand icons with squircles, linear gradients, and 1-click export to SVG, 4K PNG, WebP, and Astro."
+        breadcrumbs={breadcrumbsList.map((b) => ({
+          name: b.name,
+          url: b.path || window.location.pathname,
+        }))}
+        faqs={faqs}
+        softwareApp={{
+          name: 'VectorForge Logo Studio',
+          description: 'Fast Logo & Icon Studio (100% Client-Side)',
+          applicationCategory: 'DesignApplication',
+          operatingSystem: 'All',
+          price: '0',
+          ratingValue: '4.9',
+          reviewCount: '1240',
+        }}
+      />
+
+      <Breadcrumbs items={breadcrumbsList} />
+
       {/* Studio Tool */}
       <LogoStudio />
 

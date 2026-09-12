@@ -6,9 +6,9 @@ export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-dark-border bg-dark-bg/90 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Col */}
-          <div className="space-y-4 md:col-span-1">
+          <div className="space-y-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-violet-500 flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-white" />
@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Tools */}
+          {/* Core Tools */}
           <div>
             <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">Core Studios</h4>
             <ul className="space-y-2 text-xs text-slate-400">
@@ -43,6 +43,43 @@ export const Footer: React.FC = () => {
                   SVG Optimizer & Cleaner
                 </Link>
               </li>
+              <li>
+                <Link to="/tools/gemini-ai" className="hover:text-brand-400 transition-colors">
+                  Gemini Prompt Studio
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* AI & Code to Vector */}
+          <div>
+            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">AI & Code to Vector</h4>
+            <ul className="space-y-2 text-xs text-slate-400">
+              <li>
+                <Link to="/ai-svg-generator" className="hover:text-brand-400 transition-colors font-medium text-brand-300">
+                  AI SVG Generator (Prompt)
+                </Link>
+              </li>
+              <li>
+                <Link to="/html-to-svg" className="hover:text-brand-400 transition-colors">
+                  HTML to SVG Vector
+                </Link>
+              </li>
+              <li>
+                <Link to="/css-to-svg" className="hover:text-brand-400 transition-colors">
+                  CSS to SVG Badges
+                </Link>
+              </li>
+              <li>
+                <Link to="/canvas-to-svg" className="hover:text-brand-400 transition-colors">
+                  Canvas 2D JS to SVG
+                </Link>
+              </li>
+              <li>
+                <Link to="/svg-to-favicon-pack" className="hover:text-brand-400 transition-colors">
+                  SVG to Favicon Pack
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -52,17 +89,17 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <Link to="/png-to-svg" className="hover:text-brand-400 transition-colors font-medium text-brand-300/90">
-                  PNG to SVG (Free In-Browser)
+                  PNG to SVG (In-Browser)
                 </Link>
               </li>
               <li>
                 <Link to="/jpg-to-svg" className="hover:text-brand-400 transition-colors font-medium text-brand-300/90">
-                  JPG to SVG (Instant Vectorizer)
+                  JPG to SVG (No 4MB Limit)
                 </Link>
               </li>
               <li>
                 <Link to="/image-to-svg" className="hover:text-brand-400 transition-colors font-medium text-brand-300/90">
-                  Image to SVG (All Formats)
+                  Image to SVG (Cricut)
                 </Link>
               </li>
               <li>
@@ -75,14 +112,9 @@ export const Footer: React.FC = () => {
                   SVG to Windows ICO
                 </Link>
               </li>
-              <li>
-                <Link to="/svg-to-astro" className="hover:text-amber-300 transition-colors">
-                  SVG to Astro (.astro)
-                </Link>
-              </li>
               <li className="pt-1">
                 <Link to="/alternatives/picsvg" className="text-emerald-400 hover:text-emerald-300 transition-colors font-semibold flex items-center gap-1">
-                  <span>⚡ Picsvg Alternative (100% Private)</span>
+                  <span>⚡ Picsvg Alternative</span>
                 </Link>
               </li>
             </ul>

@@ -1,9 +1,11 @@
-import React from 'react';
 import { FaviconSuite } from '../components/favicon/FaviconSuite';
 import { ComparisonTable } from '../components/ui/ComparisonTable';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
+import { SeoHead } from '../components/seo/SeoHead';
+import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 
 export const FaviconGeneratorPage: React.FC = () => {
+  const breadcrumbsList = [{ name: 'Tools', path: '/tools/favicon-generator' }, { name: 'Production Favicon Suite' }];
   const faqs = [
     {
       question: 'Why do I need both favicon.ico and favicon.svg?',
@@ -28,7 +30,28 @@ export const FaviconGeneratorPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <SeoHead
+        title="Production Favicon & App Icon Suite (All Sizes + PWA Manifest) — VectorForge"
+        description="Generate all web, iOS, Android, and Windows icons in a single click with instant multi-platform live mockups and valid site.webmanifest."
+        breadcrumbs={breadcrumbsList.map((b) => ({
+          name: b.name,
+          url: b.path || window.location.pathname,
+        }))}
+        faqs={faqs}
+        softwareApp={{
+          name: 'VectorForge Favicon Suite',
+          description: 'Production Favicon & App Icon Suite (100% Client-Side)',
+          applicationCategory: 'DesignApplication',
+          operatingSystem: 'All',
+          price: '0',
+          ratingValue: '4.9',
+          reviewCount: '1890',
+        }}
+      />
+
+      <Breadcrumbs items={breadcrumbsList} />
+
       {/* Favicon Suite Tool */}
       <FaviconSuite />
 

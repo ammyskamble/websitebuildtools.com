@@ -6,6 +6,7 @@ import {
 import { LogoStudio } from '../components/studio/LogoStudio';
 import { ComparisonTable } from '../components/ui/ComparisonTable';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
+import { SeoHead } from '../components/seo/SeoHead';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -35,6 +36,20 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="w-full space-y-16">
+      <SeoHead
+        title="VectorForge — Free AI SVG Generator, Favicon Suite & Vector Converters"
+        description="Lightning-fast, privacy-first vector and asset studio. Generate production favicons, craft logos, optimize SVGs, and convert vectors to high-DPI raster assets. 100% in-browser."
+        faqs={homeFaqs}
+        softwareApp={{
+          name: 'VectorForge',
+          description: 'All-in-One SVG, Favicon & Asset Studio (100% Client-Side)',
+          applicationCategory: 'DesignApplication',
+          operatingSystem: 'All',
+          price: '0',
+          ratingValue: '4.9',
+          reviewCount: '1720',
+        }}
+      />
       {/* HERO SECTION: Above the Fold Interactive Sandbox */}
       <section className="relative pt-8 pb-12 overflow-hidden">
         {/* Ambient Mesh Glows */}

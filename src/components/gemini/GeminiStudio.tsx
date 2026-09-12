@@ -26,14 +26,32 @@ import {
 } from '../../lib/code-importer';
 import { generateFaviconPack } from '../../lib/zip-generator';
 
-export const GeminiStudio: React.FC = () => {
+export interface GeminiStudioProps {
+  initialTab?: 'ai' | 'importer';
+  initialCodeType?: AssetTargetType;
+  initialPrompt?: string;
+  pageBadge?: string;
+  pageH1?: string;
+  pageSubtitle?: string;
+}
+
+export const GeminiStudio: React.FC<GeminiStudioProps> = ({
+  initialTab = 'ai',
+  initialCodeType,
+  initialPrompt,
+  pageBadge,
+  pageH1,
+  pageSubtitle,
+}) => {
   const navigate = useNavigate();
 
   // Mode: AI Generation vs Direct Code Import
-  const [activeTab, setActiveTab] = useState<'ai' | 'importer'>('ai');
+  const [activeTab, setActiveTab] = useState<'ai' | 'importer'>(initialTab);
 
   // AI Generator state
-  const [prompt, setPrompt] = useState('Modern electric cyber lightning bolt icon on dark rounded hex shield, neon cyan & violet glow');
+  const [prompt, setPrompt] = useState(
+    initialPrompt || 'Modern electric cyber lightning bolt icon on dark rounded hex shield, neon cyan & violet glow'
+  );
   const [aiTarget, setAiTarget] = useState<AssetTargetType>('svg');
   const [model, setModel] = useState<GeminiModel>(getStoredModel());
   const [apiKey, setApiKey] = useState<string>(getStoredApiKey());
@@ -41,8 +59,22 @@ export const GeminiStudio: React.FC = () => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Active Code & Target
-  const [currentCodeType, setCurrentCodeType] = useState<AssetTargetType>('svg');
-  const [codeContent, setCodeContent] = useState<string>(DEMO_PRESETS[0].code);
+  const targetInitialPreset = initialCodeType === 'html-css' ? DEMO_PRESETS[1] : initialCodeType === 'canvas-js' ? DEMO_PRESETS[2] : DEMO_PRESETS[0];
+  const [currentCodeType, setCurrentCodeType] = useState<AssetTargetType>(initialCodeType || 'svg');
+  const [codeContent, setCodeContent] = useState<string>(targetInitialPreset.code);
+
+  // Sync when initialTab or initialCodeType change
+  useEffect(() => {
+    if (initialTab) setActiveTab(initialTab);
+    if (initialCodeType) {
+      setCurrentCodeType(initialCodeType);
+      const matched = initialCodeType === 'html-css' ? DEMO_PRESETS[1] : initialCodeType === 'canvas-js' ? DEMO_PRESETS[2] : DEMO_PRESETS[0];
+      setCodeContent(matched.code);
+    }
+    if (initialPrompt) {
+      setPrompt(initialPrompt);
+    }
+  }, [initialTab, initialCodeType, initialPrompt]);
 
   // Preview & Canvas rendering state
   const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -205,14 +237,14 @@ export const GeminiStudio: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/15 border border-brand-500/30 text-brand-400 text-xs font-semibold mb-3">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Google Gemini AI & Code Importer Engine</span>
+              <span>{pageBadge || 'Google Gemini AI & Code Importer Engine'}</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-              AI Vector & Multi-Format Code Studio
+              {pageH1 || 'Free AI SVG Generator & Multi-Format Code to Vector Studio'}
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
-              Generate from natural language with Google Gemini or import custom SVG, HTML/CSS, and JavaScript/Java Canvas code.
-              Instant GPU rasterization to SVG, high-DPI PNGs, and Favicon (.ico).
+              {pageSubtitle ||
+                'Generate clean SVG vectors from natural language text prompts with AI or convert HTML, CSS, and Canvas JavaScript code into scalable SVG and multi-resolution favicons. 100% free & client-side.'}
             </p>
           </div>
 

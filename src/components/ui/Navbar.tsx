@@ -165,6 +165,40 @@ export const Navbar: React.FC = () => {
 
                 <div className="my-1 border-t border-dark-border/60" />
 
+                <span className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                  AI & Code To Vector
+                </span>
+                <Link
+                  to="/ai-svg-generator"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-brand-300 hover:bg-brand-500/20 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
+                  <span>AI SVG Generator (Text Prompt)</span>
+                </Link>
+                <Link
+                  to="/html-to-svg"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                  <span>HTML to SVG Vector</span>
+                </Link>
+                <Link
+                  to="/canvas-to-svg"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-violet-400" />
+                  <span>Canvas 2D JS to SVG</span>
+                </Link>
+                <Link
+                  to="/svg-to-favicon-pack"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-brand-500/20 hover:text-brand-300 transition-colors"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span>SVG to Favicon Pack</span>
+                </Link>
+
+                <div className="my-1 border-t border-dark-border/60" />
+
                 <Link
                   to="/alternatives/picsvg"
                   className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors"

@@ -36,7 +36,14 @@ export const App: React.FC = () => {
             <Route path="/tools/favicon-generator" element={<FaviconGeneratorPage />} />
             <Route path="/tools/svg-optimizer" element={<SvgOptimizerPage />} />
             <Route path="/tools/gemini-ai" element={<GeminiStudioPage />} />
-            <Route path="/tools/ai-generator" element={<GeminiStudioPage />} />
+            <Route path="/tools/ai-generator" element={<GeminiStudioPage variant="ai-svg" />} />
+
+            {/* Dedicated Programmatic AI & Code Landing Routes */}
+            <Route path="/ai-svg-generator" element={<GeminiStudioPage variant="ai-svg" />} />
+            <Route path="/html-to-svg" element={<GeminiStudioPage variant="html-to-svg" />} />
+            <Route path="/css-to-svg" element={<GeminiStudioPage variant="css-to-svg" />} />
+            <Route path="/canvas-to-svg" element={<GeminiStudioPage variant="canvas-to-svg" />} />
+            <Route path="/svg-to-favicon-pack" element={<GeminiStudioPage variant="svg-to-favicon" />} />
 
             {/* High-Intent Programmatic SEO Conversion Hub */}
             <Route path="/convert" element={<ConverterPage mode="png-to-svg" />} />
