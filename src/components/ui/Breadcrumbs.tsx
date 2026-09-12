@@ -21,7 +21,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' 
       <Link
         to="/"
         className="flex items-center gap-1 hover:text-white transition-colors"
-        title="VectorForge Home"
+        title="SvgFav.com Home"
       >
         <Home className="w-3.5 h-3.5" />
         <span className="sr-only">Home</span>

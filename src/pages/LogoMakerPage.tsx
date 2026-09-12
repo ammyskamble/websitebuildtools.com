@@ -15,7 +15,7 @@ export const LogoMakerPage: React.FC = () => {
     {
       question: 'Can I use custom SVG code or my own uploaded vector artwork?',
       answer:
-        'Absolutely! In the icon browser modal, click "Upload SVG File" or paste raw XML markup. VectorForge preserves all path data, allowing you to combine your unique artwork with squircle backgrounds, gradient mesh glows, and high-DPI raster exports.',
+        'Absolutely! In the icon browser modal, click "Upload SVG File" or paste raw XML markup. SvgFav.com preserves all path data, allowing you to combine your unique artwork with squircle backgrounds, gradient mesh glows, and high-DPI raster exports.',
     },
     {
       question: 'What resolution should I export for my website logo or mobile app?',
@@ -25,14 +25,14 @@ export const LogoMakerPage: React.FC = () => {
     {
       question: 'Is my logo copyright protected and free for commercial use?',
       answer:
-        'Yes. All generated SVG files, canvas graphics, and export bundles are 100% yours with no licensing restrictions, watermarks, or attribution requirements. VectorForge is an open web utility running locally in your browser.',
+        'Yes. All generated SVG files, canvas graphics, and export bundles are 100% yours with no licensing restrictions, watermarks, or attribution requirements. SvgFav.com is an open web utility running locally in your browser.',
     },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <SeoHead
-        title="Fast Logo & Icon Studio (SVG, High-DPI PNG & Astro) — VectorForge"
+        title="Fast Logo & Icon Studio (SVG, High-DPI PNG & Astro) — SvgFav.com"
         description="Craft modern, high-contrast vector logos and brand icons with squircles, linear gradients, and 1-click export to SVG, 4K PNG, WebP, and Astro."
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
@@ -40,7 +40,7 @@ export const LogoMakerPage: React.FC = () => {
         }))}
         faqs={faqs}
         softwareApp={{
-          name: 'VectorForge Logo Studio',
+          name: 'SvgFav.com Logo Studio',
           description: 'Fast Logo & Icon Studio (100% Client-Side)',
           applicationCategory: 'DesignApplication',
           operatingSystem: 'All',

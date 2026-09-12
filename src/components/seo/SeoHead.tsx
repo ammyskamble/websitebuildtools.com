@@ -98,7 +98,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
     });
 
     // 5. Inject JSON-LD Schema
-    const scriptId = 'vectorforge-jsonld-schema';
+    const scriptId = 'svgfav-jsonld-schema';
     let scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
     if (!scriptTag) {
       scriptTag = document.createElement('script');
@@ -114,7 +114,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
       schemaGraph.push({
         '@context': 'https://schema.org',
         '@type': 'WebApplication',
-        name: softwareApp.name || 'VectorForge',
+        name: softwareApp.name || 'SvgFav.com',
         description: softwareApp.description || description,
         url: currentUrl,
         applicationCategory: softwareApp.applicationCategory || 'DesignApplication',

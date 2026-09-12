@@ -55,7 +55,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         {
           question: 'Is it safe to convert proprietary logos and client designs?',
           answer:
-            'Unlike legacy converters like Picsvg that transmit your artwork to remote web servers, VectorForge executes 100% locally on your computer. Your files never leave your device.',
+            'Unlike legacy converters like Picsvg that transmit your artwork to remote web servers, SvgFav.com executes 100% locally on your computer. Your files never leave your device.',
         },
       ],
     },
@@ -81,17 +81,17 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         {
           question: 'Can I convert colored JPGs into SVG vectors?',
           answer:
-            'Yes! VectorForge calculates luminance and contrast values across your JPG pixels to trace sharp, clean vector paths.',
+            'Yes! SvgFav.com calculates luminance and contrast values across your JPG pixels to trace sharp, clean vector paths.',
         },
         {
           question: 'Is it safe to convert proprietary logos and sketches online?',
           answer:
-            'Unlike legacy cloud converters like Picsvg that upload your images to external servers, VectorForge processes 100% of the vectorization directly inside your browser memory using HTML5 Canvas. Your confidential files never touch any external server.',
+            'Unlike legacy cloud converters like Picsvg that upload your images to external servers, SvgFav.com processes 100% of the vectorization directly inside your browser memory using HTML5 Canvas. Your confidential files never touch any external server.',
         },
         {
           question: 'Is there a 4MB file limit like other tools?',
           answer:
-            'No! VectorForge has no 4MB restriction. You can easily process large high-resolution JPGs up to 20MB+ smoothly.',
+            'No! SvgFav.com has no 4MB restriction. You can easily process large high-resolution JPGs up to 20MB+ smoothly.',
         },
       ],
     },
@@ -117,7 +117,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         {
           question: 'Does this generate clean SVG cut files for Cricut and Silhouette?',
           answer:
-            'Yes! VectorForge traces unified outline polygons with closed vector paths, making them immediately compatible with Cricut Design Space, Silhouette Studio, Glowforge, and xTool without double-line cut errors.',
+            'Yes! SvgFav.com traces unified outline polygons with closed vector paths, making them immediately compatible with Cricut Design Space, Silhouette Studio, Glowforge, and xTool without double-line cut errors.',
         },
         {
           question: 'Can I convert hand-drawn sketches or signatures to SVG?',
@@ -125,9 +125,9 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
             'Absolutely. Photograph or scan your sketch, upload the image, and adjust the threshold slider to isolate the ink strokes into vector curves.',
         },
         {
-          question: 'Why choose VectorForge over Picsvg for Cricut and crafts?',
+          question: 'Why choose SvgFav.com over Picsvg for Cricut and crafts?',
           answer:
-            'Picsvg has intrusive video ads, a restrictive 4MB limit, and uploads files to an external server. VectorForge gives you unlimited file size, ad-free instant processing, adjustable path smoothing, and 100% privacy.',
+            'Picsvg has intrusive video ads, a restrictive 4MB limit, and uploads files to an external server. SvgFav.com gives you unlimited file size, ad-free instant processing, adjustable path smoothing, and 100% privacy.',
         },
       ],
     },
@@ -158,7 +158,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         {
           question: 'Can I export ultra high-resolution 4K or 8K images?',
           answer:
-            'Yes! With the 4x and 8x DPI multipliers, VectorForge rasterizes vectors up to 4096x4096px with anti-aliasing directly on your GPU canvas.',
+            'Yes! With the 4x and 8x DPI multipliers, SvgFav.com rasterizes vectors up to 4096x4096px with anti-aliasing directly on your GPU canvas.',
         },
       ],
     },
@@ -184,7 +184,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         {
           question: 'Why does JPG require a background color?',
           answer:
-            'The JPEG image format specification does not have an alpha (transparency) channel. VectorForge automatically blends your vector onto a solid fill color of your choice.',
+            'The JPEG image format specification does not have an alpha (transparency) channel. SvgFav.com automatically blends your vector onto a solid fill color of your choice.',
         },
         {
           question: 'How does the quality slider affect file size?',
@@ -204,7 +204,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         },
         {
           title: 'Multi-Resolution Embedding',
-          desc: 'VectorForge renders each frame with crisp anti-aliasing and packages them into a single .ico binary.',
+          desc: 'SvgFav.com renders each frame with crisp anti-aliasing and packages them into a single .ico binary.',
         },
         {
           title: 'Download & Deploy',
@@ -220,7 +220,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         {
           question: 'Is this a fake renamed PNG or real binary ICO?',
           answer:
-            'VectorForge constructs a valid binary ICO header, directory index, and embedded image chunks compliant with the Microsoft Windows ICO file format specification.',
+            'SvgFav.com constructs a valid binary ICO header, directory index, and embedded image chunks compliant with the Microsoft Windows ICO file format specification.',
         },
       ],
     },
@@ -266,7 +266,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         },
         {
           title: 'Automated Component Wrapping',
-          desc: 'VectorForge extracts SVG attributes, cleans up XML metadata, and embeds standard Props interfaces with class:list and Astro.props spread.',
+          desc: 'SvgFav.com extracts SVG attributes, cleans up XML metadata, and embeds standard Props interfaces with class:list and Astro.props spread.',
         },
         {
           title: 'Save .astro Component or ZIP Bundle',
@@ -306,7 +306,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       {/* Dynamic SEO Head, Title & Googlebot Structured Data */}
       <SeoHead
-        title={`${currentConfig.pageTitle} — VectorForge`}
+        title={`${currentConfig.pageTitle} — SvgFav.com`}
         description={currentConfig.metaDescription}
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
@@ -382,7 +382,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
                 Tired of Picsvg's 4MB limit, intrusive ads, and server uploads?
               </h2>
               <p className="text-xs sm:text-sm text-slate-300">
-                VectorForge processes your files <strong>100% client-side</strong> on your computer's GPU. No files are uploaded to external servers, there are zero 4MB size constraints, and the entire studio is ad-free.
+                SvgFav.com processes your files <strong>100% client-side</strong> on your computer's GPU. No files are uploaded to external servers, there are zero 4MB size constraints, and the entire studio is ad-free.
               </p>
             </div>
 
@@ -390,7 +390,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
               to="/alternatives/picsvg"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shrink-0 shadow-glow transition-all active:scale-95"
             >
-              <span>See Picsvg vs VectorForge Comparison</span>
+              <span>See Picsvg vs SvgFav.com Comparison</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

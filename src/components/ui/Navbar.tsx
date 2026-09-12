@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
-              VectorForge
+              SvgFav.com
               <span className="text-[10px] px-1.5 py-0.5 font-medium rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">
                 PRO
               </span>

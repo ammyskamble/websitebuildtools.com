@@ -10,7 +10,7 @@ export const FaviconGeneratorPage: React.FC = () => {
     {
       question: 'Why do I need both favicon.ico and favicon.svg?',
       answer:
-        'Modern browsers (Chrome, Edge, Firefox, Safari) prioritize favicon.svg because it renders sharply at any screen scaling factor and supports CSS dark mode media queries (@media (prefers-color-scheme: dark)). However, favicon.ico remains essential for legacy browsers, desktop shortcuts, and RSS readers. VectorForge provides both in the ZIP pack.',
+        'Modern browsers (Chrome, Edge, Firefox, Safari) prioritize favicon.svg because it renders sharply at any screen scaling factor and supports CSS dark mode media queries (@media (prefers-color-scheme: dark)). However, favicon.ico remains essential for legacy browsers, desktop shortcuts, and RSS readers. SvgFav.com provides both in the ZIP pack.',
     },
     {
       question: 'What is the apple-touch-icon.png file for?',
@@ -32,7 +32,7 @@ export const FaviconGeneratorPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <SeoHead
-        title="Production Favicon & App Icon Suite (All Sizes + PWA Manifest) — VectorForge"
+        title="Production Favicon & App Icon Suite (All Sizes + PWA Manifest) — SvgFav.com"
         description="Generate all web, iOS, Android, and Windows icons in a single click with instant multi-platform live mockups and valid site.webmanifest."
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
@@ -40,7 +40,7 @@ export const FaviconGeneratorPage: React.FC = () => {
         }))}
         faqs={faqs}
         softwareApp={{
-          name: 'VectorForge Favicon Suite',
+          name: 'SvgFav.com Favicon Suite',
           description: 'Production Favicon & App Icon Suite (100% Client-Side)',
           applicationCategory: 'DesignApplication',
           operatingSystem: 'All',

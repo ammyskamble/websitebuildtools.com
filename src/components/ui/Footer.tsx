@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-violet-500 flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-white tracking-tight text-base">VectorForge</span>
+              <span className="font-bold text-white tracking-tight text-base">SvgFav.com</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               The high-performance, privacy-first vector and favicon studio. Craft logos, generate production favicon bundles, and convert vector formats 100% in-browser.
@@ -145,7 +145,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="mt-12 pt-6 border-t border-dark-border/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {new Date().getFullYear()} VectorForge Studio. Open web utility.</p>
+          <p>© {new Date().getFullYear()} SvgFav.com Studio. Open web utility.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               Engineered with <Heart className="w-3 h-3 text-rose-500 inline fill-rose-500" /> for developers & designers

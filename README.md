@@ -1,8 +1,8 @@
-# websitebuildtools.com — VectorForge
+# SvgFav.com
 
-> **All-in-One SVG, Favicon & Asset Studio (100% Client-Side)**
+> **All-in-One AI SVG, Favicon & Vector Studio (100% Client-Side)**
 
-VectorForge is a high-performance, privacy-first web application for vector manipulation, favicon generation, asset conversion, and SVG optimization running **100% in-browser** with zero server dependencies.
+SvgFav.com is a high-performance, privacy-first web application for AI vector generation, favicon suites, asset conversion, and SVG optimization running **100% in-browser** with zero server dependencies.
 
 ---
 
@@ -66,4 +66,4 @@ npm run build
 
 ## 🔒 Privacy & Security
 
-VectorForge operates **100% client-side**. All rendering, rasterization, vector tracing, and zip bundling execute on your local device via HTML5 Canvas and Web Workers. No files or assets are uploaded to any external server.
+SvgFav.com operates **100% client-side**. All rendering, rasterization, vector tracing, and zip bundling execute on your local device via HTML5 Canvas and Web Workers. No files or assets are uploaded to any external server.

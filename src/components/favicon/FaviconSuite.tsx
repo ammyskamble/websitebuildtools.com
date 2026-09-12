@@ -30,8 +30,8 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
 </svg>`
   );
 
-  const [siteName, setSiteName] = useState('VectorForge');
-  const [siteUrl, setSiteUrl] = useState('https://vectorforge.dev');
+  const [siteName, setSiteName] = useState('SvgFav.com');
+  const [siteUrl, setSiteUrl] = useState('https://svgfav.com');
   const [themeColor, setThemeColor] = useState('#3b82f6');
   const [browserMode, setBrowserMode] = useState<'dark' | 'light'>('dark');
   const [copiedHtml, setCopiedHtml] = useState(false);
@@ -451,7 +451,7 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
                       <span className="text-[11px] text-white/80 font-medium">Weather</span>
                     </div>
 
-                    {/* VectorForge Generated Icon */}
+                    {/* SvgFav.com Generated Icon */}
                     <div className="flex flex-col items-center gap-1.5 scale-110">
                       <div className="w-16 h-16 rounded-[18px] overflow-hidden shadow-2xl ring-2 ring-white/20 p-1 bg-dark-bg flex items-center justify-center">
                         <img src={svgDataUri} alt="iOS icon" className="w-full h-full object-contain rounded-[14px]" />

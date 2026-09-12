@@ -33,7 +33,7 @@ export const GeminiStudioPage: React.FC<GeminiStudioPageProps> = ({ variant = 'd
     }
   > = {
     default: {
-      pageTitle: 'Free AI SVG Generator & Code to Vector Studio | VectorForge',
+      pageTitle: 'Free AI SVG Generator & Code to Vector Studio | SvgFav.com',
       metaDescription:
         'Generate clean SVG vectors from natural language text prompts with AI or convert HTML, CSS, and Canvas JavaScript code into scalable SVG and multi-resolution favicons. 100% free & client-side.',
       pageH1: 'Free AI SVG Generator & Multi-Format Code to Vector Studio',
@@ -44,7 +44,7 @@ export const GeminiStudioPage: React.FC<GeminiStudioPageProps> = ({ variant = 'd
       initialTab: 'ai',
     },
     'ai-svg': {
-      pageTitle: 'Free AI SVG Generator — Text to Vector AI Online | VectorForge',
+      pageTitle: 'Free AI SVG Generator — Text to Vector AI Online | SvgFav.com',
       metaDescription:
         'Create infinite-resolution vector graphics from simple text prompts with AI. 100% free, in-browser SVG generator powered by Google Gemini with instant download.',
       pageH1: 'Free AI SVG Generator — Text to Vector AI Online',
@@ -56,7 +56,7 @@ export const GeminiStudioPage: React.FC<GeminiStudioPageProps> = ({ variant = 'd
       initialPrompt: 'A modern cybernetic origami dragon emblem, vibrant gradient wings, clean geometric vector lines, transparent background',
     },
     'html-to-svg': {
-      pageTitle: 'Convert HTML to SVG Vector Free (In-Browser GPU Canvas) | VectorForge',
+      pageTitle: 'Convert HTML to SVG Vector Free (In-Browser GPU Canvas) | SvgFav.com',
       metaDescription:
         'Convert HTML components, cards, and web markup directly into crisp SVG vectors and high-DPI PNGs. 100% client-side, zero server uploads, instant and secure.',
       pageH1: 'Convert HTML to SVG Vector Free Online',
@@ -68,7 +68,7 @@ export const GeminiStudioPage: React.FC<GeminiStudioPageProps> = ({ variant = 'd
       initialCodeType: 'html-css',
     },
     'css-to-svg': {
-      pageTitle: 'Convert CSS to SVG Vector (Badges, Buttons & Gradients) | VectorForge',
+      pageTitle: 'Convert CSS to SVG Vector (Badges, Buttons & Gradients) | SvgFav.com',
       metaDescription:
         'Convert modern CSS badges, styled cards, neon buttons, and complex gradients into scalable SVG vectors and icons. 100% client-side with instant preview.',
       pageH1: 'Convert CSS to SVG Vector Online',
@@ -80,7 +80,7 @@ export const GeminiStudioPage: React.FC<GeminiStudioPageProps> = ({ variant = 'd
       initialCodeType: 'html-css',
     },
     'canvas-to-svg': {
-      pageTitle: 'Convert HTML5 Canvas JavaScript to SVG Vector | VectorForge',
+      pageTitle: 'Convert HTML5 Canvas JavaScript to SVG Vector | SvgFav.com',
       metaDescription:
         'Convert HTML5 Canvas 2D scripts and generative procedural artwork into clean, infinite-resolution SVG vectors. 100% in-browser with real-time sandbox.',
       pageH1: 'Convert HTML5 Canvas JavaScript to SVG Vector',
@@ -92,7 +92,7 @@ export const GeminiStudioPage: React.FC<GeminiStudioPageProps> = ({ variant = 'd
       initialCodeType: 'canvas-js',
     },
     'svg-to-favicon': {
-      pageTitle: 'SVG to Favicon Pack Generator (Multi-DPI .ICO, iOS & Android PWA) | VectorForge',
+      pageTitle: 'SVG to Favicon Pack Generator (Multi-DPI .ICO, iOS & Android PWA) | SvgFav.com',
       metaDescription:
         'Turn any SVG into a complete production favicon package with multi-resolution .ico (16x16, 32x32, 48x48), Apple Touch 180px, Android Chrome PWA icons, and web manifest.',
       pageH1: 'SVG to Favicon Pack Generator (Production Suite)',
@@ -111,17 +111,17 @@ export const GeminiStudioPage: React.FC<GeminiStudioPageProps> = ({ variant = 'd
     {
       question: 'How does Google Gemini generate scalable SVG vectors and favicons?',
       answer:
-        'VectorForge prompts Google Gemini models (Gemini 3.6 Flash, 3.8 Flash, or 3.5 Flash) with strict vector design constraints. Gemini constructs clean, high-contrast, scalable XML <svg> tags with coordinate geometry, gradients, and shapes tailored for crisp rendering at tiny 16x16 favicon sizes as well as ultra-high 4K resolutions.',
+        'SvgFav.com prompts Google Gemini models (Gemini 3.6 Flash, 3.8 Flash, or 3.5 Flash) with strict vector design constraints. Gemini constructs clean, high-contrast, scalable XML <svg> tags with coordinate geometry, gradients, and shapes tailored for crisp rendering at tiny 16x16 favicon sizes as well as ultra-high 4K resolutions.',
     },
     {
       question: 'Can I convert HTML + CSS or Canvas JavaScript graphics into SVG and Favicons?',
       answer:
-        'Yes! The Code Importer tab allows you to paste raw SVG, modern HTML + CSS badges/art, or JavaScript HTML5 Canvas 2D scripts. VectorForge automatically detects the language, renders it in a sandboxed GPU canvas, and enables 1-click export to clean vector SVG, multi-resolution PNG, or multi-size Windows .ico files.',
+        'Yes! The Code Importer tab allows you to paste raw SVG, modern HTML + CSS badges/art, or JavaScript HTML5 Canvas 2D scripts. SvgFav.com automatically detects the language, renders it in a sandboxed GPU canvas, and enables 1-click export to clean vector SVG, multi-resolution PNG, or multi-size Windows .ico files.',
     },
     {
       question: 'Is my Google Gemini API key and artwork kept private?',
       answer:
-        'Absolutely. VectorForge operates 100% client-side in your browser. Your Gemini API key is stored strictly in your local browser localStorage and requests are dispatched directly from your browser to Google API endpoints. Your images, code, and keys are never sent to any intermediary server.',
+        'Absolutely. SvgFav.com operates 100% client-side in your browser. Your Gemini API key is stored strictly in your local browser localStorage and requests are dispatched directly from your browser to Google API endpoints. Your images, code, and keys are never sent to any intermediary server.',
     },
     {
       question: 'How do I obtain a free Google Gemini API key?',

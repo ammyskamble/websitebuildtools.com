@@ -10,7 +10,7 @@ export const SvgOptimizerPage: React.FC = () => {
     {
       question: 'Why do SVGs exported from Figma, Illustrator, or Inkscape have so much bloat?',
       answer:
-        'Design software includes heavy metadata, creator tags, custom editor namespaces (e.g., xmlns:inkscape, xmlns:sodipodi), non-standard attributes, and excessive floating point decimal precision (e.g. 14 decimal digits). VectorForge cleans this bloat safely while preserving visual fidelity.',
+        'Design software includes heavy metadata, creator tags, custom editor namespaces (e.g., xmlns:inkscape, xmlns:sodipodi), non-standard attributes, and excessive floating point decimal precision (e.g. 14 decimal digits). SvgFav.com cleans this bloat safely while preserving visual fidelity.',
     },
     {
       question: 'How does SVG optimization improve Google Lighthouse and Core Web Vitals?',
@@ -32,7 +32,7 @@ export const SvgOptimizerPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <SeoHead
-        title="SVG Optimizer & Code Cleaner (Minify, Precision & Astro Export) — VectorForge"
+        title="SVG Optimizer & Code Cleaner (Minify, Precision & Astro Export) — SvgFav.com"
         description="Minify SVG code, strip unnecessary editor junk and metadata, round coordinates, and convert to .astro components. Boost Google Lighthouse scores."
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
@@ -40,7 +40,7 @@ export const SvgOptimizerPage: React.FC = () => {
         }))}
         faqs={faqs}
         softwareApp={{
-          name: 'VectorForge SVG Optimizer',
+          name: 'SvgFav.com SVG Optimizer',
           description: 'SVG Optimizer & Code Cleaner (100% Client-Side)',
           applicationCategory: 'DesignApplication',
           operatingSystem: 'All',
@@ -96,7 +96,7 @@ export const SvgOptimizerPage: React.FC = () => {
             </div>
             <h3 className="font-bold text-white text-base">Zero Hidden Layers</h3>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              Hidden layers with <code className="text-slate-200">display="none"</code> still consume browser parse cycles. VectorForge cleans them automatically.
+              Hidden layers with <code className="text-slate-200">display="none"</code> still consume browser parse cycles. SvgFav.com cleans them automatically.
             </p>
           </div>
         </div>

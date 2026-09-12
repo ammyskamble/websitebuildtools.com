@@ -9,55 +9,55 @@ import { FaqAccordion } from '../components/ui/FaqAccordion';
 
 export const PicsvgAlternativePage: React.FC = () => {
   useEffect(() => {
-    document.title = 'Best Free Picsvg Alternative (100% Client-Side & Private) — VectorForge';
+    document.title = 'Best Free Picsvg Alternative (100% Client-Side & Private) — SvgFav.com';
   }, []);
 
   const comparisonRows = [
     {
       feature: 'File Processing Architecture',
-      vectorforge: '100% Client-Side (GPU/Canvas/WASM)',
+      svgfav: '100% Client-Side (GPU/Canvas/WASM)',
       picsvg: 'Server-Side Processing (Remote Cloud Upload)',
       vfWins: true,
     },
     {
       feature: 'Privacy & Data Security',
-      vectorforge: 'Zero uploads. Files never leave your browser.',
+      svgfav: 'Zero uploads. Files never leave your browser.',
       picsvg: 'Images uploaded & processed on 3rd-party servers.',
       vfWins: true,
     },
     {
       feature: 'File Size Limits',
-      vectorforge: 'Unlimited / Up to 20MB+ easily',
+      svgfav: 'Unlimited / Up to 20MB+ easily',
       picsvg: 'Strict 4 MB Maximum Limit',
       vfWins: true,
     },
     {
       feature: 'Advertising & Trackers',
-      vectorforge: '100% Ad-Free Clean UI',
+      svgfav: '100% Ad-Free Clean UI',
       picsvg: 'Heavy 3rd-party banner & video ads',
       vfWins: true,
     },
     {
       feature: 'Export Options',
-      vectorforge: 'SVG, High-DPI PNG (up to 8K), JPG, ICO, Data URI, Astro',
+      svgfav: 'SVG, High-DPI PNG (up to 8K), JPG, ICO, Data URI, Astro',
       picsvg: 'SVG only',
       vfWins: true,
     },
     {
       feature: 'Batch Processing',
-      vectorforge: 'Process multiple files at once + 1-Click ZIP bundle',
+      svgfav: 'Process multiple files at once + 1-Click ZIP bundle',
       picsvg: 'Single file only',
       vfWins: true,
     },
     {
       feature: 'Cricut & Laser Path Optimization',
-      vectorforge: 'Adjustable contour smoothing & threshold controls',
+      svgfav: 'Adjustable contour smoothing & threshold controls',
       picsvg: 'Fixed filter presets with jagged edges',
       vfWins: true,
     },
     {
       feature: 'Integrated Asset Ecosystem',
-      vectorforge: 'Favicon Suite, Logo Studio, SVG Optimizer, Gemini AI',
+      svgfav: 'Favicon Suite, Logo Studio, SVG Optimizer, Gemini AI',
       picsvg: 'Basic vectorizer only',
       vfWins: true,
     },
@@ -65,29 +65,29 @@ export const PicsvgAlternativePage: React.FC = () => {
 
   const faqs = [
     {
-      question: 'Why is VectorForge the best free alternative to Picsvg?',
+      question: 'Why is SvgFav.com the best free alternative to Picsvg?',
       answer:
-        'VectorForge solves the three biggest issues with Picsvg: strict 4MB file limits, intrusive ads, and privacy risks from uploading confidential files to remote servers. VectorForge executes 100% in your browser using HTML5 Canvas and WebAssembly, meaning files never leave your device.',
+        'SvgFav.com solves the three biggest issues with Picsvg: strict 4MB file limits, intrusive ads, and privacy risks from uploading confidential files to remote servers. SvgFav.com executes 100% in your browser using HTML5 Canvas and WebAssembly, meaning files never leave your device.',
     },
     {
       question: 'Why does Picsvg impose a 4 MB file limit?',
       answer:
-        'Because Picsvg converts files on their remote server infrastructure, large images consume expensive server bandwidth and CPU memory. VectorForge uses your computer’s local processing power, eliminating all server bottlenecks and allowing files up to 20MB+ with zero lag.',
+        'Because Picsvg converts files on their remote server infrastructure, large images consume expensive server bandwidth and CPU memory. SvgFav.com uses your computer’s local processing power, eliminating all server bottlenecks and allowing files up to 20MB+ with zero lag.',
     },
     {
       question: 'Is it safe to convert private logos and confidential sketches on Picsvg?',
       answer:
-        'When you use server-based converters like Picsvg, your images are transmitted across the internet and stored in temporary server caches. With VectorForge, all pixel thresholding and vector path tracing occur in your local browser memory, guaranteeing total privacy for proprietary client logos and confidential artwork.',
+        'When you use server-based converters like Picsvg, your images are transmitted across the internet and stored in temporary server caches. With SvgFav.com, all pixel thresholding and vector path tracing occur in your local browser memory, guaranteeing total privacy for proprietary client logos and confidential artwork.',
     },
     {
-      question: 'How do VectorForge SVGs compare for Cricut Design Space and laser cutting?',
+      question: 'How do SvgFav.com SVGs compare for Cricut Design Space and laser cutting?',
       answer:
-        'Picsvg often generates noisy, disconnected path fragments that cause laser cutters and Cricut cutting blades to tear material or cut multiple times. VectorForge includes adjustable smoothing tolerance sliders that produce clean, unified closed polygons ideal for vinyl plotters and laser cutters.',
+        'Picsvg often generates noisy, disconnected path fragments that cause laser cutters and Cricut cutting blades to tear material or cut multiple times. SvgFav.com includes adjustable smoothing tolerance sliders that produce clean, unified closed polygons ideal for vinyl plotters and laser cutters.',
     },
     {
-      question: 'Does VectorForge cost anything or require an account?',
+      question: 'Does SvgFav.com cost anything or require an account?',
       answer:
-        'No. VectorForge is 100% free with no account creation, no subscriptions, and zero ads.',
+        'No. SvgFav.com is 100% free with no account creation, no subscriptions, and zero ads.',
     },
   ];
 
@@ -96,7 +96,7 @@ export const PicsvgAlternativePage: React.FC = () => {
     '@graph': [
       {
         '@type': 'WebApplication',
-        name: 'VectorForge — Best Picsvg Alternative',
+        name: 'SvgFav.com — Best Picsvg Alternative',
         applicationCategory: 'DesignApplication',
         operatingSystem: 'All',
         browserRequirements: 'Requires modern browser with HTML5 Canvas support',
@@ -164,7 +164,7 @@ export const PicsvgAlternativePage: React.FC = () => {
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <Zap className="w-4 h-4 text-brand-400" />
-            <span>Try the VectorForge Image to SVG Converter Below</span>
+            <span>Try the SvgFav.com Image to SVG Converter Below</span>
           </h2>
           <span className="text-xs text-slate-400 hidden sm:inline">Drag & drop any image to test live</span>
         </div>
@@ -178,10 +178,10 @@ export const PicsvgAlternativePage: React.FC = () => {
             Detailed Comparison
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            VectorForge vs. Picsvg Side-by-Side
+            SvgFav.com vs. Picsvg Side-by-Side
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-2">
-            See why thousands of developers, crafters, and graphic designers are switching to VectorForge.
+            See why thousands of developers, crafters, and graphic designers are switching to SvgFav.com.
           </p>
         </div>
 
@@ -191,7 +191,7 @@ export const PicsvgAlternativePage: React.FC = () => {
               <tr className="border-b border-dark-border text-xs uppercase tracking-wider text-slate-400">
                 <th className="py-3.5 px-4 font-semibold">Feature / Capability</th>
                 <th className="py-3.5 px-4 font-semibold text-brand-400 bg-brand-500/10 rounded-t-xl">
-                  VectorForge (Modern)
+                  SvgFav.com (Modern)
                 </th>
                 <th className="py-3.5 px-4 font-semibold text-slate-400">Picsvg (Legacy)</th>
               </tr>
@@ -203,7 +203,7 @@ export const PicsvgAlternativePage: React.FC = () => {
                   <td className="py-4 px-4 text-emerald-300 font-semibold bg-brand-500/5">
                     <div className="flex items-center gap-2">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>{row.vectorforge}</span>
+                      <span>{row.svgfav}</span>
                     </div>
                   </td>
                   <td className="py-4 px-4 text-slate-400">
@@ -219,7 +219,7 @@ export const PicsvgAlternativePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4 Pillars Why VectorForge Wins */}
+      {/* 4 Pillars Why SvgFav.com Wins */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="glass-card rounded-2xl p-6 border border-dark-border space-y-3">
           <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
@@ -237,7 +237,7 @@ export const PicsvgAlternativePage: React.FC = () => {
           </div>
           <h3 className="font-bold text-white text-base">No 4MB Size Restriction</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Unlike Picsvg which crashes or blocks uploads over 4MB, VectorForge easily vectorizes high-resolution scans, photos, and posters up to 20MB+.
+            Unlike Picsvg which crashes or blocks uploads over 4MB, SvgFav.com easily vectorizes high-resolution scans, photos, and posters up to 20MB+.
           </p>
         </div>
 
@@ -257,7 +257,7 @@ export const PicsvgAlternativePage: React.FC = () => {
           </div>
           <h3 className="font-bold text-white text-base">All-in-One Studio Suite</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Beyond image vectorizing, VectorForge gives you a full production Favicon Suite, Logo Studio, SVG Optimizer, and Google Gemini AI generator.
+            Beyond image vectorizing, SvgFav.com gives you a full production Favicon Suite, Logo Studio, SVG Optimizer, and Google Gemini AI generator.
           </p>
         </div>
       </section>
@@ -273,7 +273,7 @@ export const PicsvgAlternativePage: React.FC = () => {
             Designed for Cricut Design Space, Glowforge & CNC Cutting
           </h2>
           <p className="text-xs sm:text-sm text-slate-400">
-            Crafters moving from Picsvg to VectorForge experience significantly smoother cuts and faster workflow.
+            Crafters moving from Picsvg to SvgFav.com experience significantly smoother cuts and faster workflow.
           </p>
         </div>
 
@@ -281,7 +281,7 @@ export const PicsvgAlternativePage: React.FC = () => {
           <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-2">
             <h4 className="font-bold text-white text-sm">1. Zero Path Fragmentation</h4>
             <p className="text-xs text-slate-400">
-              VectorForge connects edge coordinates into unified outline loops, eliminating tiny stray dots that ruin vinyl sheets.
+              SvgFav.com connects edge coordinates into unified outline loops, eliminating tiny stray dots that ruin vinyl sheets.
             </p>
           </div>
 
@@ -303,7 +303,7 @@ export const PicsvgAlternativePage: React.FC = () => {
 
       {/* FAQs */}
       <FaqAccordion
-        title="Frequently Asked Questions About Picsvg & VectorForge"
+        title="Frequently Asked Questions About Picsvg & SvgFav.com"
         description="Clear answers about file conversion, privacy guarantees, and feature differences."
         items={faqs}
       />

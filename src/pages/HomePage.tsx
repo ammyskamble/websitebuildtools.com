@@ -13,7 +13,7 @@ export const HomePage: React.FC = () => {
 
   const homeFaqs = [
     {
-      question: 'Is VectorForge truly 100% client-side? Are my images uploaded anywhere?',
+      question: 'Is SvgFav.com truly 100% client-side? Are my images uploaded anywhere?',
       answer:
         'Yes! All SVG rendering, canvas rasterization, binary ICO encoding, vectorization, and ZIP generation run entirely inside your browser using HTML5 Canvas, Web Workers, and JavaScript. Your files never leave your computer, ensuring maximum privacy and zero latency.',
     },
@@ -28,20 +28,20 @@ export const HomePage: React.FC = () => {
         'We execute an in-browser image tracing algorithm that reads pixel luminance directly from an HTML5 Canvas, detects edge contours based on your chosen threshold and smoothing tolerance, and constructs vector SVG polygon paths in real time.',
     },
     {
-      question: 'What makes VectorForge faster than other online converters?',
+      question: 'What makes SvgFav.com faster than other online converters?',
       answer:
-        'Traditional tools upload your file to a remote server, queue it, run slow backend scripts, and make you wait for a download link. VectorForge executes with zero network overhead directly on your GPU/CPU via client-side canvas rendering.',
+        'Traditional tools upload your file to a remote server, queue it, run slow backend scripts, and make you wait for a download link. SvgFav.com executes with zero network overhead directly on your GPU/CPU via client-side canvas rendering.',
     },
   ];
 
   return (
     <div className="w-full space-y-16">
       <SeoHead
-        title="VectorForge — Free AI SVG Generator, Favicon Suite & Vector Converters"
+        title="SvgFav.com — Free AI SVG Generator, Favicon Suite & Vector Converters"
         description="Lightning-fast, privacy-first vector and asset studio. Generate production favicons, craft logos, optimize SVGs, and convert vectors to high-DPI raster assets. 100% in-browser."
         faqs={homeFaqs}
         softwareApp={{
-          name: 'VectorForge',
+          name: 'SvgFav.com',
           description: 'All-in-One SVG, Favicon & Asset Studio (100% Client-Side)',
           applicationCategory: 'DesignApplication',
           operatingSystem: 'All',

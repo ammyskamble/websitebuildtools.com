@@ -111,7 +111,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
     photoClipToShape: true,
 
     showTextWithGraphic: false,
-    textContent: 'VectorForge Studio',
+    textContent: 'SvgFav Studio',
     textColor: '#ffffff',
     textSize: 36,
     textOffsetY: 120, // default lower position if combined with icon
@@ -410,7 +410,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
     setExporting(true);
     try {
       if (exportFormat === 'svg') {
-        downloadText(generatedSvg, 'vectorforge-logo.svg');
+        downloadText(generatedSvg, 'svgfav-logo.svg');
       } else if (exportFormat === 'astro') {
         const componentName = toPascalCase(state.textContent || currentIconItem.name || 'BrandLogo');
         const astroCode = convertSvgToAstroComponent(generatedSvg, { componentName });
@@ -423,7 +423,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
           quality: jpegQuality,
           backgroundColor: exportFormat === 'jpeg' ? '#ffffff' : undefined,
         });
-        downloadBlob(blob, `vectorforge-logo-${pngResolution}x${pngResolution}.${exportFormat}`);
+        downloadBlob(blob, `svgfav-logo-${pngResolution}x${pngResolution}.${exportFormat}`);
       }
 
       confetti({

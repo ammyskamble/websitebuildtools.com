@@ -548,7 +548,7 @@ export const UniversalConverter: React.FC<UniversalConverterProps> = ({ initialM
     }
 
     const zipContent = await zip.generateAsync({ type: 'blob' });
-    saveAs(zipContent, `vectorforge-converted-${mode}.zip`);
+    saveAs(zipContent, `svgfav-converted-${mode}.zip`);
   };
 
   const handleDownloadSingle = (item: BatchFileItem) => {
