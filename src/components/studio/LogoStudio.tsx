@@ -11,6 +11,7 @@ import { IconPickerModal } from '../ui/IconPickerModal';
 import { GeminiModal } from '../gemini/GeminiModal';
 import { renderSvgToBlob, downloadBlob, downloadText } from '../../lib/canvas-renderer';
 import { convertSvgToAstroComponent, downloadAstroFile, toPascalCase } from '../../lib/astro-generator';
+import { InstantAssetExporter } from '../ui/InstantAssetExporter';
 
 export interface LogoStudioState {
   shape: ShapeType;
@@ -530,69 +531,86 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             </div>
           </div>
 
-          {/* Export Settings Card */}
-          <div className="w-full mt-4 glass-card rounded-2xl p-5 border border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-1 bg-dark-surface p-1 rounded-xl border border-dark-border">
-                {(['png', 'svg', 'astro', 'webp', 'jpeg'] as const).map((fmt) => (
-                  <button
-                    key={fmt}
-                    onClick={() => setExportFormat(fmt)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold uppercase transition-colors ${
-                      exportFormat === fmt
-                        ? 'bg-brand-500 text-white shadow-sm'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {fmt === 'astro' ? '.astro' : fmt}
-                  </button>
-                ))}
+          {/* Export Settings Card & Instant Multi-Format Exporters */}
+          <div className="w-full mt-4 glass-card rounded-2xl p-5 border border-dark-border space-y-4">
+            {/* Primary Instant Multi-Format Exporters Bar */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-dark-border/60">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-brand-400 shrink-0" />
+                <span className="text-xs font-bold text-white">Instant Exporters (Single Input):</span>
               </div>
-
-              {exportFormat !== 'svg' && exportFormat !== 'astro' && (
-                <select
-                  value={pngResolution}
-                  onChange={(e) => setPngResolution(Number(e.target.value))}
-                  className="bg-dark-surface border border-dark-border text-xs text-slate-200 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-brand-500"
-                >
-                  <option value={512}>512 x 512 px (1x)</option>
-                  <option value={1024}>1024 x 1024 px (2x HD)</option>
-                  <option value={2048}>2048 x 2048 px (4x Retina)</option>
-                  <option value={4096}>4096 x 4096 px (8x Ultra-HD)</option>
-                </select>
-              )}
-
-              {exportFormat === 'astro' && (
-                <span className="text-[11px] text-amber-300/90 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
-                  ⚡ Ready-to-use Astro component with Props
-                </span>
-              )}
-
-              {exportFormat === 'jpeg' && (
-                <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <span>Quality:</span>
-                  <input
-                    type="range"
-                    min={0.5}
-                    max={1}
-                    step={0.05}
-                    value={jpegQuality}
-                    onChange={(e) => setJpegQuality(Number(e.target.value))}
-                    className="w-16 accent-brand-500"
-                  />
-                  <span>{Math.round(jpegQuality * 100)}%</span>
-                </div>
-              )}
+              <InstantAssetExporter
+                svgOrImageUrl={generatedSvg}
+                baseFilename="vectorforge-logo"
+                appName="VectorForge Logo"
+                layout="bar"
+              />
             </div>
 
-            <button
-              onClick={handleExport}
-              disabled={exporting}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
-            >
-              <Download className="w-4 h-4" />
-              <span>{exporting ? 'Rendering...' : exportFormat === 'astro' ? 'Export .ASTRO Component' : `Export ${exportFormat.toUpperCase()}`}</span>
-            </button>
+            {/* Custom Format & Resolution Downloader */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-1">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-1 bg-dark-surface p-1 rounded-xl border border-dark-border">
+                  {(['png', 'svg', 'astro', 'webp', 'jpeg'] as const).map((fmt) => (
+                    <button
+                      key={fmt}
+                      onClick={() => setExportFormat(fmt)}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold uppercase transition-colors ${
+                        exportFormat === fmt
+                          ? 'bg-brand-500 text-white shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {fmt === 'astro' ? '.astro' : fmt}
+                    </button>
+                  ))}
+                </div>
+
+                {exportFormat !== 'svg' && exportFormat !== 'astro' && (
+                  <select
+                    value={pngResolution}
+                    onChange={(e) => setPngResolution(Number(e.target.value))}
+                    className="bg-dark-surface border border-dark-border text-xs text-slate-200 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-brand-500"
+                  >
+                    <option value={512}>512 x 512 px (1x)</option>
+                    <option value={1024}>1024 x 1024 px (2x HD)</option>
+                    <option value={2048}>2048 x 2048 px (4x Retina)</option>
+                    <option value={4096}>4096 x 4096 px (8x Ultra-HD)</option>
+                  </select>
+                )}
+
+                {exportFormat === 'astro' && (
+                  <span className="text-[11px] text-amber-300/90 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
+                    ⚡ Ready-to-use Astro component with Props
+                  </span>
+                )}
+
+                {exportFormat === 'jpeg' && (
+                  <div className="flex items-center gap-2 text-xs text-slate-300">
+                    <span>Quality:</span>
+                    <input
+                      type="range"
+                      min={0.5}
+                      max={1}
+                      step={0.05}
+                      value={jpegQuality}
+                      onChange={(e) => setJpegQuality(Number(e.target.value))}
+                      className="w-16 accent-brand-500"
+                    />
+                    <span>{Math.round(jpegQuality * 100)}%</span>
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={handleExport}
+                disabled={exporting}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
+              >
+                <Download className="w-4 h-4" />
+                <span>{exporting ? 'Rendering...' : exportFormat === 'astro' ? 'Export .ASTRO' : `Export ${exportFormat.toUpperCase()}`}</span>
+              </button>
+            </div>
           </div>
         </div>
 

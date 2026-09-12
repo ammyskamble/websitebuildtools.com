@@ -24,7 +24,7 @@ import {
   downloadFile,
   downloadText
 } from '../../lib/code-importer';
-import { generateFaviconPack } from '../../lib/zip-generator';
+import { generateFaviconPack, generateCompleteAssetPack } from '../../lib/zip-generator';
 
 export const GeminiStudio: React.FC = () => {
   const navigate = useNavigate();
@@ -164,6 +164,24 @@ export const GeminiStudio: React.FC = () => {
       triggerConfetti();
     } catch (err: any) {
       alert('Error generating Favicon Pack: ' + err?.message);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleDownloadAllRequired = async () => {
+    try {
+      setIsExporting(true);
+      const svgMarkup = await exportCodeToSvg(currentCodeType, codeContent);
+      await generateCompleteAssetPack(svgMarkup, {
+        appName: 'Gemini AI Studio Asset',
+        shortName: 'GeminiAsset',
+        themeColor: '#6366f1',
+        baseFilename: 'gemini-vector-asset',
+      });
+      triggerConfetti();
+    } catch (err: any) {
+      alert('Error generating Complete Asset Pack: ' + err?.message);
     } finally {
       setIsExporting(false);
     }
@@ -662,15 +680,26 @@ export const GeminiStudio: React.FC = () => {
               </div>
             </div>
 
-            {/* Row 3: Full Production Favicon ZIP Pack */}
-            <button
-              onClick={handleDownloadFaviconPack}
-              disabled={isExporting}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-glow-sm transition-all"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download Production Favicon Pack (.ZIP)</span>
-            </button>
+            {/* Row 3: Full Production Favicon ZIP Pack & All Required Files */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                onClick={handleDownloadFaviconPack}
+                disabled={isExporting}
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/35 text-emerald-300 text-xs font-bold shadow-sm transition-all"
+              >
+                <Download className="w-4 h-4" />
+                <span>Favicon Pack (.ZIP)</span>
+              </button>
+
+              <button
+                onClick={handleDownloadAllRequired}
+                disabled={isExporting}
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-brand-600 via-indigo-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white text-xs font-bold shadow-glow transition-all"
+              >
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>Download All Required Files</span>
+              </button>
+            </div>
 
             {/* Pipeline Hand-off actions */}
             <div className="pt-2 border-t border-dark-border/60 flex flex-wrap items-center justify-between gap-2 text-xs">

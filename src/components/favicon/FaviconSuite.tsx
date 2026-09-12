@@ -8,6 +8,7 @@ import { generateFaviconPack, getHtmlHeadSnippet } from '../../lib/zip-generator
 import { getAstroFaviconLayoutSnippet } from '../../lib/astro-generator';
 import { renderSvgToBlob } from '../../lib/canvas-renderer';
 import { GeminiModal } from '../gemini/GeminiModal';
+import { InstantAssetExporter } from '../ui/InstantAssetExporter';
 
 interface FaviconSuiteProps {
   initialSvg?: string;
@@ -129,15 +130,14 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
           </p>
         </div>
 
-        {/* Action Button */}
-        <button
-          onClick={handleDownloadZip}
-          disabled={isBundling}
-          className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
-        >
-          <Download className="w-4 h-4" />
-          <span>{isBundling ? 'Building ZIP Pack...' : 'Download Favicon Pack (.zip)'}</span>
-        </button>
+        {/* Instant Multi-Format Exporters */}
+        <InstantAssetExporter
+          svgOrImageUrl={svgSource}
+          baseFilename="favicon"
+          appName={siteName}
+          themeColor={themeColor}
+          layout="bar"
+        />
       </div>
 
       {/* Main Grid: Upload & Controls on Left, Realistic Simulators on Right */}
@@ -573,8 +573,17 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
               {activeSnippet}
             </pre>
           </div>
-        </div>
       </div>
+      </div>
+
+      {/* Dedicated Instant Multi-Format Exporters Panel */}
+      <InstantAssetExporter
+        svgOrImageUrl={svgSource}
+        baseFilename="favicon"
+        appName={siteName}
+        themeColor={themeColor}
+        layout="panel"
+      />
 
       <GeminiModal
         isOpen={isGeminiModalOpen}
