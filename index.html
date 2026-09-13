@@ -45,17 +45,19 @@
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#3b82f6">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SvgFav.com — Free Online SVG Converter, Favicon Generator & Vector Studio</title>
-    <meta name="description" content="Free online SVG converter and favicon generator. Convert PNG to SVG, JPG to SVG, and images to scalable vector files 100% in-browser. Multi-format favicon.ico creator." />
-    <meta name="keywords" content="svg converter, Jpg to svg, Convert to svg, Png to svg, SVG-Datei, PNG zu SVG, SVG para PNG, png para svg, conversor png em svg, pmdf svg, svg pmdf, Image to svg, svg, svg file, svg converter free, online svg converter, christmas svg, what is a favicon, favicon generator, favicon, favicon.ico, favicon creator, icon maker, favicon generator online, gerador de favicon, favicon o que é, Favicon: Was ist das?" />
+    <title>SVG to PNG Converter (High Resolution &amp; Free) | SvgFav</title>
+    <meta name="description" content="Convert SVG to high-res PNG (up to 300 DPI) right in your browser. 100% private, transparent background support, batch processing, and no file size limits." />
+    <meta name="keywords" content="svg to png, convert svg to png, svg to raster, transparent png, high dpi png, client-side converter" />
     <meta name="theme-color" content="#080a11" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="SvgFav.com" />
     <link rel="canonical" href="https://svgfav.com/" />
+    <link rel="alternate" hreflang="en" href="https://svgfav.com/" />
+    <link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/" />
+    <link rel="alternate" hreflang="de" href="https://svgfav.com/de/" />
+    <link rel="alternate" hreflang="x-default" href="https://svgfav.com/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     
-    <!-- Geo / Global Targeting: United States, India, Germany, France, Canada, Australia, Brazil -->
-    <meta name="geo.region" content="US, IN, DE, FR, CA, AU, BR" />
     <meta name="coverage" content="Worldwide" />
     <meta name="distribution" content="Global" />
     <meta name="rating" content="General" />
@@ -63,111 +65,193 @@
     <!-- Open Graph (Facebook, LinkedIn, Discord) -->
     <meta property="og:site_name" content="SvgFav.com" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="SvgFav.com — Free Online SVG Converter, AI Vector Studio & Favicon Generator" />
-    <meta property="og:description" content="Free online SVG converter and favicon generator. Convert PNG to SVG, JPG to SVG, and images to scalable vector files 100% in-browser. Multi-format favicon.ico creator." />
+    <meta property="og:title" content="SVG to PNG Converter (High Resolution &amp; Free) | SvgFav" />
+    <meta property="og:description" content="Convert SVG to high-res PNG (up to 300 DPI) right in your browser. 100% private, transparent background support, batch processing, and no file size limits." />
     <meta property="og:url" content="https://svgfav.com/" />
     <meta property="og:image" content="https://svgfav.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="SvgFav.com - Free SVG Converter & Favicon Generator" />
+    <meta property="og:image:alt" content="SvgFav - SVG to PNG Converter" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="en_IN" />
-    <meta property="og:locale:alternate" content="de_DE" />
-    <meta property="og:locale:alternate" content="fr_FR" />
-    <meta property="og:locale:alternate" content="pt_BR" />
-    <meta property="og:locale:alternate" content="en_CA" />
-    <meta property="og:locale:alternate" content="en_AU" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@svgfav" />
     <meta name="twitter:creator" content="@svgfav" />
-    <meta name="twitter:title" content="SvgFav.com — Free Online SVG Converter & Favicon Generator" />
-    <meta name="twitter:description" content="Convert PNG to SVG, JPG to SVG, images to vectors, and generate multi-resolution favicon.ico packs 100% in-browser. Free, private & instant." />
+    <meta name="twitter:title" content="SVG to PNG Converter (High Resolution &amp; Free) | SvgFav" />
+    <meta name="twitter:description" content="Convert SVG to high-res PNG (up to 300 DPI) right in your browser. 100% private, transparent background support, batch processing, and no file size limits." />
     <meta name="twitter:image" content="https://svgfav.com/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Schema.org Global WebApplication -->
+    <!-- Schema.org Canonical JSON-LD Structured Data Suite -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "SvgFav.com",
-      "url": "https://svgfav.com",
-      "description": "Free online SVG converter, multi-DPI favicon generator, and client-side vector conversion studio. 100% private in-browser tool with zero server uploads.",
-      "applicationCategory": "DesignApplication",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires HTML5 Canvas and WebAssembly capable browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://svgfav.com/#app",
+          "name": "SvgFav SVG to PNG Converter",
+          "url": "https://svgfav.com/",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5 Canvas and modern browser. Zero installation, 100% client-side.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "100% In-browser client-side vector rasterization",
+            "High-DPI up to 300 DPI for print and Retina displays",
+            "Custom dimensions and aspect ratio lock",
+            "Transparent alpha channel and solid background fills",
+            "Batch parallel processing with ZIP bundle export",
+            "Interactive live 2D canvas preview with zoom inspection"
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "@id": "https://svgfav.com/#howto",
+          "name": "How to Convert SVG to High-Resolution PNG Online",
+          "description": "Step-by-step guide to converting vector SVG files into crisp, high-resolution PNG images with transparent background in your browser.",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "position": 1,
+              "name": "Upload or Drop SVG Vector Files",
+              "text": "Drag and drop your SVG files into the dropzone, click to browse, paste SVG markup from your clipboard (Ctrl+V), or test with a sample icon.",
+              "url": "https://svgfav.com/#step1"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 2,
+              "name": "Configure Scale, Resolution & Transparency",
+              "text": "Choose a scale multiplier (1x to 4x), custom pixel dimensions, DPI density (72 to 300 DPI), and select transparent alpha or solid background fill.",
+              "url": "https://svgfav.com/#step2"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 3,
+              "name": "Download PNG or Bulk ZIP Archive",
+              "text": "Inspect the live canvas preview and download individual PNG images or export all batch-processed files in an auto-bundled .zip file.",
+              "url": "https://svgfav.com/#step3"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://svgfav.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Why convert SVG to PNG?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "While SVG is optimal for web code, raster formats like PNG with an alpha channel are necessary for social media cards, email clients, native iOS/Android apps, Word documents, and digital print workflows that do not support vector rendering."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How are vector paths rasterized without quality loss?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "SvgFav utilizes the browser's hardware-accelerated 2D Canvas rendering context with high-precision sub-pixel Bézier curve antialiasing, ensuring every stroke and shape scales crisply to your target pixel resolution."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my sensitive design files uploaded to a remote server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Never. All parsing, canvas rasterization, and image generation occur 100% locally inside your client browser. Your graphics and proprietary logos never leave your computer."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I convert multiple SVG files in batch and export a ZIP?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. You can drag and drop multiple SVG files simultaneously. Our engine processes them in parallel and lets you download a compiled .zip bundle with a single click."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
   </head>
   <body class="bg-dark-bg text-slate-900 dark:text-slate-100 min-h-screen antialiased selection:bg-brand-500 selection:text-white font-sans overflow-x-hidden transition-colors duration-200">
-    <div id="root"></div>
+    <div id="root">
+      <!-- Prerendered Semantic Skeleton for Search Crawlers (Googlebot, Bingbot, Social scrapers) -->
+      <main style="max-width:1200px;margin:0 auto;padding:40px 20px;font-family:system-ui,-apple-system,sans-serif;">
+        <header style="text-align:center;margin-bottom:30px;">
+          <h1 style="font-size:2.5rem;font-weight:800;letter-spacing:-0.03em;">SVG to PNG Converter</h1>
+          <p style="font-size:1.1rem;color:#64748b;max-width:640px;margin:10px auto;">Convert vector files to high-resolution raster PNG images in your browser. 100% private, transparent background support, batch processing, and zero server uploads.</p>
+        </header>
+
+        <section style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:20px;margin:40px 0;">
+          <div style="padding:24px;border:1px solid #e2e8f0;border-radius:16px;">
+            <h3 style="font-size:1.2rem;font-weight:700;">High-DPI &amp; Retina Ready</h3>
+            <p style="color:#64748b;font-size:0.9rem;">Rasterize at custom DPI presets (72 DPI for web, 150 DPI for tablets, and 300 DPI for ultra-high-resolution print media) with sub-pixel smoothing.</p>
+          </div>
+          <div style="padding:24px;border:1px solid #e2e8f0;border-radius:16px;">
+            <h3 style="font-size:1.2rem;font-weight:700;">Batch Conversion Engine</h3>
+            <p style="color:#64748b;font-size:0.9rem;">Convert entire icon sets in parallel via browser canvas workers. Download single transparent PNGs or auto-bundled .zip archives instantly.</p>
+          </div>
+          <div style="padding:24px;border:1px solid #e2e8f0;border-radius:16px;">
+            <h3 style="font-size:1.2rem;font-weight:700;">100% Client-Side Privacy</h3>
+            <p style="color:#64748b;font-size:0.9rem;">Zero cloud latency and zero server data transfer. Proprietary vectors, trademarks, and logos remain securely within your browser sandbox.</p>
+          </div>
+        </section>
+
+        <section style="margin:40px 0;">
+          <h2 style="font-size:1.8rem;font-weight:700;text-align:center;">How to Convert SVG to PNG in 3 Steps</h2>
+          <ol style="margin-top:20px;color:#475569;line-height:1.8;">
+            <li><strong>Drop Vector:</strong> Drag and drop your SVG files into the upload zone or paste SVG code.</li>
+            <li><strong>Select Dimensions:</strong> Choose a scaling multiplier (1x to 4x), custom dimensions, DPI preset, and transparent or solid background.</li>
+            <li><strong>Download PNG:</strong> Inspect the live 2D canvas preview and save your PNG or compiled .zip archive.</li>
+          </ol>
+        </section>
+
+        <section style="margin:40px 0;">
+          <h2 style="font-size:1.8rem;font-weight:700;text-align:center;">Frequently Asked Questions</h2>
+          <div style="margin-top:20px;">
+            <h3 style="font-size:1.1rem;font-weight:600;">Why convert SVG to PNG?</h3>
+            <p style="color:#64748b;font-size:0.95rem;">PNG with transparent alpha is universally supported across social media, presentations, email newsletters, and image editors that do not support vector SVG.</p>
+            <h3 style="font-size:1.1rem;font-weight:600;margin-top:16px;">Are my sensitive design files uploaded to a remote server?</h3>
+            <p style="color:#64748b;font-size:0.95rem;">Never. All rasterization executes 100% locally in your client browser.</p>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <!-- Static semantic fallback for search engine crawlers & noscript environments -->
     <noscript>
       <header>
-        <h1>SvgFav.com — Free Online SVG Converter, Favicon Generator & Vector Studio</h1>
-        <p>100% client-side privacy-first design utilities: Online SVG converter free, convert to SVG, PNG to SVG (PNG zu SVG / png para svg / conversor png em svg), JPG to SVG (Jpg to svg), Image to SVG, SVG-Datei optimizer, SVG para PNG high-DPI rasterizer, and multi-resolution favicon.ico generator online (gerador de favicon).</p>
+        <h1>SVG to PNG Converter — High Resolution &amp; Free</h1>
+        <p>100% client-side privacy-first design utilities: in-browser vector studio, client-side SVG to PNG converter, PNG to SVG vectorizer, multi-resolution favicon.ico generator, SVG code optimizer, and high-DPI raster exporter.</p>
       </header>
-      <nav aria-label="SvgFav.com Tools">
+      <nav aria-label="SvgFav.com Dedicated Tools">
         <ul>
-          <li><a href="/ai-svg-generator">Free AI SVG Generator (Text to Vector AI Online)</a></li>
-          <li><a href="/tools/gemini-ai">Gemini AI Prompt Studio & Code Importer</a></li>
-          <li><a href="/html-to-svg">Convert HTML to SVG Vector</a></li>
-          <li><a href="/css-to-svg">Convert CSS to SVG Vector</a></li>
-          <li><a href="/canvas-to-svg">Convert HTML5 Canvas JavaScript to SVG</a></li>
-          <li><a href="/svg-to-favicon-pack">SVG to Production Favicon Pack Generator (.ICO & ZIP)</a></li>
-          <li><a href="/png-to-svg">PNG to SVG Vectorizer (PNG zu SVG • Conversor PNG em SVG)</a></li>
-          <li><a href="/jpg-to-svg">JPG to SVG Vectorizer (Jpg to svg • No 4MB Limit)</a></li>
-          <li><a href="/image-to-svg">Image to SVG (Cricut & Laser Cut • Christmas SVG • PMDF SVG)</a></li>
-          <li><a href="/svg-to-png">SVG to PNG (SVG para PNG • High-DPI Transparent Up to 8x)</a></li>
-          <li><a href="/svg-to-ico">SVG to Windows .ICO Favicon Creator</a></li>
-          <li><a href="/tools/logo-maker">Fast Logo & Icon Maker Studio</a></li>
-          <li><a href="/tools/favicon-generator">Production Favicon Generator Online (Gerador de Favicon)</a></li>
-          <li><a href="/tools/svg-optimizer">SVG Optimizer & Code Cleaner (SVG-Datei Minify)</a></li>
+          <li><a href="/">SVG to PNG Converter (High Resolution &amp; Free)</a></li>
+          <li><a href="/png-to-svg">Convert PNG to SVG Instantly (Client-Side Contour Tracer)</a></li>
+          <li><a href="/favicon-generator">Browser Favicon &amp; App Icon Generator</a></li>
+          <li><a href="/svg-optimizer">SVG Optimizer &amp; Code Cleaner (In-Browser Minification)</a></li>
+          <li><a href="/svg-to-astro">SVG to Astro Component Converter (.astro Snippets)</a></li>
+          <li><a href="/jpg-to-svg">JPG to SVG Vectorizer (No 4MB Limit)</a></li>
+          <li><a href="/image-to-svg">Image to SVG (Cutting &amp; Plotting Paths)</a></li>
+          <li><a href="/svg-to-ico">SVG to Windows ICO Favicon Creator</a></li>
+          <li><a href="/svg-to-data-uri">SVG to CSS Data URI Generator</a></li>
           <li><a href="/alternatives/picsvg">Picsvg Alternative (100% Private Client-Side)</a></li>
-          <li><a href="/privacy-policy">Privacy Policy (100% Client-Side & GDPR / LGPD)</a></li>
-          <li><a href="/terms-and-conditions">Terms & Conditions (Creator IP Rights)</a></li>
-          <li><a href="/about-us">About SvgFav.com Studio</a></li>
-          <li><a href="/contact-us">Contact Us & Developer Support</a></li>
+          <li><a href="/pt/">Versão em Português (Brasil) — Conversor PNG para SVG</a></li>
+          <li><a href="/pt-br/conversor-svg-para-png">Versão em Português (Brasil) — Conversor SVG para PNG</a></li>
+          <li><a href="/de/">Deutsche Version — SVG-Konverter &amp; Favicon Generator</a></li>
         </ul>
       </nav>
-      <section>
-        <h2>Frequently Asked Questions & Educational Guide</h2>
-        <article>
-          <h3>what is an svg file / what is svg / what is svg file (was ist eine svg datei / was ist svg / ist svg eine vektordatei)</h3>
-          <p>SVG (Scalable Vector Graphics) is an open XML-based 2D vector file format standard defined by the W3C. Unlike raster pixel grids (JPEG, PNG), SVG stores graphic shapes using mathematical points, curves, and coordinates, ensuring infinite sharpness at any resolution without pixellation.</p>
-        </article>
-
-        <article>
-          <h3>svg o que é / o que é svg / arquivo svg o que é / o que é um arquivo svg</h3>
-          <p>O SVG (Scalable Vector Graphics) é um padrão aberto de imagem vetorial em formato XML padronizado pelo W3C. Ele armazena nós, linhas e curvas de Bézier matemáticas em vez de pixels, permitindo ampliação infinita com alta nitidez para logotipos, ícones de interface e máquinas de corte.</p>
-        </article>
-
-        <article>
-          <h3>what is a favicon / how to add favicon in html (Was ist ein Favicon? / favicon was ist das)</h3>
-          <p>A favicon is the small branded logo displayed in browser tabs, bookmark bars, and search results. To add a favicon in HTML: place favicon.ico, favicon.svg, and apple-touch-icon.png in your site root and add &lt;link rel="icon" href="/favicon.ico" sizes="any"&gt; and &lt;link rel="icon" href="/favicon.svg" type="image/svg+xml"&gt; inside the &lt;head&gt; tag.</p>
-        </article>
-
-        <article>
-          <h3>favicon o que é / o que é favicon / o que é favicon do site</h3>
-          <p>O favicon é o ícone de identificação visual de um site exibido na aba do navegador e nos resultados de busca. O favicon do site fortalece o reconhecimento de marca e a experiência do usuário, combinando os formatos favicon.ico clássico e favicon.svg responsivo.</p>
-        </article>
-
-        <article>
-          <h3>where to convert png to svg / how to convert png to svg (Como converter PNG para SVG / Wie konvertiert man PNG in SVG?)</h3>
-          <p>You can convert PNG to SVG online for free at SvgFav.com/png-to-svg. The in-browser vectorizer calculates pixel luminance thresholds, traces continuous boundary contours via WebAssembly, and outputs clean SVG files with zero server uploads and no file size limits. Includes instructions for Adobe Photoshop (Work Path to SVG) and Illustrator (Image Trace and Expand).</p>
-        </article>
-      </section>
     </noscript>
 
     <script type="module" src="/src/main.tsx"></script>
