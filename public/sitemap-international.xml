@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Brazilian Portuguese SVG to PNG (High-Intent SEO Landing Page) -->
+  <url>
+    <loc>https://svgfav.com/pt-br/conversor-svg-para-png</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt-br/conversor-svg-para-png" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/" />
+  </url>
+
+  <!-- Brazilian Portuguese PNG to SVG Vector Studio -->
+  <url>
+    <loc>https://svgfav.com/pt/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
+  </url>
+  <url>
+    <loc>https://svgfav.com/pt/conversor-png-para-svg</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/conversor-png-para-svg" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/png-in-svg-umwandeln" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
+  </url>
+
+  <!-- German PNG to SVG Vector Studio -->
+  <url>
+    <loc>https://svgfav.com/de/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
+  </url>
+  <url>
+    <loc>https://svgfav.com/de/png-in-svg-umwandeln</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/png-in-svg-umwandeln" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/conversor-png-para-svg" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
+  </url>
+</urlset>

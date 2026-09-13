@@ -39,6 +39,7 @@ Disallow: /
 
 # Sitemaps
 Sitemap: https://svgfav.com/sitemap.xml
+Sitemap: https://svgfav.com/sitemap_index.xml
 `,
         {
           headers: {
