@@ -1,12 +1,10 @@
-# Domain-level redirects: Canonicalize dev pages to primary domain
-https://websitebuildtools.pages.dev/* https://svgfav.com/:splat 301!
-https://*.pages.dev/* https://svgfav.com/:splat 301!
-
-# Static file passthroughs (must be BEFORE the SPA catch-all)
+# Static file passthroughs
 /robots.txt   /robots.txt   200
 /sitemap.xml  /sitemap.xml  200
 /sitemap_index.xml  /sitemap_index.xml  200
 /sitemap-*.xml  /sitemap-:splat.xml  200
 
-# SPA 200 rewrite for client-side routing
-/*    /index.html   200
+# Canonical redirects
+/svg-to-png  /  301
+/convert/svg-to-png  /  301
+
