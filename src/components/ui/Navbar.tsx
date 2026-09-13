@@ -93,8 +93,6 @@ export const Navbar: React.FC = () => {
           <div
             ref={dropdownRef}
             className="relative"
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
           >
             <button
               type="button"
@@ -115,7 +113,10 @@ export const Navbar: React.FC = () => {
             </button>
 
             {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-1.5 w-64 p-2.5 rounded-2xl bg-white dark:bg-dark-card shadow-2xl border border-slate-200 dark:border-dark-border z-50 animate-in fade-in slide-in-from-top-2">
+              <div
+                className="absolute top-full left-0 mt-1.5 w-64 z-50 animate-in fade-in slide-in-from-top-1"
+              >
+                <div className="p-2.5 rounded-2xl bg-white dark:bg-dark-card shadow-2xl border border-slate-200 dark:border-dark-border">
                 <span className="px-3 py-1 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                   Raster To Vector
                 </span>
@@ -200,6 +201,7 @@ export const Navbar: React.FC = () => {
                   <span>Picsvg Alternative</span>
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 font-bold">100% Private</span>
                 </Link>
+                </div>
               </div>
             )}
           </div>

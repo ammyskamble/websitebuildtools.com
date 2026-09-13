@@ -283,6 +283,49 @@ html:not(.dark) [class*="border-t"][class*="bg-dark-bg"] {
   border-color: #e2e8f0 !important;
 }
 
+/* Device & Browser Simulator Mockups (Preserve dark mode inside device frames) */
+html:not(.dark) .mockup-dark {
+  background-color: #181a1f !important;
+  color: #f1f5f9 !important;
+}
+
+html:not(.dark) .mockup-dark .text-white,
+html:not(.dark) .mockup-dark span.text-white {
+  color: #ffffff !important;
+}
+
+html:not(.dark) .mockup-dark .text-slate-100 {
+  color: #f1f5f9 !important;
+}
+
+html:not(.dark) .mockup-dark .text-slate-200 {
+  color: #e2e8f0 !important;
+}
+
+html:not(.dark) .mockup-dark .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+html:not(.dark) .mockup-dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) .mockup-dark h4 {
+  color: #8ab4f8 !important;
+}
+
+html:not(.dark) .mockup-dark [class*="text-[#dadce0]"] {
+  color: #dadce0 !important;
+}
+
+html:not(.dark) .mockup-dark [class*="text-[#bdc1c6]"] {
+  color: #bdc1c6 !important;
+}
+
+html:not(.dark) .mockup-dark [class*="text-[#8ab4f8]"] {
+  color: #8ab4f8 !important;
+}
+
 /* Open Accordion State */
 html:not(.dark) [open].glass-card {
   background-color: #f8fafc !important;
