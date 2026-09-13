@@ -6,7 +6,7 @@
 
 import { createIcoFromPngs, IcoImageSource } from './ico-encoder';
 
-export type AssetTargetType = 'svg' | 'png' | 'canvas' | 'html' | 'css' | 'favicon' | 'webp' | 'jpeg' | 'astro';
+export type AssetTargetType = 'svg' | 'png' | 'canvas' | 'html' | 'css' | 'favicon' | 'webp' | 'jpeg' | 'astro' | 'html-css' | 'canvas-js';
 
 export interface CodeRenderResult {
   canvas: HTMLCanvasElement;

@@ -193,12 +193,12 @@ export const ContactUsPage: React.FC = () => {
 
       {/* Header Banner */}
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/25 text-brand-400 text-xs font-semibold mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/25 text-brand-600 dark:text-brand-400 text-xs font-semibold mb-4">
           <MessageSquare className="w-3.5 h-3.5" />
           <span>{localized.badge}</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">{localized.heading}</h1>
-        <p className="text-sm text-slate-400 mt-2">{localized.subtitle}</p>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">{localized.heading}</h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">{localized.subtitle}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -206,46 +206,46 @@ export const ContactUsPage: React.FC = () => {
         <div className="lg:col-span-5 space-y-6">
           {/* Direct Email Card */}
           <div className="glass-card rounded-2xl p-6 border border-dark-border space-y-4">
-            <div className="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center">
               <Mail className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">{localized.directContactTitle}</h3>
-              <p className="text-xs text-slate-400 mt-1">Direct inbox monitored by core platform engineers.</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{localized.directContactTitle}</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Direct inbox monitored by core platform engineers.</p>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl bg-black/40 border border-dark-border/60">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-dark-border/60">
               <a
                 href={`mailto:${supportEmail}`}
-                className="font-mono text-xs text-brand-300 hover:text-brand-200 transition-colors truncate"
+                className="font-mono text-xs text-brand-600 dark:text-brand-300 hover:underline transition-colors truncate"
               >
                 {supportEmail}
               </a>
               <button
                 onClick={handleCopyEmail}
-                className="p-1.5 rounded-lg bg-dark-card hover:bg-dark-hover text-slate-300 transition-colors shrink-0 ml-2"
+                className="p-1.5 rounded-lg bg-white dark:bg-dark-card hover:bg-slate-200 dark:hover:bg-dark-hover text-slate-700 dark:text-slate-300 transition-colors shrink-0 ml-2 border border-slate-200 dark:border-transparent"
                 title="Copy email to clipboard"
               >
-                {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
             </div>
           </div>
 
           {/* Response SLA Card */}
           <div className="glass-card rounded-2xl p-6 border border-dark-border space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <Clock className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-bold text-white">{localized.slaTitle}</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">{localized.slaDesc}</p>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">{localized.slaTitle}</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{localized.slaDesc}</p>
           </div>
 
           {/* Privacy Guarantee Card */}
           <div className="glass-card rounded-2xl p-6 border border-dark-border space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-bold text-white">Private & Confidential</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Private & Confidential</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               We never share your email or message details with marketers. Your inquiries remain strictly private.
             </p>
           </div>
@@ -254,18 +254,18 @@ export const ContactUsPage: React.FC = () => {
         {/* Right Col: Functioning Contact Form */}
         <div className="lg:col-span-7">
           <div className="glass-card rounded-2xl p-6 sm:p-8 border border-dark-border">
-            <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-              <Send className="w-4 h-4 text-brand-400" />
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+              <Send className="w-4 h-4 text-brand-600 dark:text-brand-400" />
               <span>{localized.formTitle}</span>
             </h2>
 
             {submitted ? (
               <div className="p-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4 animate-in fade-in">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <h3 className="text-base font-bold text-white">{localized.successTitle}</h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">{localized.successTitle}</h3>
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed max-w-md mx-auto">
                   {localized.successMsg}
                 </p>
                 <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -281,7 +281,7 @@ export const ContactUsPage: React.FC = () => {
                       setSubmitted(false);
                       setFormData({ name: '', email: '', category: 'feedback', subject: '', message: '' });
                     }}
-                    className="px-4 py-2 rounded-xl bg-dark-card hover:bg-dark-hover text-slate-300 text-xs font-semibold transition-colors border border-dark-border"
+                    className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-dark-card hover:bg-slate-200 dark:hover:bg-dark-hover text-slate-800 dark:text-slate-300 text-xs font-semibold transition-colors border border-slate-300 dark:border-dark-border"
                   >
                     Send Another Message
                   </button>
@@ -290,7 +290,7 @@ export const ContactUsPage: React.FC = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 {errorMessage && (
-                  <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
+                  <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
@@ -299,26 +299,26 @@ export const ContactUsPage: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name Input */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-300">{localized.nameLabel}</label>
+                    <label className="text-xs font-medium text-slate-700 dark:text-slate-300">{localized.nameLabel}</label>
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Jane Doe"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dark-bg/80 border border-dark-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-dark-bg/80 border border-slate-300 dark:border-dark-border text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
                       required
                     />
                   </div>
 
                   {/* Email Input */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-300">{localized.emailLabel}</label>
+                    <label className="text-xs font-medium text-slate-700 dark:text-slate-300">{localized.emailLabel}</label>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="jane@example.com"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dark-bg/80 border border-dark-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-dark-bg/80 border border-slate-300 dark:border-dark-border text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
                       required
                     />
                   </div>
@@ -327,11 +327,11 @@ export const ContactUsPage: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Category Selector */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-300">{localized.categoryLabel}</label>
+                    <label className="text-xs font-medium text-slate-700 dark:text-slate-300">{localized.categoryLabel}</label>
                     <select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dark-bg/80 border border-dark-border text-white text-xs focus:outline-none focus:border-brand-500 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-dark-bg/80 border border-slate-300 dark:border-dark-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-brand-500 transition-colors"
                     >
                       <option value="feedback">General Feedback</option>
                       <option value="bug">Report a Bug / Vector Glitch</option>
@@ -343,13 +343,13 @@ export const ContactUsPage: React.FC = () => {
 
                   {/* Subject Input */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-300">{localized.subjectLabel}</label>
+                    <label className="text-xs font-medium text-slate-700 dark:text-slate-300">{localized.subjectLabel}</label>
                     <input
                       type="text"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       placeholder="e.g. Question about PNG to SVG resolution"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-dark-bg/80 border border-dark-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-dark-bg/80 border border-slate-300 dark:border-dark-border text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
                       required
                     />
                   </div>
@@ -357,13 +357,13 @@ export const ContactUsPage: React.FC = () => {
 
                 {/* Message Input */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-slate-300">{localized.messageLabel}</label>
+                  <label className="text-xs font-medium text-slate-700 dark:text-slate-300">{localized.messageLabel}</label>
                   <textarea
                     rows={5}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us how we can help you..."
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-dark-bg/80 border border-dark-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors resize-y"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-dark-bg/80 border border-slate-300 dark:border-dark-border text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 transition-colors resize-y"
                     required
                   />
                 </div>

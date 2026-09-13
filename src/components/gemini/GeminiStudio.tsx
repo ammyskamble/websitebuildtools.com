@@ -130,7 +130,7 @@ export const GeminiStudio: React.FC<GeminiStudioProps> = ({
     const pasted = e.target.value;
     setCodeContent(pasted);
     const detected = detectCodeType(pasted);
-    setCurrentCodeType(detected);
+    setCurrentCodeType(detected as any);
   };
 
   const handleSelectPreset = (preset: typeof DEMO_PRESETS[0]) => {

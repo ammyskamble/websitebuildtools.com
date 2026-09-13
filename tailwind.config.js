@@ -22,12 +22,12 @@ export default {
           950: '#141d52',
         },
         dark: {
-          bg: '#080a11',
-          card: '#0f1422',
-          surface: '#151b2d',
-          border: '#1f2940',
-          hover: '#263352',
-          text: '#94a3b8',
+          bg: 'rgb(var(--color-bg) / <alpha-value>)',
+          card: 'rgb(var(--color-card) / <alpha-value>)',
+          surface: 'rgb(var(--color-surface) / <alpha-value>)',
+          border: 'rgb(var(--color-border) / <alpha-value>)',
+          hover: 'rgb(var(--color-hover) / <alpha-value>)',
+          text: 'rgb(var(--color-text) / <alpha-value>)',
         }
       },
       fontFamily: {

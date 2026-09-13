@@ -4,13 +4,289 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
+    /* Light Theme Color Tokens (RGB triplets for Tailwind opacity support) */
+    --color-bg: 248 250 252;       /* slate-50 #f8fafc */
+    --color-card: 255 255 255;     /* white #ffffff */
+    --color-surface: 241 245 249;  /* slate-100 #f1f5f9 */
+    --color-border: 226 232 240;   /* slate-200 #e2e8f0 */
+    --color-hover: 235 240 248;    /* slate-100 hover #ebf0f8 */
+    --color-text: 71 85 105;       /* slate-600 #475569 */
   }
   
+  html.dark {
+    color-scheme: dark;
+    /* Dark Theme Color Tokens */
+    --color-bg: 8 10 17;           /* dark-bg #080a11 */
+    --color-card: 15 20 34;        /* dark-card #0f1422 */
+    --color-surface: 21 27 45;     /* dark-surface #151b2d */
+    --color-border: 31 41 64;      /* dark-border #1f2940 */
+    --color-hover: 38 51 82;       /* dark-hover #263352 */
+    --color-text: 148 163 184;     /* dark-text #94a3b8 */
+  }
+
   body {
-    background-color: #080a11;
+    background-color: rgb(var(--color-bg));
+    color: #1e293b;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  html.dark body {
     color: #e2e8f0;
   }
+}
+
+/* ========================================================================= */
+/* 🌟 COMPREHENSIVE LIGHT THEME (DAY MODE) OVERRIDES                         */
+/* ========================================================================= */
+
+/* Core Layout Backgrounds */
+html:not(.dark) body {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+html:not(.dark) header {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) footer {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Wildcard matching for all dark utility variants with opacities */
+html:not(.dark) [class*="bg-dark-bg"] {
+  background-color: #f8fafc !important;
+}
+
+html:not(.dark) [class*="bg-dark-card"] {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) [class*="bg-dark-surface"] {
+  background-color: #f1f5f9 !important;
+}
+
+html:not(.dark) [class*="border-dark-border"] {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) [class*="divide-dark-border"] > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) [class*="hover:bg-dark-hover"]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .text-dark-text {
+  color: #64748b !important;
+}
+
+/* Glass panel and card styling in light mode */
+html:not(.dark) .glass-panel {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06) !important;
+}
+
+html:not(.dark) .glass-card {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not(.dark) .glass-card:hover {
+  border-color: rgba(59, 108, 246, 0.4) !important;
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Headings and bold titles in light mode */
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) h5,
+html:not(.dark) h6 {
+  color: #0f172a !important;
+}
+
+/* Preserve gradient clipped text in headings */
+html:not(.dark) h1 [class*="bg-clip-text"],
+html:not(.dark) h2 [class*="bg-clip-text"],
+html:not(.dark) [class*="bg-clip-text"] {
+  color: transparent !important;
+}
+
+/* Text white overrides: make text dark slate by default in light mode */
+html:not(.dark) .text-white {
+  color: #0f172a !important;
+}
+
+/* Preserve pure white text ONLY on solid filled buttons and solid badges */
+html:not(.dark) .btn-primary,
+html:not(.dark) button.text-white[class*="from-"],
+html:not(.dark) button.text-white[class*="bg-brand-"],
+html:not(.dark) button.text-white[class*="bg-emerald-"],
+html:not(.dark) button.text-white[class*="bg-purple-"],
+html:not(.dark) button.text-white[class*="bg-violet-"],
+html:not(.dark) a.text-white[class*="from-brand"],
+html:not(.dark) a.text-white[class*="from-emerald"],
+html:not(.dark) a.text-white[class*="bg-brand-500"],
+html:not(.dark) a.text-white[class*="bg-brand-600"] {
+  color: #ffffff !important;
+}
+
+html:not(.dark) .btn-primary *,
+html:not(.dark) button.text-white[class*="from-"] *,
+html:not(.dark) button.text-white[class*="bg-brand-"] *,
+html:not(.dark) a.text-white[class*="from-brand"] *,
+html:not(.dark) a.text-white[class*="bg-brand-600"] * {
+  color: #ffffff !important;
+}
+
+/* Hover text adjustments in light mode for non-button nav items */
+html:not(.dark) [class*="hover:text-white"]:hover:not([class*="from-"]):not([class*="bg-brand-500"]):not([class*="bg-brand-600"]) {
+  color: #0f172a !important;
+}
+
+html:not(.dark) [class*="hover:text-slate-200"]:hover {
+  color: #0f172a !important;
+}
+
+/* Text slate adjustments for crisp light mode contrast */
+html:not(.dark) .text-slate-100 {
+  color: #0f172a !important;
+}
+html:not(.dark) .text-slate-200 {
+  color: #1e293b !important;
+}
+html:not(.dark) .text-slate-300 {
+  color: #334155 !important;
+}
+html:not(.dark) .text-slate-400 {
+  color: #475569 !important;
+}
+html:not(.dark) .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Vibrant, readable brand and accent colors on light backgrounds */
+html:not(.dark) .text-brand-300 {
+  color: #1d4ed8 !important;
+}
+html:not(.dark) .text-brand-400 {
+  color: #2563eb !important;
+}
+html:not(.dark) .text-emerald-300,
+html:not(.dark) .text-emerald-400 {
+  color: #059669 !important;
+}
+html:not(.dark) .text-purple-300,
+html:not(.dark) .text-purple-400 {
+  color: #7c3aed !important;
+}
+html:not(.dark) .text-violet-300,
+html:not(.dark) .text-violet-400 {
+  color: #6d28d9 !important;
+}
+html:not(.dark) .text-amber-300,
+html:not(.dark) .text-amber-400 {
+  color: #d97706 !important;
+}
+html:not(.dark) .text-blue-300,
+html:not(.dark) .text-blue-400 {
+  color: #2563eb !important;
+}
+html:not(.dark) .text-pink-400 {
+  color: #db2777 !important;
+}
+html:not(.dark) .text-orange-400 {
+  color: #ea580c !important;
+}
+html:not(.dark) .text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+/* Special button refinements in light mode */
+html:not(.dark) button[class*="bg-purple-600/20"] {
+  background-color: rgba(147, 51, 234, 0.12) !important;
+  border-color: rgba(147, 51, 234, 0.3) !important;
+  color: #6b21a8 !important;
+}
+
+/* Form Inputs, Textareas, and Selects */
+html:not(.dark) input[type="text"],
+html:not(.dark) input[type="search"],
+html:not(.dark) input[type="number"],
+html:not(.dark) input[type="url"],
+html:not(.dark) textarea {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) select {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) select option {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+/* Comparison Table Styling */
+html:not(.dark) thead {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) thead th {
+  color: #334155 !important;
+}
+
+html:not(.dark) tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Universal Converter Trust Banner */
+html:not(.dark) [class*="via-dark-surface"] {
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.08), rgba(241, 245, 249, 0.95), rgba(168, 85, 247, 0.08)) !important;
+  border-color: rgba(59, 130, 246, 0.25) !important;
+  color: #1e293b !important;
+}
+
+/* IconPickerModal Cards & Drawer */
+html:not(.dark) .grid button[class*="bg-dark-surface"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+html:not(.dark) .grid button[class*="bg-dark-surface"]:hover {
+  background-color: #eff6ff !important;
+  border-color: #93c5fd !important;
+  color: #2563eb !important;
+}
+
+html:not(.dark) [class*="border-t"][class*="bg-dark-bg"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Open Accordion State */
+html:not(.dark) [open].glass-card {
+  background-color: #f8fafc !important;
+  border-color: rgba(59, 108, 246, 0.4) !important;
 }
 
 /* Checkerboard background for transparent alpha canvas preview */
@@ -23,6 +299,15 @@
     linear-gradient(-45deg, transparent 75%, #131b2e 75%);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+html:not(.dark) .bg-checkered {
+  background-color: #f8fafc;
+  background-image: 
+    linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
+    linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
+    linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
 }
 
 .bg-checkered-light {
@@ -67,13 +352,25 @@
   background: #080a11;
 }
 
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #1e2940;
   border-radius: 9999px;
 }
 
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #334366;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 /* Pulse glow effect */

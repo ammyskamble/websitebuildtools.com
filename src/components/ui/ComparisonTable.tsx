@@ -53,17 +53,17 @@ export const ComparisonTable: React.FC = () => {
   return (
     <div className="py-12 max-w-5xl mx-auto px-4 sm:px-6">
       <div className="text-center mb-8">
-        <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
           Image & Vector Format Matrix
         </h3>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
           Compare format capabilities to pick the optimal export for your website or design system.
         </p>
       </div>
 
       <div className="glass-panel rounded-2xl overflow-hidden border border-dark-border shadow-xl overflow-x-auto">
         <table className="w-full text-left text-xs sm:text-sm">
-          <thead className="bg-dark-surface/80 border-b border-dark-border text-slate-300 uppercase text-[11px] font-semibold tracking-wider">
+          <thead className="bg-slate-100 dark:bg-dark-surface/80 border-b border-dark-border text-slate-700 dark:text-slate-300 uppercase text-[11px] font-semibold tracking-wider">
             <tr>
               <th className="px-5 py-4">Format</th>
               <th className="px-4 py-4">Vector Scalable</th>
@@ -76,11 +76,11 @@ export const ComparisonTable: React.FC = () => {
           <tbody className="divide-y divide-dark-border/40">
             {formats.map((row, i) => (
               <tr key={i} className="hover:bg-dark-hover/30 transition-colors">
-                <td className="px-5 py-4 font-bold text-white whitespace-nowrap">
+                <td className="px-5 py-4 font-bold text-slate-900 dark:text-white whitespace-nowrap">
                   <div className="flex items-center gap-2">
                     <span>{row.format}</span>
                     {row.format === 'SVG' && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 font-medium border border-brand-500/30 flex items-center gap-1">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400 font-medium border border-brand-500/30 flex items-center gap-1">
                         <Sparkles className="w-2.5 h-2.5" /> Best
                       </span>
                     )}
@@ -88,31 +88,31 @@ export const ComparisonTable: React.FC = () => {
                 </td>
                 <td className="px-4 py-4">
                   {row.scalable ? (
-                    <span className="inline-flex items-center gap-1 text-emerald-400 font-medium">
+                    <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
                       <Check className="w-4 h-4" /> Infinite DPI
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-slate-500">
+                    <span className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400">
                       <X className="w-4 h-4" /> Raster Pixel
                     </span>
                   )}
                 </td>
                 <td className="px-4 py-4">
                   {row.transparency ? (
-                    <span className="inline-flex items-center gap-1 text-emerald-400">
+                    <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
                       <Check className="w-4 h-4" /> Alpha 8-bit
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-rose-400">
+                    <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400">
                       <X className="w-4 h-4" /> Solid Only
                     </span>
                   )}
                 </td>
-                <td className="px-4 py-4 text-slate-300 font-mono text-xs whitespace-nowrap">
+                <td className="px-4 py-4 text-slate-700 dark:text-slate-300 font-mono text-xs whitespace-nowrap">
                   {row.fileSize}
                 </td>
-                <td className="px-4 py-4 text-slate-300 whitespace-nowrap">{row.support}</td>
-                <td className="px-5 py-4 text-slate-400 text-xs">{row.bestFor}</td>
+                <td className="px-4 py-4 text-slate-700 dark:text-slate-300 whitespace-nowrap">{row.support}</td>
+                <td className="px-5 py-4 text-slate-600 dark:text-slate-400 text-xs">{row.bestFor}</td>
               </tr>
             ))}
           </tbody>

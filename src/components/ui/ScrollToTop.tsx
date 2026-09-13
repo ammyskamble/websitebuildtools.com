@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { ChevronUp } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export const ScrollToTop: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
+  const { theme } = useTheme();
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -29,6 +31,8 @@ export const ScrollToTop: React.FC = () => {
   const circumference = 2 * Math.PI * r;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
+  const isLight = theme === 'light';
+
   return (
     <button
       onClick={scrollToTop}
@@ -37,7 +41,7 @@ export const ScrollToTop: React.FC = () => {
         opacity: visible ? 1 : 0,
         pointerEvents: visible ? 'auto' : 'none',
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.85)',
-        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        transition: 'opacity 0.3s ease, transform 0.3s ease, background-color 0.25s ease',
         position: 'fixed',
         bottom: '24px',
         right: '24px',
@@ -47,12 +51,14 @@ export const ScrollToTop: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'rgba(15, 18, 30, 0.85)',
+        background: isLight ? 'rgba(255, 255, 255, 0.92)' : 'rgba(15, 18, 30, 0.85)',
         backdropFilter: 'blur(12px)',
-        border: 'none',
+        border: isLight ? '1px solid rgba(226, 232, 240, 0.9)' : 'none',
         borderRadius: '50%',
         cursor: 'pointer',
-        boxShadow: '0 4px 24px rgba(59,130,246,0.25), 0 2px 8px rgba(0,0,0,0.4)',
+        boxShadow: isLight
+          ? '0 4px 20px rgba(0,0,0,0.1), 0 2px 8px rgba(59,130,246,0.15)'
+          : '0 4px 24px rgba(59,130,246,0.25), 0 2px 8px rgba(0,0,0,0.4)',
       }}
     >
       {/* Progress ring */}
@@ -97,7 +103,7 @@ export const ScrollToTop: React.FC = () => {
         style={{
           width: '18px',
           height: '18px',
-          color: '#e2e8f0',
+          color: isLight ? '#0f172a' : '#e2e8f0',
           position: 'relative',
           zIndex: 1,
           flexShrink: 0,

@@ -193,21 +193,21 @@ export const AboutUsPage: React.FC = () => {
 
       {/* Hero */}
       <div className="text-center max-w-3xl mx-auto mb-14">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/25 text-brand-400 text-xs font-semibold mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/25 text-brand-600 dark:text-brand-400 text-xs font-semibold mb-4">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Independent Web Engineering</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">{localized.heading}</h1>
-        <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed">{localized.subtitle}</p>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">{localized.heading}</h1>
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">{localized.subtitle}</p>
       </div>
 
       {/* Mission Card */}
       <div className="glass-card rounded-2xl p-6 sm:p-10 border border-dark-border mb-12 space-y-4">
-        <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5">
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
           <Heart className="w-5 h-5 text-rose-500 fill-rose-500/20" />
           <span>{localized.missionTitle}</span>
         </h2>
-        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">{localized.missionText}</p>
+        <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">{localized.missionText}</p>
       </div>
 
       {/* Architectural Pillars Grid */}
@@ -216,11 +216,11 @@ export const AboutUsPage: React.FC = () => {
           const Icon = pillar.icon;
           return (
             <div key={idx} className="glass-card rounded-2xl p-6 border border-dark-border space-y-3 hover:border-brand-500/40 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center">
                 <Icon className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">{pillar.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{pillar.desc}</p>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">{pillar.title}</h3>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{pillar.desc}</p>
             </div>
           );
         })}
@@ -228,26 +228,26 @@ export const AboutUsPage: React.FC = () => {
 
       {/* Tech Stack Spotlight */}
       <div className="glass-card rounded-2xl p-6 sm:p-8 border border-dark-border mb-12">
-        <div className="flex items-center gap-2 text-xs font-bold text-brand-400 uppercase tracking-wider mb-4">
+        <div className="flex items-center gap-2 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mb-4">
           <Terminal className="w-4 h-4" />
           <span>Engineered with Modern Open Web Standards</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-          <div className="p-3 rounded-xl bg-dark-bg/60 border border-dark-border/60">
-            <span className="font-bold text-white text-sm block">HTML5 Canvas</span>
-            <span className="text-[11px] text-slate-400">GPU Vector Tracing</span>
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-dark-bg/60 border border-slate-200 dark:border-dark-border/60">
+            <span className="font-bold text-slate-900 dark:text-white text-sm block">HTML5 Canvas</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400">GPU Vector Tracing</span>
           </div>
-          <div className="p-3 rounded-xl bg-dark-bg/60 border border-dark-border/60">
-            <span className="font-bold text-white text-sm block">WebAssembly</span>
-            <span className="text-[11px] text-slate-400">Near-native speeds</span>
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-dark-bg/60 border border-slate-200 dark:border-dark-border/60">
+            <span className="font-bold text-slate-900 dark:text-white text-sm block">WebAssembly</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400">Near-native speeds</span>
           </div>
-          <div className="p-3 rounded-xl bg-dark-bg/60 border border-dark-border/60">
-            <span className="font-bold text-white text-sm block">Cloudflare Pages</span>
-            <span className="text-[11px] text-slate-400">Global Edge CDN</span>
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-dark-bg/60 border border-slate-200 dark:border-dark-border/60">
+            <span className="font-bold text-slate-900 dark:text-white text-sm block">Cloudflare Pages</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400">Global Edge CDN</span>
           </div>
-          <div className="p-3 rounded-xl bg-dark-bg/60 border border-dark-border/60">
-            <span className="font-bold text-white text-sm block">Astro Exporter</span>
-            <span className="text-[11px] text-slate-400">Typed Components</span>
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-dark-bg/60 border border-slate-200 dark:border-dark-border/60">
+            <span className="font-bold text-slate-900 dark:text-white text-sm block">Astro Exporter</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400">Typed Components</span>
           </div>
         </div>
       </div>
@@ -256,7 +256,7 @@ export const AboutUsPage: React.FC = () => {
       <div className="p-8 rounded-2xl bg-gradient-to-r from-brand-900/40 via-purple-900/30 to-slate-900 border border-brand-500/30 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
         <div>
           <h3 className="text-lg font-bold text-white">Ready to convert or create your vector assets?</h3>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">100% free, no credit card, no registration.</p>
+          <p className="text-xs sm:text-sm text-slate-300 mt-1">100% free, no credit card, no registration.</p>
         </div>
         <Link
           to="/"

@@ -168,57 +168,57 @@ export const TermsConditionsPage: React.FC = () => {
 
       {/* Header Banner */}
       <div className="mb-10 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/25 text-brand-400 text-xs font-semibold mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/25 text-brand-600 dark:text-brand-400 text-xs font-semibold mb-4">
           <Award className="w-3.5 h-3.5" />
           <span>Creator-First Rights Guarantee</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">{localized.heading}</h1>
-        <p className="text-sm text-slate-400 mt-2">{localized.subtitle}</p>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">{localized.heading}</h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">{localized.subtitle}</p>
         <span className="inline-block text-xs text-slate-500 mt-2">{localized.lastUpdated}</span>
       </div>
 
       {/* Quick Summary Bento */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
         <div className="p-4 rounded-xl glass-card border border-dark-border space-y-1">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-2">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2">
             <CheckCircle2 className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-white">100% Free Forever</h4>
-          <p className="text-[11px] text-slate-400">No hidden fees, subscriptions, or paywalls.</p>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white">100% Free Forever</h4>
+          <p className="text-[11px] text-slate-600 dark:text-slate-400">No hidden fees, subscriptions, or paywalls.</p>
         </div>
         <div className="p-4 rounded-xl glass-card border border-dark-border space-y-1">
-          <div className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center mb-2">
+          <div className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-2">
             <Award className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-white">Commercial Rights</h4>
-          <p className="text-[11px] text-slate-400">Sell designs and deploy code without royalty fees.</p>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white">Commercial Rights</h4>
+          <p className="text-[11px] text-slate-600 dark:text-slate-400">Sell designs and deploy code without royalty fees.</p>
         </div>
         <div className="p-4 rounded-xl glass-card border border-dark-border space-y-1">
-          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-2">
+          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2">
             <Scale className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-white">No Attribution Required</h4>
-          <p className="text-[11px] text-slate-400">Use icons and graphics without linking back.</p>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white">No Attribution Required</h4>
+          <p className="text-[11px] text-slate-600 dark:text-slate-400">Use icons and graphics without linking back.</p>
         </div>
       </div>
 
       {/* Terms Sections */}
-      <article className="space-y-6 text-sm text-slate-300 leading-relaxed">
+      <article className="space-y-6 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
         {localized.sections.map((section, idx) => (
           <section key={idx} className="glass-card rounded-2xl p-6 sm:p-8 border border-dark-border space-y-2.5">
-            <h2 className="text-base sm:text-lg font-bold text-white">{section.title}</h2>
-            <p className="text-slate-300 leading-relaxed">{section.text}</p>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">{section.title}</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{section.text}</p>
           </section>
         ))}
 
         <div className="p-6 rounded-2xl glass-card border border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-400 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
               <HelpCircle className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">Need custom enterprise licensing or SLA?</h3>
-              <p className="text-xs text-slate-400 mt-0.5">Reach out to our team for custom integrations.</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Need custom enterprise licensing or SLA?</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Reach out to our team for custom integrations.</p>
             </div>
           </div>
           <Link

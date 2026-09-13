@@ -16,6 +16,7 @@ import { ContactUsPage } from './pages/ContactUsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ServerErrorPage } from './pages/ServerErrorPage';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 // Canonical redirect & Scroll to top helper on route change
 function CanonicalRedirect() {
@@ -35,10 +36,11 @@ function CanonicalRedirect() {
 
 export const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <CanonicalRedirect />
-      <div className="min-h-screen flex flex-col bg-[#080a11] text-slate-100 selection:bg-brand-500 selection:text-white font-sans antialiased">
-        <Navbar />
+    <ThemeProvider>
+      <BrowserRouter>
+        <CanonicalRedirect />
+        <div className="min-h-screen flex flex-col bg-dark-bg text-slate-900 dark:text-slate-100 selection:bg-brand-500 selection:text-white font-sans antialiased transition-colors duration-200">
+          <Navbar />
 
         <main className="flex-1">
           <ErrorBoundary>
@@ -118,6 +120,7 @@ export const App: React.FC = () => {
         <ScrollToTop />
       </div>
     </BrowserRouter>
+  </ThemeProvider>
   );
 };
 

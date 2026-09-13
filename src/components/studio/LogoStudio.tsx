@@ -521,13 +521,13 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
       {!initialCompact && (
         <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight flex items-center gap-2.5">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
               <span>Fast Logo & Icon Studio</span>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-brand-500/15 text-brand-400 border border-brand-500/30">
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30">
                 Vector & Photo Canvas
               </span>
             </h1>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
               Design logos with vector icons, uploaded photos, multi-word brand typography, and high-DPI exports.
             </p>
           </div>
@@ -536,7 +536,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             {onExportFavicon && (
               <button
                 onClick={() => onExportFavicon(generatedSvg)}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs font-semibold transition-colors"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-100 dark:bg-purple-600/20 hover:bg-purple-200 dark:hover:bg-purple-600/30 border border-purple-300 dark:border-purple-500/40 text-purple-700 dark:text-purple-300 text-xs font-semibold transition-colors"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Send to Favicon Suite</span>
@@ -558,7 +558,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
               </button>
 
               {isDownloadDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 z-50 min-w-[220px] bg-dark-surface border border-dark-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute right-0 top-full mt-2 z-50 min-w-[220px] bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
                   {/* PNG sizes */}
                   <div className="px-3 pt-3 pb-1">
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">PNG</p>
@@ -567,7 +567,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                     <button
                       key={res}
                       onClick={() => handleQuickExport('png', res)}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-brand-500/10 dark:hover:bg-brand-500/15 hover:text-brand-600 dark:hover:text-white transition-colors text-left"
                     >
                       <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       <span>
@@ -577,12 +577,12 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                     </button>
                   ))}
 
-                  <div className="mx-4 my-1 border-t border-dark-border/60" />
+                  <div className="mx-4 my-1 border-t border-slate-200 dark:border-dark-border/60" />
 
                   {/* SVG */}
                   <button
                     onClick={() => handleQuickExport('svg')}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-brand-500/10 dark:hover:bg-brand-500/15 hover:text-brand-600 dark:hover:text-white transition-colors text-left"
                   >
                     <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     <span>Download SVG <span className="ml-1 text-[10px] text-slate-500">Vector</span></span>
@@ -591,7 +591,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   {/* WebP */}
                   <button
                     onClick={() => handleQuickExport('webp', pngResolution)}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-brand-500/10 dark:hover:bg-brand-500/15 hover:text-brand-600 dark:hover:text-white transition-colors text-left"
                   >
                     <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     <span>Download WebP <span className="ml-1 text-[10px] text-slate-500">{pngResolution}×{pngResolution}px</span></span>
@@ -600,7 +600,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   {/* JPEG */}
                   <button
                     onClick={() => handleQuickExport('jpeg', pngResolution)}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-brand-500/10 dark:hover:bg-brand-500/15 hover:text-brand-600 dark:hover:text-white transition-colors text-left"
                   >
                     <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     <span>Download JPEG <span className="ml-1 text-[10px] text-slate-500">{pngResolution}×{pngResolution}px</span></span>
@@ -609,20 +609,20 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   {/* .Astro */}
                   <button
                     onClick={() => handleQuickExport('astro')}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-amber-500/15 hover:text-amber-300 transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-amber-500/15 hover:text-amber-600 dark:hover:text-amber-300 transition-colors text-left"
                   >
                     <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     <span>Export .Astro Component <span className="ml-1 text-[10px] text-amber-500/80">⚡</span></span>
                   </button>
 
-                  <div className="mx-4 my-1 border-t border-dark-border/60" />
+                  <div className="mx-4 my-1 border-t border-slate-200 dark:border-dark-border/60" />
 
                   {/* Copy SVG */}
                   <button
                     onClick={() => { handleCopySvg(); setIsDownloadDropdownOpen(false); }}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 pb-3 text-xs text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300 transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 pb-3 text-xs text-slate-700 dark:text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors text-left"
                   >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                     <span>{copied ? 'SVG Copied!' : 'Copy SVG Code'}</span>
                   </button>
                 </div>
@@ -666,7 +666,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-medium capitalize transition-all ${
                       state.shape === shape
                         ? 'bg-brand-500 text-white shadow-glow-sm scale-105'
-                        : 'bg-dark-surface text-slate-400 hover:text-slate-200 hover:bg-dark-hover'
+                        : 'bg-slate-100 dark:bg-dark-surface text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-dark-hover'
                     }`}
                   >
                     {shape}
@@ -681,7 +681,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             {/* Row 1: Format tabs + Export button */}
             <div className="flex items-center justify-between gap-3 flex-wrap">
               {/* Format pill tabs */}
-              <div className="flex items-center gap-1 bg-dark-surface p-0.5 rounded-lg border border-dark-border">
+              <div className="flex items-center gap-1 bg-slate-100 dark:bg-dark-surface p-0.5 rounded-lg border border-slate-200 dark:border-dark-border">
                 {(
                   [
                     { id: 'png',   label: 'PNG' },
@@ -699,7 +699,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                         ? id === 'astro'
                           ? 'bg-amber-500 text-white shadow-sm'
                           : 'bg-brand-500 text-white shadow-sm'
-                        : 'text-slate-400 hover:text-white'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     {label}
@@ -725,7 +725,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 <select
                   value={pngResolution}
                   onChange={(e) => setPngResolution(Number(e.target.value))}
-                  className="bg-dark-surface border border-dark-border text-slate-200 text-xs rounded-lg px-3 py-1.5 appearance-none cursor-pointer hover:border-brand-500/50 transition-colors focus:outline-none focus:ring-1 focus:ring-brand-500/40"
+                  className="bg-slate-100 dark:bg-dark-surface border border-slate-300 dark:border-dark-border text-slate-900 dark:text-slate-200 text-xs rounded-lg px-3 py-1.5 appearance-none cursor-pointer hover:border-brand-500/50 transition-colors focus:outline-none focus:ring-1 focus:ring-brand-500/40"
                 >
                   <option value={256}>256 × 256 px</option>
                   <option value={512}>512 × 512 px (1x HD)</option>
@@ -744,7 +744,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                       onChange={(e) => setJpegQuality(Number(e.target.value))}
                       className="w-20 accent-brand-500"
                     />
-                    <span className="text-[10px] text-slate-300 w-8">{Math.round(jpegQuality * 100)}%</span>
+                    <span className="text-[10px] text-slate-700 dark:text-slate-300 w-8">{Math.round(jpegQuality * 100)}%</span>
                   </div>
                 )}
               </div>
@@ -757,13 +757,13 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
         <div className="lg:col-span-5 space-y-4">
 
           {/* ── LogoFast-style Tab Switcher ── */}
-          <div className="flex items-center gap-1 bg-dark-surface p-1 rounded-2xl border border-dark-border">
+          <div className="flex items-center gap-1 bg-slate-100 dark:bg-dark-surface p-1 rounded-2xl border border-slate-200 dark:border-dark-border">
             <button
               onClick={() => setActiveControlTab('icon')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                 activeControlTab === 'icon'
                   ? 'bg-brand-500 text-white shadow-glow-sm'
-                  : 'text-slate-400 hover:text-white hover:bg-dark-hover'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-dark-hover'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -774,7 +774,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                 activeControlTab === 'background'
                   ? 'bg-violet-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white hover:bg-dark-hover'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-dark-hover'
               }`}
             >
               <Palette className="w-3.5 h-3.5" />
@@ -789,17 +789,17 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
           {/* Section 1: Main Graphic Content (Icon vs Photo vs Text) */}
           <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
-                <Sparkles className="w-4 h-4 text-brand-400" />
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <Sparkles className="w-4 h-4 text-brand-500 dark:text-brand-400" />
                 <span>Graphic Content Mode</span>
               </div>
 
               {/* Mode Toggle: Icon vs Photo vs Text */}
-              <div className="flex items-center bg-dark-surface rounded-lg p-0.5 border border-dark-border text-xs">
+              <div className="flex items-center bg-slate-100 dark:bg-dark-surface rounded-lg p-0.5 border border-slate-200 dark:border-dark-border text-xs">
                 <button
                   onClick={() => setState((s) => ({ ...s, contentType: 'icon' }))}
                   className={`px-2.5 py-1 rounded-md transition-colors ${
-                    state.contentType === 'icon' ? 'bg-brand-500 text-white font-medium' : 'text-slate-400 hover:text-white'
+                    state.contentType === 'icon' ? 'bg-brand-500 text-white font-medium' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   Icon
@@ -807,7 +807,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 <button
                   onClick={() => setState((s) => ({ ...s, contentType: 'photo' }))}
                   className={`px-2.5 py-1 rounded-md transition-colors ${
-                    state.contentType === 'photo' ? 'bg-brand-500 text-white font-medium' : 'text-slate-400 hover:text-white'
+                    state.contentType === 'photo' ? 'bg-brand-500 text-white font-medium' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   Photo / Image
@@ -815,7 +815,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 <button
                   onClick={() => setState((s) => ({ ...s, contentType: 'text' }))}
                   className={`px-2.5 py-1 rounded-md transition-colors ${
-                    state.contentType === 'text' ? 'bg-brand-500 text-white font-medium' : 'text-slate-400 hover:text-white'
+                    state.contentType === 'text' ? 'bg-brand-500 text-white font-medium' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   Text Only
@@ -827,9 +827,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             {state.contentType === 'icon' && (
               <div className="space-y-3">
                 {/* Active Icon Banner */}
-                <div className="flex items-center justify-between p-3 rounded-xl bg-dark-surface/80 border border-dark-border">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100/80 dark:bg-dark-surface/80 border border-slate-200 dark:border-dark-border">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center">
                       {currentIconItem?.emoji ? (
                         <span className="text-2xl select-none leading-none">{currentIconItem.emoji}</span>
                       ) : (
@@ -837,10 +837,10 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                       )}
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-white">
+                      <p className="text-xs font-semibold text-slate-900 dark:text-white">
                         {state.iconId === 'custom' ? 'Custom SVG Upload' : currentIconItem?.name || 'Icon'}
                       </p>
-                      <p className="text-[11px] text-slate-400">Click Browse to pick from 400+ icons & emojis</p>
+                      <p className="text-[11px] text-slate-600 dark:text-slate-400">Click Browse to pick from 400+ icons & emojis</p>
                     </div>
                   </div>
 
@@ -849,7 +849,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                     <button
                       type="button"
                       onClick={() => setIsPickerOpen(true)}
-                      className="px-3 py-1.5 rounded-lg bg-brand-500/15 hover:bg-brand-500/25 border border-brand-500/30 text-brand-300 text-xs font-medium transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-brand-500/15 hover:bg-brand-500/25 border border-brand-500/30 text-brand-600 dark:text-brand-300 text-xs font-medium transition-colors"
                     >
                       Browse Icons
                     </button>
@@ -858,9 +858,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
                 {/* Sliders: Scale (expanded size), Position Up/Down, Rotation */}
                 <div className="space-y-2 pt-1">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
-                    <span className="font-medium text-slate-300">Logo / Icon Size</span>
-                    <span className="text-brand-400 font-mono font-bold">{state.iconScale}%</span>
+                  <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                    <span className="font-medium text-slate-700 dark:text-slate-300">Logo / Icon Size</span>
+                    <span className="text-brand-600 dark:text-brand-400 font-mono font-bold">{state.iconScale}%</span>
                   </div>
                   <input
                     type="range"
@@ -878,12 +878,12 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
                 {/* Adjust Icon Up / Down */}
                 <div className="space-y-1 pt-1">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                     <span className="flex items-center gap-1">
                       <MoveVertical className="w-3 h-3 text-slate-400" />
                       <span>Vertical Position (Up / Down)</span>
                     </span>
-                    <span className="text-slate-200 font-mono">{state.iconOffsetY}px</span>
+                    <span className="text-slate-900 dark:text-slate-200 font-mono">{state.iconOffsetY}px</span>
                   </div>
                   <input
                     type="range"
@@ -903,7 +903,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 {/* Rotation & Stroke */}
                 <div className="grid grid-cols-2 gap-3 pt-2">
                   <div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                    <div className="flex items-center justify-between text-[11px] text-slate-600 dark:text-slate-400 mb-1">
                       <span>Rotation</span>
                       <span className="font-mono">{state.iconRotation}°</span>
                     </div>
@@ -918,8 +918,8 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   </div>
 
                   <div>
-                    <label className="text-[11px] text-slate-400 mb-1 block">Icon Color</label>
-                    <div className="flex items-center gap-2 bg-dark-surface p-1 rounded-lg border border-dark-border">
+                    <label className="text-[11px] text-slate-600 dark:text-slate-400 mb-1 block">Icon Color</label>
+                    <div className="flex items-center gap-2 bg-slate-100 dark:bg-dark-surface p-1 rounded-lg border border-slate-300 dark:border-dark-border">
                       <input
                         type="color"
                         value={state.iconColor}
@@ -930,7 +930,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                         type="text"
                         value={state.iconColor}
                         onChange={(e) => setState((s) => ({ ...s, iconColor: e.target.value }))}
-                        className="bg-transparent text-xs text-white uppercase w-full focus:outline-none font-mono"
+                        className="bg-transparent text-xs text-slate-900 dark:text-white uppercase w-full focus:outline-none font-mono"
                       />
                     </div>
                   </div>
@@ -942,12 +942,12 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             {state.contentType === 'photo' && (
               <div className="space-y-4 animate-in fade-in">
                 {/* Photo Upload Zone */}
-                <div className="flex flex-col sm:flex-row items-center gap-3 p-3.5 rounded-xl bg-dark-surface/80 border border-dark-border">
-                  <div className="w-14 h-14 rounded-xl overflow-hidden bg-checkered p-1 border border-dark-border shrink-0 flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row items-center gap-3 p-3.5 rounded-xl bg-slate-100/80 dark:bg-dark-surface/80 border border-slate-200 dark:border-dark-border">
+                  <div className="w-14 h-14 rounded-xl overflow-hidden bg-checkered p-1 border border-slate-300 dark:border-dark-border shrink-0 flex items-center justify-center">
                     <img src={state.photoDataUrl} alt="Uploaded logo photo" className="w-full h-full object-cover rounded-lg" />
                   </div>
                   <div className="flex-1 min-w-0 text-center sm:text-left">
-                    <p className="text-xs font-semibold text-white">Custom Photo / Avatar</p>
+                    <p className="text-xs font-semibold text-slate-900 dark:text-white">Custom Photo / Avatar</p>
                     <p className="text-[11px] text-slate-400">Max 20MB • PNG, JPG, WebP, GIF, SVG</p>
                   </div>
                   <label className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold cursor-pointer shadow-glow-sm transition-colors ${isOptimizingPhoto ? 'opacity-70 pointer-events-none' : ''}`}>
@@ -1068,11 +1068,11 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   onClick={() => setState((s) => ({ ...s, showTextWithGraphic: !s.showTextWithGraphic }))}
                   className={`w-full py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
                     state.showTextWithGraphic
-                      ? 'bg-brand-500/20 border-brand-500 text-brand-300'
-                      : 'bg-dark-surface border-dark-border text-slate-300 hover:text-white hover:bg-dark-hover'
+                      ? 'bg-brand-500/20 border-brand-500 text-brand-600 dark:text-brand-300'
+                      : 'bg-slate-100 dark:bg-dark-surface border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-dark-hover'
                   }`}
                 >
-                  <Type className="w-3.5 h-3.5 text-brand-400" />
+                  <Type className="w-3.5 h-3.5 text-brand-500 dark:text-brand-400" />
                   <span>{state.showTextWithGraphic ? '✓ Text Label Enabled' : '+ Add Text Label / Brand Name'}</span>
                 </button>
               </div>
@@ -1083,14 +1083,14 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
           {(state.contentType === 'text' || state.showTextWithGraphic) && (
             <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-4 animate-in fade-in">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
-                  <Type className="w-4 h-4 text-emerald-400" />
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                  <Type className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>Text / Brand Words & Positioning</span>
                 </div>
                 {state.contentType !== 'text' && (
                   <button
                     onClick={() => setState((s) => ({ ...s, showTextWithGraphic: false }))}
-                    className="text-[11px] text-rose-400 hover:underline flex items-center gap-1"
+                    className="text-[11px] text-rose-500 dark:text-rose-400 hover:underline flex items-center gap-1 font-medium"
                   >
                     <Trash2 className="w-3 h-3" />
                     <span>Remove Text</span>
@@ -1100,7 +1100,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
               {/* Multi-word and Multi-line Text Area */}
               <div>
-                <label className="text-xs text-slate-300 block font-medium mb-1.5">
+                <label className="text-xs text-slate-700 dark:text-slate-300 block font-medium mb-1.5">
                   Brand Name & Words (Multi-line supported):
                 </label>
                 <textarea
@@ -1108,18 +1108,18 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   value={state.textContent}
                   onChange={(e) => setState((s) => ({ ...s, textContent: e.target.value }))}
                   placeholder="Enter brand name, company title, or slogan..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-dark-surface border border-dark-border text-white text-sm font-semibold tracking-wide focus:outline-none focus:border-brand-500 resize-y"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-dark-surface border border-slate-300 dark:border-dark-border text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-semibold tracking-wide focus:outline-none focus:border-brand-500 resize-y"
                 />
-                <span className="text-[10px] text-slate-400 mt-1 block">
+                <span className="text-[10px] text-slate-500 mt-1 block">
                   Tip: Press Enter to create a new line for subtitles or taglines.
                 </span>
               </div>
 
               {/* Text Size Slider (Increase Size of Text) */}
               <div className="space-y-1">
-                <div className="flex items-center justify-between text-xs text-slate-400">
-                  <span className="font-medium text-slate-300">Text Size</span>
-                  <span className="text-emerald-400 font-mono font-bold">{state.textSize}px</span>
+                <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                  <span className="font-medium text-slate-700 dark:text-slate-300">Text Size</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-mono font-bold">{state.textSize}px</span>
                 </div>
                 <input
                   type="range"
@@ -1138,12 +1138,12 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
               {/* Text Vertical Position: ADJUST TEXT UP / DOWN */}
               <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 space-y-1.5">
-                <div className="flex items-center justify-between text-xs font-semibold text-emerald-300">
+                <div className="flex items-center justify-between text-xs font-semibold text-emerald-700 dark:text-emerald-300">
                   <span className="flex items-center gap-1.5">
-                    <MoveVertical className="w-4 h-4 text-emerald-400" />
+                    <MoveVertical className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span>Adjust Text Position (Up / Down)</span>
                   </span>
-                  <span className="font-mono bg-dark-bg/80 px-2 py-0.5 rounded text-emerald-300 border border-emerald-500/40">
+                  <span className="font-mono bg-white dark:bg-dark-bg/80 px-2 py-0.5 rounded text-emerald-700 dark:text-emerald-300 border border-emerald-500/40">
                     {state.textOffsetY > 0 ? `+${state.textOffsetY}` : state.textOffsetY}px
                   </span>
                 </div>
@@ -1155,7 +1155,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   onChange={(e) => setState((s) => ({ ...s, textOffsetY: Number(e.target.value) }))}
                   className="w-full accent-emerald-500"
                 />
-                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                <div className="flex justify-between text-[10px] text-slate-600 dark:text-slate-400 font-medium">
                   <span className="flex items-center gap-0.5"><ArrowUp className="w-2.5 h-2.5" /> Move Text Up</span>
                   <span>Center (0)</span>
                   <span className="flex items-center gap-0.5">Move Text Down <ArrowDown className="w-2.5 h-2.5" /></span>
@@ -1164,9 +1164,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
               {/* Horizontal Position (Left / Right) */}
               <div className="space-y-1">
-                <div className="flex items-center justify-between text-xs text-slate-400">
+                <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                   <span>Horizontal Position (Left / Right)</span>
-                  <span className="text-slate-200 font-mono">{state.textOffsetX}px</span>
+                  <span className="text-slate-900 dark:text-slate-200 font-mono">{state.textOffsetX}px</span>
                 </div>
                 <input
                   type="range"
@@ -1181,14 +1181,14 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
               {/* Text Weight, Spacing & Color */}
               <div className="grid grid-cols-2 gap-3 pt-1">
                 <div>
-                  <label className="text-[11px] text-slate-400 mb-1 block">Font Weight</label>
-                  <div className="flex items-center gap-1 bg-dark-surface p-1 rounded-lg border border-dark-border text-xs">
+                  <label className="text-[11px] text-slate-600 dark:text-slate-400 mb-1 block">Font Weight</label>
+                  <div className="flex items-center gap-1 bg-slate-100 dark:bg-dark-surface p-1 rounded-lg border border-slate-300 dark:border-dark-border text-xs">
                     {(['400', '600', '800'] as const).map((w) => (
                       <button
                         key={w}
                         onClick={() => setState((s) => ({ ...s, textFontWeight: w }))}
                         className={`flex-1 py-1 rounded transition-colors ${
-                          state.textFontWeight === w ? 'bg-emerald-500 text-white font-bold' : 'text-slate-400'
+                          state.textFontWeight === w ? 'bg-emerald-500 text-white font-bold' : 'text-slate-600 dark:text-slate-400'
                         }`}
                       >
                         {w === '400' ? 'Normal' : w === '600' ? 'Bold' : 'Heavy'}
@@ -1198,8 +1198,8 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 </div>
 
                 <div>
-                  <label className="text-[11px] text-slate-400 mb-1 block">Text Color</label>
-                  <div className="flex items-center gap-2 bg-dark-surface p-1 rounded-lg border border-dark-border">
+                  <label className="text-[11px] text-slate-600 dark:text-slate-400 mb-1 block">Text Color</label>
+                  <div className="flex items-center gap-2 bg-slate-100 dark:bg-dark-surface p-1 rounded-lg border border-slate-300 dark:border-dark-border">
                     <input
                       type="color"
                       value={state.textColor}
@@ -1210,7 +1210,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                       type="text"
                       value={state.textColor}
                       onChange={(e) => setState((s) => ({ ...s, textColor: e.target.value }))}
-                      className="bg-transparent text-xs text-white uppercase w-full focus:outline-none font-mono"
+                      className="bg-transparent text-xs text-slate-900 dark:text-white uppercase w-full focus:outline-none font-mono"
                     />
                   </div>
                 </div>
@@ -1230,9 +1230,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             {/* ── Size & Corner Radius row ── */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
-                  <span className="font-medium text-slate-300">Size</span>
-                  <span className="font-mono text-brand-400">{state.backgroundScale}%</span>
+                <div className="flex items-center justify-between text-[11px] text-slate-600 dark:text-slate-400 mb-1">
+                  <span className="font-medium text-slate-700 dark:text-slate-300">Size</span>
+                  <span className="font-mono text-brand-600 dark:text-brand-400">{state.backgroundScale}%</span>
                 </div>
                 <input type="range" min={50} max={100} value={state.backgroundScale}
                   onChange={(e) => setState((s) => ({ ...s, backgroundScale: Number(e.target.value) }))}
@@ -1242,9 +1242,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 </div>
               </div>
               <div>
-                <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
-                  <span className="font-medium text-slate-300">Corners</span>
-                  <span className="font-mono text-brand-400">{state.backgroundRadius}px</span>
+                <div className="flex items-center justify-between text-[11px] text-slate-600 dark:text-slate-400 mb-1">
+                  <span className="font-medium text-slate-700 dark:text-slate-300">Corners</span>
+                  <span className="font-mono text-brand-600 dark:text-brand-400">{state.backgroundRadius}px</span>
                 </div>
                 <input type="range" min={0} max={200} value={state.backgroundRadius}
                   onChange={(e) => setState((s) => ({ ...s, backgroundRadius: Number(e.target.value) }))}
@@ -1256,19 +1256,19 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             </div>
 
             <div className="flex items-center justify-between pt-1">
-              <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
-                <Palette className="w-3.5 h-3.5 text-violet-400" />
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <Palette className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" />
                 <span>Background Color</span>
               </div>
 
               {/* Background Type Toggle */}
-              <div className="flex items-center bg-dark-surface rounded-lg p-0.5 border border-dark-border text-xs">
+              <div className="flex items-center bg-slate-100 dark:bg-dark-surface rounded-lg p-0.5 border border-slate-200 dark:border-dark-border text-xs">
                 <button
                   onClick={() => setState((s) => ({ ...s, backgroundType: 'gradient' }))}
                   className={`px-2.5 py-1 rounded-md transition-colors ${
                     state.backgroundType === 'gradient'
                       ? 'bg-brand-500 text-white font-medium'
-                      : 'text-slate-400'
+                      : 'text-slate-600 dark:text-slate-400'
                   }`}
                 >
                   Gradient
@@ -1278,7 +1278,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   className={`px-2.5 py-1 rounded-md transition-colors ${
                     state.backgroundType === 'solid'
                       ? 'bg-brand-500 text-white font-medium'
-                      : 'text-slate-400'
+                      : 'text-slate-600 dark:text-slate-400'
                   }`}
                 >
                   Solid
@@ -1296,7 +1296,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                       className={`h-11 rounded-xl p-1 relative border transition-all ${
                         state.gradientId === grad.id
                           ? 'border-white shadow-glow-sm scale-105 ring-2 ring-brand-500/50'
-                          : 'border-dark-border hover:border-slate-500'
+                          : 'border-slate-300 dark:border-dark-border hover:border-slate-400 dark:hover:border-slate-500'
                       }`}
                       style={{ background: grad.css }}
                       title={grad.name}
@@ -1309,12 +1309,12 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 </div>
 
                 {/* Custom Gradient Colors */}
-                <div className="pt-2 border-t border-dark-border/60 space-y-2">
+                <div className="pt-2 border-t border-slate-200 dark:border-dark-border/60 space-y-2">
                   <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Custom Gradient Colors</p>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-[11px] text-slate-400 mb-1 block">Color 1 (Start)</label>
-                      <div className="flex items-center gap-2 bg-dark-surface p-1.5 rounded-lg border border-dark-border">
+                      <label className="text-[11px] text-slate-600 dark:text-slate-400 mb-1 block">Color 1 (Start)</label>
+                      <div className="flex items-center gap-2 bg-slate-100 dark:bg-dark-surface p-1.5 rounded-lg border border-slate-300 dark:border-dark-border">
                         <input
                           type="color"
                           value={state.customColor1}
@@ -1327,13 +1327,13 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                           type="text"
                           value={state.customColor1}
                           onChange={(e) => setState((s) => ({ ...s, customColor1: e.target.value, gradientId: 'custom' }))}
-                          className="bg-transparent text-xs text-white uppercase w-full focus:outline-none font-mono"
+                          className="bg-transparent text-xs text-slate-900 dark:text-white uppercase w-full focus:outline-none font-mono"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="text-[11px] text-slate-400 mb-1 block">Color 2 (End)</label>
-                      <div className="flex items-center gap-2 bg-dark-surface p-1.5 rounded-lg border border-dark-border">
+                      <label className="text-[11px] text-slate-600 dark:text-slate-400 mb-1 block">Color 2 (End)</label>
+                      <div className="flex items-center gap-2 bg-slate-100 dark:bg-dark-surface p-1.5 rounded-lg border border-slate-300 dark:border-dark-border">
                         <input
                           type="color"
                           value={state.customColor2}
@@ -1346,7 +1346,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                           type="text"
                           value={state.customColor2}
                           onChange={(e) => setState((s) => ({ ...s, customColor2: e.target.value, gradientId: 'custom' }))}
-                          className="bg-transparent text-xs text-white uppercase w-full focus:outline-none font-mono"
+                          className="bg-transparent text-xs text-slate-900 dark:text-white uppercase w-full focus:outline-none font-mono"
                         />
                       </div>
                     </div>
@@ -1355,9 +1355,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
                 {/* Gradient Angle */}
                 <div className="space-y-1.5 pt-1">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                     <span>Gradient Angle</span>
-                    <span className="text-slate-200 font-mono">{state.gradientAngle}°</span>
+                    <span className="text-slate-900 dark:text-slate-200 font-mono">{state.gradientAngle}°</span>
                   </div>
                   <input
                     type="range"
@@ -1385,15 +1385,15 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                       className={`h-9 rounded-lg border transition-all ${
                         state.solidColor === color
                           ? 'border-white ring-2 ring-brand-500 shadow-glow-sm scale-105'
-                          : 'border-dark-border hover:border-slate-400'
+                          : 'border-slate-300 dark:border-dark-border hover:border-slate-400'
                       }`}
                       style={{ backgroundColor: color }}
                     />
                   ))}
                 </div>
 
-                <div className="flex items-center gap-2 bg-dark-surface p-2 rounded-xl border border-dark-border">
-                  <span className="text-xs text-slate-400">Custom Color:</span>
+                <div className="flex items-center gap-2 bg-slate-100 dark:bg-dark-surface p-2 rounded-xl border border-slate-300 dark:border-dark-border">
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Custom Color:</span>
                   <input
                     type="color"
                     value={state.solidColor}
@@ -1404,30 +1404,30 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                     type="text"
                     value={state.solidColor}
                     onChange={(e) => setState((s) => ({ ...s, solidColor: e.target.value }))}
-                    className="bg-transparent text-xs text-white uppercase flex-1 focus:outline-none font-mono"
+                    className="bg-transparent text-xs text-slate-900 dark:text-white uppercase flex-1 focus:outline-none font-mono"
                   />
                 </div>
               </div>
             ) : (
               /* Transparent / None */
-              <div className="p-4 rounded-xl bg-dark-surface/60 border border-dashed border-dark-border text-center">
+              <div className="p-4 rounded-xl bg-slate-100/60 dark:bg-dark-surface/60 border border-dashed border-slate-300 dark:border-dark-border text-center">
                 <div className="text-2xl mb-1">🪟</div>
-                <p className="text-xs text-slate-400 font-medium">No background — fully transparent.</p>
+                <p className="text-xs text-slate-700 dark:text-slate-400 font-medium">No background — fully transparent.</p>
                 <p className="text-[11px] text-slate-500 mt-0.5">Export as PNG or WebP to preserve transparency.</p>
               </div>
             )}
 
             {/* ── Border Controls ── */}
-            <div className="pt-3 border-t border-dark-border/60 space-y-3">
+            <div className="pt-3 border-t border-slate-200 dark:border-dark-border/60 space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-xs text-slate-300 font-medium block">Border / Stroke</label>
+                  <label className="text-xs text-slate-900 dark:text-slate-300 font-medium block">Border / Stroke</label>
                   <span className="text-[10px] text-slate-500">Outline around the background shape</span>
                 </div>
                 <button
                   onClick={() => setState((s) => ({ ...s, hasBorder: !s.hasBorder }))}
                   className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none ${
-                    state.hasBorder ? 'bg-brand-500' : 'bg-dark-hover'
+                    state.hasBorder ? 'bg-brand-500' : 'bg-slate-300 dark:bg-dark-hover'
                   }`}
                 >
                   <span
@@ -1442,8 +1442,8 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 <div className="space-y-3 animate-in fade-in slide-in-from-top-1">
                   {/* Border Color */}
                   <div>
-                    <label className="text-[11px] text-slate-400 mb-1.5 block">Border Color</label>
-                    <div className="flex items-center gap-2 bg-dark-surface p-2 rounded-xl border border-dark-border">
+                    <label className="text-[11px] text-slate-600 dark:text-slate-400 mb-1.5 block">Border Color</label>
+                    <div className="flex items-center gap-2 bg-slate-100 dark:bg-dark-surface p-2 rounded-xl border border-slate-300 dark:border-dark-border">
                       <input
                         type="color"
                         value={state.borderColor.length === 9 ? state.borderColor.slice(0, 7) : state.borderColor}
@@ -1454,7 +1454,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                         type="text"
                         value={state.borderColor}
                         onChange={(e) => setState((s) => ({ ...s, borderColor: e.target.value }))}
-                        className="bg-transparent text-xs text-white uppercase flex-1 focus:outline-none font-mono"
+                        className="bg-transparent text-xs text-slate-900 dark:text-white uppercase flex-1 focus:outline-none font-mono"
                         placeholder="#ffffff"
                       />
                     </div>
@@ -1466,7 +1466,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                           onClick={() => setState((s) => ({ ...s, borderColor: c }))}
                           title={c}
                           className={`w-6 h-6 rounded-full border-2 transition-all hover:scale-110 ${
-                            state.borderColor === c ? 'border-white scale-110' : 'border-dark-border'
+                            state.borderColor === c ? 'border-white scale-110' : 'border-slate-300 dark:border-dark-border'
                           }`}
                           style={{ backgroundColor: c }}
                         />
@@ -1476,9 +1476,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
                   {/* Border Width */}
                   <div className="space-y-1">
-                    <div className="flex items-center justify-between text-xs text-slate-400">
+                    <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                       <span>Border Width</span>
-                      <span className="font-mono text-slate-200">{state.borderWidth}px</span>
+                      <span className="font-mono text-slate-900 dark:text-slate-200">{state.borderWidth}px</span>
                     </div>
                     <input
                       type="range"
@@ -1499,16 +1499,16 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             </div>
 
             {/* ── Shadow & Glow Settings ── */}
-            <div className="pt-3 border-t border-dark-border/60 space-y-3">
+            <div className="pt-3 border-t border-slate-200 dark:border-dark-border/60 space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-xs text-slate-300 font-medium block">Drop Shadow</label>
+                  <label className="text-xs text-slate-900 dark:text-slate-300 font-medium block">Drop Shadow</label>
                   <span className="text-[10px] text-slate-500">Soft shadow behind the shape</span>
                 </div>
                 <button
                   onClick={() => setState((s) => ({ ...s, hasShadow: !s.hasShadow }))}
                   className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none ${
-                    state.hasShadow ? 'bg-brand-500' : 'bg-dark-hover'
+                    state.hasShadow ? 'bg-brand-500' : 'bg-slate-300 dark:bg-dark-hover'
                   }`}
                 >
                   <span
@@ -1530,7 +1530,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                         className={`flex-1 py-1 rounded-lg text-[10px] font-bold border transition-all ${
                           state.shadowIntensity === val
                             ? 'bg-brand-500 text-white border-brand-500'
-                            : 'bg-dark-surface text-slate-400 border-dark-border hover:border-slate-500 hover:text-white'
+                            : 'bg-slate-100 dark:bg-dark-surface text-slate-600 dark:text-slate-400 border-slate-200 dark:border-dark-border hover:border-slate-400 hover:text-slate-900 dark:hover:text-white'
                         }`}
                       >
                         {label}
@@ -1539,9 +1539,9 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   </div>
                   {/* Fine-tune slider */}
                   <div className="space-y-1">
-                    <div className="flex items-center justify-between text-xs text-slate-400">
+                    <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                       <span>Shadow Elevation</span>
-                      <span className="text-slate-200 font-mono">{state.shadowIntensity}%</span>
+                      <span className="text-slate-900 dark:text-slate-200 font-mono">{state.shadowIntensity}%</span>
                     </div>
                     <input
                       type="range"

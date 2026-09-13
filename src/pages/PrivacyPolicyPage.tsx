@@ -198,57 +198,57 @@ export const PrivacyPolicyPage: React.FC = () => {
 
       {/* Header Banner */}
       <div className="mb-10 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-4">
           <Shield className="w-3.5 h-3.5" />
           <span>Zero Server Retention Guarantee</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">{localized.heading}</h1>
-        <p className="text-sm text-slate-400 mt-2">{localized.subtitle}</p>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">{localized.heading}</h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">{localized.subtitle}</p>
         <span className="inline-block text-xs text-slate-500 mt-2">{localized.lastUpdated}</span>
       </div>
 
       {/* Trust Highlights Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
         <div className="p-4 rounded-xl glass-card border border-dark-border space-y-1">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-2">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2">
             <Lock className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-white">100% In-Browser</h4>
-          <p className="text-[11px] text-slate-400">All processing is done in client RAM. No server uploads.</p>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white">100% In-Browser</h4>
+          <p className="text-[11px] text-slate-600 dark:text-slate-400">All processing is done in client RAM. No server uploads.</p>
         </div>
         <div className="p-4 rounded-xl glass-card border border-dark-border space-y-1">
-          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-2">
+          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2">
             <EyeOff className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-white">No Tracking Cookies</h4>
-          <p className="text-[11px] text-slate-400">We do not track you across the web or sell your data.</p>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white">No Tracking Cookies</h4>
+          <p className="text-[11px] text-slate-600 dark:text-slate-400">We do not track you across the web or sell your data.</p>
         </div>
         <div className="p-4 rounded-xl glass-card border border-dark-border space-y-1">
-          <div className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center mb-2">
+          <div className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-2">
             <Globe className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-white">GDPR & LGPD Ready</h4>
-          <p className="text-[11px] text-slate-400">Built to comply with the strictest global data standards.</p>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white">GDPR & LGPD Ready</h4>
+          <p className="text-[11px] text-slate-600 dark:text-slate-400">Built to comply with the strictest global data standards.</p>
         </div>
       </div>
 
       {/* Main Content Body */}
-      <article className="space-y-8 text-sm text-slate-300 leading-relaxed">
+      <article className="space-y-8 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
         <section className="glass-card rounded-2xl p-6 sm:p-8 border border-dark-border space-y-3">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <HardDrive className="w-4 h-4 text-emerald-400" />
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <HardDrive className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>{localized.introTitle}</span>
           </h2>
-          <p className="text-slate-300 leading-relaxed">{localized.introText}</p>
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{localized.introText}</p>
         </section>
 
         {localized.sections.map((section, idx) => (
           <section key={idx} className="glass-card rounded-2xl p-6 sm:p-8 border border-dark-border space-y-4">
-            <h2 className="text-lg font-bold text-white">{section.title}</h2>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">{section.title}</h2>
             <ul className="space-y-2.5">
               {section.items.map((item, iIdx) => (
-                <li key={iIdx} className="flex items-start gap-2.5 text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <li key={iIdx} className="flex items-start gap-2.5 text-slate-700 dark:text-slate-300">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{item}</span>
                 </li>
               ))}
@@ -259,8 +259,8 @@ export const PrivacyPolicyPage: React.FC = () => {
         {/* Contact Strip */}
         <div className="p-6 rounded-2xl bg-gradient-to-r from-brand-900/30 to-violet-900/30 border border-brand-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="text-sm font-bold text-white">Have questions about your privacy or data?</h3>
-            <p className="text-xs text-slate-400 mt-1">Our engineering team is always transparent about how client-side code runs.</p>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Have questions about your privacy or data?</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Our engineering team is always transparent about how client-side code runs.</p>
           </div>
           <Link
             to="/contact-us"
