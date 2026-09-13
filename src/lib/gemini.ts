@@ -5,12 +5,11 @@
  */
 
 export type GeminiModel =
-  | 'gemini-3.6-flash'
-  | 'gemini-3.8-flash'
-  | 'gemini-3.5-flash'
-  | 'gemini-3.1-pro-preview'
   | 'gemini-2.5-flash'
-  | 'gemini-flash-latest'
+  | 'gemini-2.5-pro'
+  | 'gemini-2.0-flash'
+  | 'gemini-1.5-flash'
+  | 'gemini-1.5-pro'
   | string;
 export type AssetTargetType = 'svg' | 'html-css' | 'canvas-js';
 
@@ -33,16 +32,18 @@ export function setStoredApiKey(key: string): void {
 }
 
 export function getStoredModel(): string {
-  if (typeof window === 'undefined') return 'gemini-3.6-flash';
+  if (typeof window === 'undefined') return 'gemini-2.5-flash';
   const saved = localStorage.getItem(STORAGE_KEY_MODEL);
   if (saved && saved.trim()) {
     const clean = saved.trim();
-    if (clean === 'gemini-2.0-flash' || clean === 'gemini-2.5-flash') {
-      return 'gemini-3.6-flash';
+    // Migrate away from any old fake model names that were previously stored
+    const fakeModels = ['gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-flash-latest'];
+    if (fakeModels.includes(clean)) {
+      return 'gemini-2.5-flash';
     }
     return clean;
   }
-  return 'gemini-3.6-flash';
+  return 'gemini-2.5-flash';
 }
 
 export function setStoredModel(model: string): void {
@@ -102,14 +103,30 @@ export function extractCodeBlock(rawText: string, targetType: AssetTargetType): 
 function getSystemInstruction(targetType: AssetTargetType): string {
   switch (targetType) {
     case 'svg':
-      return `You are a world-class SVG vector designer and code generator.
-Your task is to generate pristine, standalone, valid XML SVG markup for icons, logos, or favicons.
-CRITICAL RULES:
-1. Output ONLY the valid <svg ...>...</svg> element. Do not include introductory text, markdown commentary, or explanations.
-2. The SVG MUST have xmlns="http://www.w3.org/2000/svg", viewBox="0 0 512 512", width="512", height="512".
-3. Use modern, beautiful design principles: vibrant color palettes, sleek linear/radial gradients (<defs><linearGradient>...</defs>), rounded geometric elements, smooth curves (<path d="...">), subtle drop shadows or glow filters if appropriate.
-4. Ensure the design is high-contrast, scalable, and looks stunning as a favicon at 16x16, 32x32 as well as high-res 512x512.
-5. Do NOT reference external fonts, images, or remote URLs. All elements must be pure self-contained SVG vectors.`;
+      return `You are an elite SVG vector art director and icon designer with 15+ years of professional branding experience.
+You create stunning, award-winning SVG icons and favicons that look PREMIUM and COMPLEX.
+
+MANDATORY OUTPUT STRUCTURE — Every SVG you generate MUST include ALL of these:
+1. <defs> block containing at minimum: 2-3 named <linearGradient> or <radialGradient> elements with multiple color stops, and 1-2 <filter> elements (drop shadows, glows, or blur effects).
+2. A rich multi-layered background shape (squircle, circle, hexagon, or shield) filled with a gradient.
+3. A primary icon/glyph built from multiple <path>, <circle>, <polygon>, or <rect> elements with individual gradients.
+4. Secondary decorative elements: subtle geometric accents, rings, sparkles, or ornamental details that add depth.
+5. Realistic visual depth via: highlights (semi-transparent white overlays), inner shadows, rim lighting, or glossy reflections.
+
+DESIGN QUALITY STANDARDS — No exceptions:
+- Output MUST look like a professional icon from a top-tier design studio, not a basic SVG.
+- Use rich, vibrant, curated color palettes. Avoid plain/flat single colors.
+- Every major shape must use a gradient fill, NOT a solid color.
+- Include at minimum 8-15 distinct SVG elements for visual complexity.
+- Add subtle texture layers (diagonal patterns, dot matrices, or geometric overlays at 0.05-0.15 opacity).
+- Glow or drop shadow filters must be applied to the primary icon element for depth.
+
+TECHNICAL REQUIREMENTS:
+- Root element: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+- All gradient IDs must be unique descriptive names (e.g., id="bgGrad", id="iconGrad", id="glowFilter").
+- Zero external references, fonts, images, or URLs — 100% self-contained.
+- Valid, well-formed XML.
+- Output ONLY the <svg>...</svg> element — no markdown, no explanation text, no code fences.`;
 
     case 'html-css':
       return `You are an expert front-end UI artist and CSS graphic designer.
@@ -130,6 +147,52 @@ CRITICAL RULES:
 3. Keep the artwork centered in the 512x512 canvas.
 4. Output ONLY the raw executable JavaScript statements or a function body. Do NOT create a canvas element or wrap in an HTML document.`;
   }
+}
+
+/**
+ * Enriches the raw user prompt with design quality context so Gemini
+ * produces complex, multi-layered output instead of flat basic shapes.
+ */
+function buildEnhancedSvgPrompt(userPrompt: string): string {
+  const p = userPrompt.toLowerCase();
+
+  // Derive style hints from keywords
+  const isMinimalist = p.includes('minimalist') || p.includes('minimal') || p.includes('clean') || p.includes('simple');
+  const isDark = p.includes('dark') || p.includes('neon') || p.includes('cyber') || p.includes('night');
+  const isTech = p.includes('tech') || p.includes('ai') || p.includes('digital') || p.includes('code') || p.includes('robot');
+  const isLuxury = p.includes('luxury') || p.includes('gold') || p.includes('premium') || p.includes('elegant');
+  const isNature = p.includes('nature') || p.includes('leaf') || p.includes('green') || p.includes('eco') || p.includes('organic');
+
+  let qualityDirective = `
+
+DESIGN DIRECTIVE — Create a PREMIUM, COMPLEX, MULTI-LAYERED SVG icon:
+- Background: A styled shape (squircle rx=120 or circle) with a rich multi-stop gradient fill
+- Primary element: The main icon/glyph with its own gradient and a glow or drop shadow filter
+- Depth layers: Highlight overlay (white at 10-20% opacity), inner rim light, decorative ring or orbiting elements
+- Complexity: At minimum 10-15 SVG elements — this must look like a PROFESSIONAL studio-quality icon`;
+
+  if (isMinimalist) {
+    qualityDirective += `
+- Style: Clean geometry but still with gradient fills and at least one subtle glow/shadow effect`;
+  }
+  if (isDark) {
+    qualityDirective += `
+- Color scheme: Deep dark background (#05080f or #0a0e1a), vibrant neon accents, electric glow filters`;
+  }
+  if (isTech) {
+    qualityDirective += `
+- Tech aesthetic: Circuit-board accents, dot-grid overlays, sharp geometric lines, cool blue/cyan/purple palette`;
+  }
+  if (isLuxury) {
+    qualityDirective += `
+- Luxury palette: Gold (#f59e0b → #d97706), platinum (#e2e8f0), deep jewel-toned background, metallic sheen highlight`;
+  }
+  if (isNature) {
+    qualityDirective += `
+- Nature palette: Lush emerald (#10b981 → #059669), earth tones, organic curves, soft gradient sky background`;
+  }
+
+  return `${userPrompt}${qualityDirective}`;
 }
 
 /**
@@ -523,9 +586,11 @@ export async function generateAssetWithGemini(
   }
 
   const rawModel = options?.model || getStoredModel();
-  let model = rawModel.replace(/^models\//, '').trim() || 'gemini-3.6-flash';
-  if (model === 'gemini-2.0-flash' || model === 'gemini-2.5-flash') {
-    model = 'gemini-3.6-flash';
+  let model = rawModel.replace(/^models\//, '').trim() || 'gemini-2.5-flash';
+  // Migrate any stale fake model names to the real recommended one
+  const fakeModels = ['gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-flash-latest'];
+  if (fakeModels.includes(model)) {
+    model = 'gemini-2.5-flash';
   }
   const systemInstruction = getSystemInstruction(targetType);
 
@@ -537,7 +602,9 @@ export async function generateAssetWithGemini(
         role: 'user',
         parts: [
           {
-            text: `${prompt}\n\nPlease output only clean code for target: ${targetType.toUpperCase()}.`,
+            text: targetType === 'svg'
+              ? buildEnhancedSvgPrompt(prompt)
+              : `${prompt}\n\nPlease output only clean code for target: ${targetType.toUpperCase()}.`,
           },
         ],
       },
@@ -550,8 +617,8 @@ export async function generateAssetWithGemini(
       ],
     },
     generationConfig: {
-      temperature: 0.4,
-      maxOutputTokens: 4096,
+      temperature: 0.85,
+      maxOutputTokens: 8192,
     },
   };
 
@@ -586,13 +653,14 @@ export async function generateAssetWithGemini(
     }
 
     if (response.status === 404) {
-      if (errorDetail.includes('gemini-3.6-flash') || model.includes('2.5') || model.includes('2.0')) {
-        console.info('Google API recommended upgrading to gemini-3.6-flash, auto-resolving...');
-        setStoredModel('gemini-3.6-flash');
-        return generateAssetWithGemini(prompt, targetType, { apiKey, model: 'gemini-3.6-flash' });
+      // If the selected model isn't found, fall back to the stable 1.5-flash
+      if (model !== 'gemini-1.5-flash') {
+        console.warn(`Model "${model}" not found (404), falling back to gemini-1.5-flash...`);
+        setStoredModel('gemini-1.5-flash');
+        return generateAssetWithGemini(prompt, targetType, { apiKey, model: 'gemini-1.5-flash' });
       }
       throw new Error(
-        `Model Not Found (404): ${errorDetail || `The selected model "${model}" was not recognized.`} We recommend using "gemini-3.6-flash".`
+        `Model Not Found (404): ${errorDetail || `The selected model "${model}" was not recognized.`} We recommend using "gemini-2.5-flash".`
       );
     }
 

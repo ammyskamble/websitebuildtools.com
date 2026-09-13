@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import {
   Download, Copy, Check, Palette, Sparkles, Upload,
@@ -25,6 +25,8 @@ export interface LogoStudioState {
   borderWidth: number;
   hasShadow: boolean;
   shadowIntensity: number; // 0 to 100
+  backgroundRadius: number; // 0 to 200 corner radius
+  backgroundScale: number;  // 50 to 100 — how large the bg shape is relative to canvas
 
   // Content type
   contentType: 'icon' | 'photo' | 'text';
@@ -92,6 +94,8 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
     borderWidth: 2,
     hasShadow: true,
     shadowIntensity: 40,
+    backgroundRadius: 120,
+    backgroundScale: 96,
 
     contentType: 'icon',
     iconId: 'sparkles',
@@ -128,6 +132,53 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
   const [pngResolution, setPngResolution] = useState<number>(1024); // 512, 1024, 2048, 4096
   const [exportFormat, setExportFormat] = useState<'png' | 'svg' | 'astro' | 'webp' | 'jpeg'>('png');
   const [jpegQuality, setJpegQuality] = useState<number>(0.92);
+  const [isDownloadDropdownOpen, setIsDownloadDropdownOpen] = useState(false);
+  const downloadDropdownRef = useRef<HTMLDivElement>(null);
+  const [activeControlTab, setActiveControlTab] = useState<'icon' | 'background'>('icon');
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (downloadDropdownRef.current && !downloadDropdownRef.current.contains(e.target as Node)) {
+        setIsDownloadDropdownOpen(false);
+      }
+    };
+    if (isDownloadDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isDownloadDropdownOpen]);
+
+  // Quick-download helper used by the dropdown
+  const handleQuickExport = async (fmt: 'png' | 'svg' | 'astro' | 'webp' | 'jpeg', resolution?: number) => {
+    setIsDownloadDropdownOpen(false);
+    setExporting(true);
+    try {
+      if (fmt === 'svg') {
+        downloadText(generatedSvg, 'svgfav-logo.svg');
+      } else if (fmt === 'astro') {
+        const componentName = toPascalCase(state.textContent || currentIconItem.name || 'BrandLogo');
+        const astroCode = convertSvgToAstroComponent(generatedSvg, { componentName });
+        downloadAstroFile(astroCode, `${componentName}.astro`);
+      } else {
+        const res = resolution ?? pngResolution;
+        const blob = await renderSvgToBlob(generatedSvg, {
+          width: res,
+          height: res,
+          format: fmt,
+          quality: fmt === 'jpeg' ? jpegQuality : undefined,
+          backgroundColor: fmt === 'jpeg' ? '#ffffff' : undefined,
+        });
+        downloadBlob(blob, `svgfav-logo-${res}x${res}.${fmt}`);
+      }
+      confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
+    } catch (err) {
+      console.error(err);
+      alert('Export failed. Please check console.');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const currentIconItem = useMemo(() => {
     return ICONS_CATALOG.find((i) => i.id === state.iconId) || ICONS_CATALOG[0];
@@ -246,10 +297,15 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
         const x2 = Math.round(50 - Math.sin(rad) * 50);
         const y2 = Math.round(50 + Math.cos(rad) * 50);
 
+        // Use custom colors when gradientId is 'custom', otherwise use the preset
+        const gradFrom = state.gradientId === 'custom' ? state.customColor1 : activeGradient.from;
+        const gradTo   = state.gradientId === 'custom' ? state.customColor2 : activeGradient.to;
+        const gradVia  = state.gradientId === 'custom' ? undefined : activeGradient.via;
+
         gradientDefs = `<linearGradient id="logo-grad" x1="${x1}%" y1="${y1}%" x2="${x2}%" y2="${y2}%">
-          <stop offset="0%" stop-color="${activeGradient.from}" />
-          ${activeGradient.via ? `<stop offset="50%" stop-color="${activeGradient.via}" />` : ''}
-          <stop offset="100%" stop-color="${activeGradient.to}" />
+          <stop offset="0%" stop-color="${gradFrom}" />
+          ${gradVia ? `<stop offset="50%" stop-color="${gradVia}" />` : ''}
+          <stop offset="100%" stop-color="${gradTo}" />
         </linearGradient>`;
         bgFill = 'url(#logo-grad)';
       } else {
@@ -280,37 +336,49 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
 
     const borderStroke = state.hasBorder ? `stroke="${state.borderColor}" stroke-width="${state.borderWidth * 2}"` : '';
 
-    // Shape geometry definition for background and clipPath
+    // Shape geometry — respects backgroundScale (size) and backgroundRadius (corners)
+    const bgDim = Math.round(size * (state.backgroundScale / 100));
+    const bgOff = Math.round((size - bgDim) / 2);
+    const rx    = Math.min(state.backgroundRadius, bgDim / 2);
     let shapeGeometry = '';
     switch (state.shape) {
       case 'circle':
-        shapeGeometry = `<circle cx="${center}" cy="${center}" r="${center - 10}" />`;
-        shapeMarkup = `<circle cx="${center}" cy="${center}" r="${center - 10}" fill="${bgFill}" ${borderStroke} ${
+        shapeGeometry = `<circle cx="${center}" cy="${center}" r="${bgDim / 2}" />`;
+        shapeMarkup = `<circle cx="${center}" cy="${center}" r="${bgDim / 2}" fill="${bgFill}" ${borderStroke} ${
           state.hasShadow ? 'filter="url(#shadow)"' : ''
         } />`;
         break;
       case 'square':
-        shapeGeometry = `<rect x="10" y="10" width="${size - 20}" height="${size - 20}" rx="0" />`;
-        shapeMarkup = `<rect x="10" y="10" width="${size - 20}" height="${size - 20}" rx="0" fill="${bgFill}" ${borderStroke} ${
+        shapeGeometry = `<rect x="${bgOff}" y="${bgOff}" width="${bgDim}" height="${bgDim}" rx="${rx}" />`;
+        shapeMarkup = `<rect x="${bgOff}" y="${bgOff}" width="${bgDim}" height="${bgDim}" rx="${rx}" fill="${bgFill}" ${borderStroke} ${
           state.hasShadow ? 'filter="url(#shadow)"' : ''
         } />`;
         break;
-      case 'hexagon':
-        shapeGeometry = `<polygon points="256,16 480,136 480,376 256,496 32,376 32,136" />`;
-        shapeMarkup = `<polygon points="256,16 480,136 480,376 256,496 32,376 32,136" fill="${bgFill}" ${borderStroke} ${
+      case 'hexagon': {
+        const s = bgDim / 2, cx2 = center, cy2 = center;
+        const pts = [0,1,2,3,4,5].map(i => {
+          const a = (Math.PI / 3) * i - Math.PI / 6;
+          return `${Math.round(cx2 + s * Math.cos(a))},${Math.round(cy2 + s * Math.sin(a))}`;
+        }).join(' ');
+        shapeGeometry = `<polygon points="${pts}" />`;
+        shapeMarkup = `<polygon points="${pts}" fill="${bgFill}" ${borderStroke} ${
           state.hasShadow ? 'filter="url(#shadow)"' : ''
         } />`;
         break;
-      case 'shield':
-        shapeGeometry = `<path d="M256,20 C380,20 480,80 480,210 C480,360 256,492 256,492 C256,492 32,360 32,210 C32,80 132,20 256,20 Z" />`;
-        shapeMarkup = `<path d="M256,20 C380,20 480,80 480,210 C480,360 256,492 256,492 C256,492 32,360 32,210 C32,80 132,20 256,20 Z" fill="${bgFill}" ${borderStroke} ${
+      }
+      case 'shield': {
+        const sw = bgDim, sh = bgDim, sx = bgOff, sy = bgOff;
+        const scx = center;
+        shapeGeometry = `<path d="M${scx},${sy + sh * 0.04} C${sx + sw * 0.74},${sy + sh * 0.04} ${sx + sw},${sy + sh * 0.16} ${sx + sw},${sy + sh * 0.41} C${sx + sw},${sy + sh * 0.7} ${scx},${sy + sh * 0.96} ${scx},${sy + sh * 0.96} C${scx},${sy + sh * 0.96} ${sx},${sy + sh * 0.7} ${sx},${sy + sh * 0.41} C${sx},${sy + sh * 0.16} ${sx + sw * 0.26},${sy + sh * 0.04} ${scx},${sy + sh * 0.04} Z" />`;
+        shapeMarkup = `<path d="M${scx},${sy + sh * 0.04} C${sx + sw * 0.74},${sy + sh * 0.04} ${sx + sw},${sy + sh * 0.16} ${sx + sw},${sy + sh * 0.41} C${sx + sw},${sy + sh * 0.7} ${scx},${sy + sh * 0.96} ${scx},${sy + sh * 0.96} C${scx},${sy + sh * 0.96} ${sx},${sy + sh * 0.7} ${sx},${sy + sh * 0.41} C${sx},${sy + sh * 0.16} ${sx + sw * 0.26},${sy + sh * 0.04} ${scx},${sy + sh * 0.04} Z" fill="${bgFill}" ${borderStroke} ${
           state.hasShadow ? 'filter="url(#shadow)"' : ''
         } />`;
         break;
+      }
       case 'squircle':
       default:
-        shapeGeometry = `<rect x="10" y="10" width="${size - 20}" height="${size - 20}" rx="120" ry="120" />`;
-        shapeMarkup = `<rect x="10" y="10" width="${size - 20}" height="${size - 20}" rx="120" ry="120" fill="${bgFill}" ${borderStroke} ${
+        shapeGeometry = `<rect x="${bgOff}" y="${bgOff}" width="${bgDim}" height="${bgDim}" rx="${rx}" ry="${rx}" />`;
+        shapeMarkup = `<rect x="${bgOff}" y="${bgOff}" width="${bgDim}" height="${bgDim}" rx="${rx}" ry="${rx}" fill="${bgFill}" ${borderStroke} ${
           state.hasShadow ? 'filter="url(#shadow)"' : ''
         } />`;
         break;
@@ -465,14 +533,6 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              onClick={handleCopySvg}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl glass-card text-xs font-medium text-slate-300 hover:text-white transition-colors"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied SVG!' : 'Copy SVG'}</span>
-            </button>
-
             {onExportFavicon && (
               <button
                 onClick={() => onExportFavicon(generatedSvg)}
@@ -482,28 +542,114 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                 <span>Send to Favicon Suite</span>
               </button>
             )}
+
+            {/* LogoFast-style Download Dropdown */}
+            <div className="relative" ref={downloadDropdownRef}>
+              <button
+                onClick={() => setIsDownloadDropdownOpen((v) => !v)}
+                disabled={exporting}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>{exporting ? 'Exporting...' : 'Download'}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`w-3.5 h-3.5 transition-transform duration-200 ${isDownloadDropdownOpen ? 'rotate-180' : ''}`}>
+                  <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                </svg>
+              </button>
+
+              {isDownloadDropdownOpen && (
+                <div className="absolute right-0 top-full mt-2 z-50 min-w-[220px] bg-dark-surface border border-dark-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
+                  {/* PNG sizes */}
+                  <div className="px-3 pt-3 pb-1">
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">PNG</p>
+                  </div>
+                  {([512, 1024, 2048, 4096] as const).map((res) => (
+                    <button
+                      key={res}
+                      onClick={() => handleQuickExport('png', res)}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                    >
+                      <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <span>
+                        Download PNG
+                        <span className="ml-2 text-[10px] text-slate-500">{res}×{res}px</span>
+                      </span>
+                    </button>
+                  ))}
+
+                  <div className="mx-4 my-1 border-t border-dark-border/60" />
+
+                  {/* SVG */}
+                  <button
+                    onClick={() => handleQuickExport('svg')}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                  >
+                    <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span>Download SVG <span className="ml-1 text-[10px] text-slate-500">Vector</span></span>
+                  </button>
+
+                  {/* WebP */}
+                  <button
+                    onClick={() => handleQuickExport('webp', pngResolution)}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                  >
+                    <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span>Download WebP <span className="ml-1 text-[10px] text-slate-500">{pngResolution}×{pngResolution}px</span></span>
+                  </button>
+
+                  {/* JPEG */}
+                  <button
+                    onClick={() => handleQuickExport('jpeg', pngResolution)}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-brand-500/15 hover:text-white transition-colors text-left"
+                  >
+                    <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span>Download JPEG <span className="ml-1 text-[10px] text-slate-500">{pngResolution}×{pngResolution}px</span></span>
+                  </button>
+
+                  {/* .Astro */}
+                  <button
+                    onClick={() => handleQuickExport('astro')}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-200 hover:bg-amber-500/15 hover:text-amber-300 transition-colors text-left"
+                  >
+                    <Download className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span>Export .Astro Component <span className="ml-1 text-[10px] text-amber-500/80">⚡</span></span>
+                  </button>
+
+                  <div className="mx-4 my-1 border-t border-dark-border/60" />
+
+                  {/* Copy SVG */}
+                  <button
+                    onClick={() => { handleCopySvg(); setIsDownloadDropdownOpen(false); }}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 pb-3 text-xs text-slate-200 hover:bg-emerald-500/15 hover:text-emerald-300 transition-colors text-left"
+                  >
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
+                    <span>{copied ? 'SVG Copied!' : 'Copy SVG Code'}</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
 
       {/* Main Studio Workspace Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
         {/* Left/Middle: Live Interactive Canvas Stage */}
         <div className="lg:col-span-7 flex flex-col items-center">
-          <div className="w-full glass-panel rounded-2xl p-6 sm:p-10 flex flex-col items-center justify-center relative overflow-hidden min-h-[440px] shadow-2xl border border-dark-border">
+          <div className="w-full glass-panel rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden shadow-2xl border border-dark-border">
             {/* Ambient Backlight Glow */}
             <div
-              className="absolute w-80 h-80 rounded-full blur-3xl opacity-25 pointer-events-none transition-all duration-500"
+              className="absolute w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none transition-all duration-500"
               style={{
                 background:
                   state.backgroundType === 'gradient'
-                    ? activeGradient.from
+                    ? (state.gradientId === 'custom' ? state.customColor1 : activeGradient.from)
                     : state.solidColor,
               }}
             />
 
             {/* Canvas Stage Wrapper */}
-            <div className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 rounded-2xl p-4 flex items-center justify-center bg-checkered shadow-2xl border border-dark-border/60">
+            <div className="relative z-10 w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-2xl p-3 flex items-center justify-center bg-checkered shadow-xl border border-dark-border/60">
               <div
                 className="w-full h-full flex items-center justify-center transition-transform duration-200"
                 dangerouslySetInnerHTML={{ __html: generatedSvg }}
@@ -511,13 +657,13 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             </div>
 
             {/* Shape Buttons Underneath */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 z-10">
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 z-10">
               {(['squircle', 'circle', 'square', 'hexagon', 'shield', 'transparent'] as ShapeType[]).map(
                 (shape) => (
                   <button
                     key={shape}
                     onClick={() => setState((s) => ({ ...s, shape }))}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-all ${
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-medium capitalize transition-all ${
                       state.shape === shape
                         ? 'bg-brand-500 text-white shadow-glow-sm scale-105'
                         : 'bg-dark-surface text-slate-400 hover:text-slate-200 hover:bg-dark-hover'
@@ -530,74 +676,64 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             </div>
           </div>
 
-          {/* Export Settings Card */}
-          <div className="w-full mt-4 glass-card rounded-2xl p-5 border border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-1 bg-dark-surface p-1 rounded-xl border border-dark-border">
-                {(['png', 'svg', 'astro', 'webp', 'jpeg'] as const).map((fmt) => (
-                  <button
-                    key={fmt}
-                    onClick={() => setExportFormat(fmt)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold uppercase transition-colors ${
-                      exportFormat === fmt
-                        ? 'bg-brand-500 text-white shadow-sm'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {fmt === 'astro' ? '.astro' : fmt}
-                  </button>
-                ))}
-              </div>
-
-              {exportFormat !== 'svg' && exportFormat !== 'astro' && (
-                <select
-                  value={pngResolution}
-                  onChange={(e) => setPngResolution(Number(e.target.value))}
-                  className="bg-dark-surface border border-dark-border text-xs text-slate-200 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-brand-500"
+          {/* Export Quick-Settings Card — compact 1-row strip */}
+          <div className="w-full mt-3 glass-card rounded-xl px-3 py-2 border border-dark-border flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Export Size</span>
+            <div className="flex items-center gap-0.5 bg-dark-surface p-0.5 rounded-lg border border-dark-border">
+              {([512, 1024, 2048, 4096] as const).map((res) => (
+                <button
+                  key={res}
+                  onClick={() => setPngResolution(res)}
+                  className={`px-2 py-0.5 rounded-md text-[10px] font-semibold transition-colors ${
+                    pngResolution === res ? 'bg-brand-500 text-white' : 'text-slate-400 hover:text-white'
+                  }`}
                 >
-                  <option value={512}>512 x 512 px (1x)</option>
-                  <option value={1024}>1024 x 1024 px (2x HD)</option>
-                  <option value={2048}>2048 x 2048 px (4x Retina)</option>
-                  <option value={4096}>4096 x 4096 px (8x Ultra-HD)</option>
-                </select>
-              )}
-
-              {exportFormat === 'astro' && (
-                <span className="text-[11px] text-amber-300/90 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
-                  ⚡ Ready-to-use Astro component with Props
-                </span>
-              )}
-
-              {exportFormat === 'jpeg' && (
-                <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <span>Quality:</span>
-                  <input
-                    type="range"
-                    min={0.5}
-                    max={1}
-                    step={0.05}
-                    value={jpegQuality}
-                    onChange={(e) => setJpegQuality(Number(e.target.value))}
-                    className="w-16 accent-brand-500"
-                  />
-                  <span>{Math.round(jpegQuality * 100)}%</span>
-                </div>
-              )}
+                  {res === 512 ? '512' : res === 1024 ? '1K' : res === 2048 ? '2K' : '4K'}
+                </button>
+              ))}
             </div>
-
-            <button
-              onClick={handleExport}
-              disabled={exporting}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
-            >
-              <Download className="w-4 h-4" />
-              <span>{exporting ? 'Rendering...' : exportFormat === 'astro' ? 'Export .ASTRO Component' : `Export ${exportFormat.toUpperCase()}`}</span>
-            </button>
+            <div className="ml-auto flex items-center gap-1.5">
+              <span className="text-[10px] text-slate-500">JPEG</span>
+              <input type="range" min={0.5} max={1} step={0.05} value={jpegQuality}
+                onChange={(e) => setJpegQuality(Number(e.target.value))} className="w-14 accent-brand-500" />
+              <span className="text-[10px] text-slate-300 w-7">{Math.round(jpegQuality * 100)}%</span>
+            </div>
           </div>
         </div>
 
         {/* Right Column: Customization Controls Panel */}
         <div className="lg:col-span-5 space-y-4">
+
+          {/* ── LogoFast-style Tab Switcher ── */}
+          <div className="flex items-center gap-1 bg-dark-surface p-1 rounded-2xl border border-dark-border">
+            <button
+              onClick={() => setActiveControlTab('icon')}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                activeControlTab === 'icon'
+                  ? 'bg-brand-500 text-white shadow-glow-sm'
+                  : 'text-slate-400 hover:text-white hover:bg-dark-hover'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Icon
+            </button>
+            <button
+              onClick={() => setActiveControlTab('background')}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                activeControlTab === 'background'
+                  ? 'bg-violet-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white hover:bg-dark-hover'
+              }`}
+            >
+              <Palette className="w-3.5 h-3.5" />
+              Background
+            </button>
+          </div>
+
+          {/* ── ICON TAB ── */}
+          {activeControlTab === 'icon' && (
+          <div className="space-y-4">
+
           {/* Section 1: Main Graphic Content (Icon vs Photo vs Text) */}
           <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-4">
             <div className="flex items-center justify-between">
@@ -1038,12 +1174,47 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             </div>
           )}
 
+          </div>)} {/* end ICON TAB */}
+
+          {/* ── BACKGROUND TAB ── */}
+          {activeControlTab === 'background' && (
+          <div className="space-y-4">
+
           {/* Section 3: Background & Styling (Gradients & Solid) */}
-          <div className="glass-card rounded-2xl p-5 border border-dark-border space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="glass-card rounded-2xl p-4 border border-dark-border space-y-3">
+
+            {/* ── Size & Corner Radius row ── */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                  <span className="font-medium text-slate-300">Size</span>
+                  <span className="font-mono text-brand-400">{state.backgroundScale}%</span>
+                </div>
+                <input type="range" min={50} max={100} value={state.backgroundScale}
+                  onChange={(e) => setState((s) => ({ ...s, backgroundScale: Number(e.target.value) }))}
+                  className="w-full accent-violet-500" />
+                <div className="flex justify-between text-[9px] text-slate-500 mt-0.5">
+                  <span>Small</span><span>Full</span>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                  <span className="font-medium text-slate-300">Corners</span>
+                  <span className="font-mono text-brand-400">{state.backgroundRadius}px</span>
+                </div>
+                <input type="range" min={0} max={200} value={state.backgroundRadius}
+                  onChange={(e) => setState((s) => ({ ...s, backgroundRadius: Number(e.target.value) }))}
+                  className="w-full accent-violet-500" />
+                <div className="flex justify-between text-[9px] text-slate-500 mt-0.5">
+                  <span>Square</span><span>Round</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-1">
               <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
-                <Palette className="w-4 h-4 text-violet-400" />
-                <span>Background & Frame Styling</span>
+                <Palette className="w-3.5 h-3.5 text-violet-400" />
+                <span>Background Color</span>
               </div>
 
               {/* Background Type Toggle */}
@@ -1093,6 +1264,52 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   ))}
                 </div>
 
+                {/* Custom Gradient Colors */}
+                <div className="pt-2 border-t border-dark-border/60 space-y-2">
+                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Custom Gradient Colors</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[11px] text-slate-400 mb-1 block">Color 1 (Start)</label>
+                      <div className="flex items-center gap-2 bg-dark-surface p-1.5 rounded-lg border border-dark-border">
+                        <input
+                          type="color"
+                          value={state.customColor1}
+                          onChange={(e) => {
+                            setState((s) => ({ ...s, customColor1: e.target.value, gradientId: 'custom' }));
+                          }}
+                          className="w-6 h-6 rounded cursor-pointer bg-transparent border-0 shrink-0"
+                        />
+                        <input
+                          type="text"
+                          value={state.customColor1}
+                          onChange={(e) => setState((s) => ({ ...s, customColor1: e.target.value, gradientId: 'custom' }))}
+                          className="bg-transparent text-xs text-white uppercase w-full focus:outline-none font-mono"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-[11px] text-slate-400 mb-1 block">Color 2 (End)</label>
+                      <div className="flex items-center gap-2 bg-dark-surface p-1.5 rounded-lg border border-dark-border">
+                        <input
+                          type="color"
+                          value={state.customColor2}
+                          onChange={(e) => {
+                            setState((s) => ({ ...s, customColor2: e.target.value, gradientId: 'custom' }));
+                          }}
+                          className="w-6 h-6 rounded cursor-pointer bg-transparent border-0 shrink-0"
+                        />
+                        <input
+                          type="text"
+                          value={state.customColor2}
+                          onChange={(e) => setState((s) => ({ ...s, customColor2: e.target.value, gradientId: 'custom' }))}
+                          className="bg-transparent text-xs text-white uppercase w-full focus:outline-none font-mono"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Gradient Angle */}
                 <div className="space-y-1.5 pt-1">
                   <div className="flex items-center justify-between text-xs text-slate-400">
                     <span>Gradient Angle</span>
@@ -1106,9 +1323,14 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                     onChange={(e) => setState((s) => ({ ...s, gradientAngle: Number(e.target.value) }))}
                     className="w-full accent-brand-500"
                   />
+                  <div className="flex justify-between text-[10px] text-slate-500">
+                    <span>0° (Top→Bottom)</span>
+                    <span>90° (Left→Right)</span>
+                    <span>180°</span>
+                  </div>
                 </div>
               </div>
-            ) : (
+            ) : state.backgroundType === 'solid' ? (
               /* Solid Colors */
               <div className="space-y-3">
                 <div className="grid grid-cols-6 gap-2">
@@ -1142,38 +1364,157 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   />
                 </div>
               </div>
+            ) : (
+              /* Transparent / None */
+              <div className="p-4 rounded-xl bg-dark-surface/60 border border-dashed border-dark-border text-center">
+                <div className="text-2xl mb-1">🪟</div>
+                <p className="text-xs text-slate-400 font-medium">No background — fully transparent.</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">Export as PNG or WebP to preserve transparency.</p>
+              </div>
             )}
 
-            {/* Shadow & Glow Settings */}
-            <div className="pt-2 border-t border-dark-border/60 space-y-3">
+            {/* ── Border Controls ── */}
+            <div className="pt-3 border-t border-dark-border/60 space-y-3">
               <div className="flex items-center justify-between">
-                <label className="text-xs text-slate-300 font-medium">Drop Shadow</label>
-                <input
-                  type="checkbox"
-                  checked={state.hasShadow}
-                  onChange={(e) => setState((s) => ({ ...s, hasShadow: e.target.checked }))}
-                  className="w-4 h-4 accent-brand-500 rounded cursor-pointer"
-                />
+                <div>
+                  <label className="text-xs text-slate-300 font-medium block">Border / Stroke</label>
+                  <span className="text-[10px] text-slate-500">Outline around the background shape</span>
+                </div>
+                <button
+                  onClick={() => setState((s) => ({ ...s, hasBorder: !s.hasBorder }))}
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none ${
+                    state.hasBorder ? 'bg-brand-500' : 'bg-dark-hover'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform ${
+                      state.hasBorder ? 'translate-x-4' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {state.hasBorder && (
+                <div className="space-y-3 animate-in fade-in slide-in-from-top-1">
+                  {/* Border Color */}
+                  <div>
+                    <label className="text-[11px] text-slate-400 mb-1.5 block">Border Color</label>
+                    <div className="flex items-center gap-2 bg-dark-surface p-2 rounded-xl border border-dark-border">
+                      <input
+                        type="color"
+                        value={state.borderColor.length === 9 ? state.borderColor.slice(0, 7) : state.borderColor}
+                        onChange={(e) => setState((s) => ({ ...s, borderColor: e.target.value }))}
+                        className="w-6 h-6 rounded cursor-pointer bg-transparent border-0 shrink-0"
+                      />
+                      <input
+                        type="text"
+                        value={state.borderColor}
+                        onChange={(e) => setState((s) => ({ ...s, borderColor: e.target.value }))}
+                        className="bg-transparent text-xs text-white uppercase flex-1 focus:outline-none font-mono"
+                        placeholder="#ffffff"
+                      />
+                    </div>
+                    {/* Quick color presets */}
+                    <div className="flex gap-1.5 mt-2 flex-wrap">
+                      {['#ffffff', '#ffffff33', '#00000040', '#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'].map((c) => (
+                        <button
+                          key={c}
+                          onClick={() => setState((s) => ({ ...s, borderColor: c }))}
+                          title={c}
+                          className={`w-6 h-6 rounded-full border-2 transition-all hover:scale-110 ${
+                            state.borderColor === c ? 'border-white scale-110' : 'border-dark-border'
+                          }`}
+                          style={{ backgroundColor: c }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Border Width */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between text-xs text-slate-400">
+                      <span>Border Width</span>
+                      <span className="font-mono text-slate-200">{state.borderWidth}px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={1}
+                      max={20}
+                      value={state.borderWidth}
+                      onChange={(e) => setState((s) => ({ ...s, borderWidth: Number(e.target.value) }))}
+                      className="w-full accent-brand-500"
+                    />
+                    <div className="flex justify-between text-[10px] text-slate-500">
+                      <span>1px (Thin)</span>
+                      <span>10px (Medium)</span>
+                      <span>20px (Thick)</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ── Shadow & Glow Settings ── */}
+            <div className="pt-3 border-t border-dark-border/60 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <label className="text-xs text-slate-300 font-medium block">Drop Shadow</label>
+                  <span className="text-[10px] text-slate-500">Soft shadow behind the shape</span>
+                </div>
+                <button
+                  onClick={() => setState((s) => ({ ...s, hasShadow: !s.hasShadow }))}
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none ${
+                    state.hasShadow ? 'bg-brand-500' : 'bg-dark-hover'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform ${
+                      state.hasShadow ? 'translate-x-4' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
               </div>
 
               {state.hasShadow && (
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
-                    <span>Shadow Elevation</span>
-                    <span className="text-slate-200 font-mono">{state.shadowIntensity}%</span>
+                <div className="space-y-2 animate-in fade-in slide-in-from-top-1">
+                  {/* Quick preset buttons */}
+                  <div className="flex gap-1.5">
+                    {([['XS', 15], ['SM', 30], ['MD', 50], ['LG', 70], ['XL', 90]] as const).map(([label, val]) => (
+                      <button
+                        key={label}
+                        onClick={() => setState((s) => ({ ...s, shadowIntensity: val }))}
+                        className={`flex-1 py-1 rounded-lg text-[10px] font-bold border transition-all ${
+                          state.shadowIntensity === val
+                            ? 'bg-brand-500 text-white border-brand-500'
+                            : 'bg-dark-surface text-slate-400 border-dark-border hover:border-slate-500 hover:text-white'
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
                   </div>
-                  <input
-                    type="range"
-                    min={10}
-                    max={100}
-                    value={state.shadowIntensity}
-                    onChange={(e) => setState((s) => ({ ...s, shadowIntensity: Number(e.target.value) }))}
-                    className="w-full accent-brand-500"
-                  />
+                  {/* Fine-tune slider */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between text-xs text-slate-400">
+                      <span>Shadow Elevation</span>
+                      <span className="text-slate-200 font-mono">{state.shadowIntensity}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={10}
+                      max={100}
+                      value={state.shadowIntensity}
+                      onChange={(e) => setState((s) => ({ ...s, shadowIntensity: Number(e.target.value) }))}
+                      className="w-full accent-brand-500"
+                    />
+                  </div>
                 </div>
               )}
             </div>
           </div>
+
+          </div>)} {/* end BACKGROUND TAB */}
+
         </div>
       </div>
 

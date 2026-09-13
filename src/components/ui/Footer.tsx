@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Shield, Cpu, Zap, Heart } from 'lucide-react';
+import { SvgFavLogo } from './SvgFavLogo';
 
 export const Footer: React.FC = () => {
   return (
@@ -10,9 +11,7 @@ export const Footer: React.FC = () => {
           {/* Brand Col */}
           <div className="space-y-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-violet-500 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
+              <SvgFavLogo size={32} />
               <span className="font-bold text-white tracking-tight text-base">SvgFav.com</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">

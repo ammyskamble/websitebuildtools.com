@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sparkles, Shield, ChevronDown, Wand2, RefreshCw, Layers, Compass, Menu, X, ArrowUpRight } from 'lucide-react';
+import { SvgFavLogo } from './SvgFavLogo';
 
 export const Navbar: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -14,9 +15,7 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-violet-500 flex items-center justify-center shadow-glow-sm group-hover:shadow-glow transition-all duration-300">
-            <Sparkles className="w-5 h-5 text-white" />
-          </div>
+          <SvgFavLogo size={40} className="drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
           <div className="flex flex-col">
             <span className="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
               SvgFav.com
@@ -24,7 +23,7 @@ export const Navbar: React.FC = () => {
                 PRO
               </span>
             </span>
-            <span className="text-xs text-slate-400 -mt-1 hidden sm:inline">All-in-One Vector & Favicon Studio</span>
+            <span className="text-xs text-slate-400 -mt-1 hidden sm:inline">All-in-One Vector &amp; Favicon Studio</span>
           </div>
         </Link>
 

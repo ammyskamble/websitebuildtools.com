@@ -1,6 +1,6 @@
 {
-  "name": "Gemini App",
-  "short_name": "Gemini",
+  "name": "SvgFav",
+  "short_name": "SvgFav",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#6366f1",
+  "theme_color": "#3b82f6",
   "background_color": "#ffffff",
   "display": "standalone"
 }

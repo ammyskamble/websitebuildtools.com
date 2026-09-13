@@ -37,9 +37,11 @@ export const GeminiModal: React.FC<GeminiModalProps> = ({
   const handleSaveKey = () => {
     setStoredApiKey(apiKey);
     setShowKeyInput(false);
-    if (apiKey.trim() && (!model || model.includes('2.0') || model.includes('2.5'))) {
-      setModel('gemini-3.6-flash');
-      setStoredModel('gemini-3.6-flash');
+    // Only switch model if currently on a fake/nonexistent model name
+    const fakeModels = ['gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-flash-latest'];
+    if (apiKey.trim() && fakeModels.includes(model)) {
+      setModel('gemini-2.5-flash');
+      setStoredModel('gemini-2.5-flash');
     }
   };
 
@@ -66,10 +68,12 @@ export const GeminiModal: React.FC<GeminiModalProps> = ({
   };
 
   const quickPrompts = [
-    'Electric cyber lightning bolt with glowing cyan outline',
-    'Modern geometric crypto diamond emblem on hexagonal shield',
-    'Minimalist AI robot brain core with clean rounded vector curves',
-    'Vibrant SaaS cloud analytics badge with gradient flame',
+    'Glowing neon electric lightning bolt icon on dark violet squircle, cyan gradient bolt, radial glow halo, subtle sparkles, premium app icon',
+    'Modern crypto diamond gem on hexagonal shield background, gold-to-amber gradient facets, inner glow, dark deep navy backdrop',
+    'AI neural network brain orb icon, interconnected nodes, purple-to-cyan gradient, electric pulse ring, dark tech background with dot-grid overlay',
+    'Vibrant SaaS rocket launch icon, gradient from indigo to pink, exhaust flame glow, star field background, sleek rounded squircle frame',
+    'Nature leaf ecosystem badge, emerald green gradient, organic flowing curves, sunburst rays, warm earth-tone squircle background',
+    'Bold shield security emblem, metallic silver-to-blue gradient, inner bevel highlight, dark charcoal background with circuit lines',
   ];
 
   return (
@@ -151,14 +155,20 @@ export const GeminiModal: React.FC<GeminiModalProps> = ({
 
           {/* Prompt input */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-200">What icon or favicon would you like to create?</label>
+            <label className="text-xs font-semibold text-slate-200">Describe your icon in detail — the more specific, the better:</label>
             <textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               rows={3}
-              placeholder="e.g. Glowing neon rocket icon with cyan and violet gradients, modern geometric curves..."
+              placeholder="e.g. Glowing neon rocket icon, dark navy squircle background, cyan-to-purple gradient hull, bright flame exhaust glow, star field texture, premium app icon style..."
               className="w-full px-3.5 py-2 rounded-xl bg-dark-input border border-dark-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
             />
+            <div className="flex items-start gap-1.5 px-2.5 py-2 rounded-lg bg-amber-500/8 border border-amber-500/20">
+              <span className="text-amber-400 text-[10px] mt-0.5">💡</span>
+              <p className="text-[10px] text-amber-300/80 leading-relaxed">
+                <strong>Better prompts = richer icons.</strong> Include: shape (squircle/circle/hexagon), colors (neon cyan, gold gradient), style (dark cyberpunk, luxury metallic), and effects (glow, sparkles, depth).
+              </p>
+            </div>
           </div>
 
           {/* Quick suggestions */}
@@ -189,19 +199,11 @@ export const GeminiModal: React.FC<GeminiModalProps> = ({
               }}
               className="px-2.5 py-1 rounded-lg bg-dark-input border border-dark-border text-xs text-slate-200 focus:outline-none"
             >
-              {apiKey.trim() && (
-                <>
-                  <option value="gemini-3.6-flash" className="text-brand-400 font-bold">
-                    ✨ Gemini 3.6 Flash (Official Recommended)
-                  </option>
-                  <option value="gemini-3.8-flash" className="text-brand-400 font-bold">
-                    ✨ Gemini 3.8 Flash (Latest Preview)
-                  </option>
-                </>
-              )}
-              <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
-              <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro (Deep Reasoning)</option>
-              <option value="gemini-flash-latest">Gemini Flash Latest</option>
+              <option value="gemini-2.5-flash">⚡ Gemini 2.5 Flash (Recommended)</option>
+              <option value="gemini-2.5-pro">🧠 Gemini 2.5 Pro (Most Capable)</option>
+              <option value="gemini-2.0-flash">✨ Gemini 2.0 Flash (Fast)</option>
+              <option value="gemini-1.5-flash">🔹 Gemini 1.5 Flash (Stable)</option>
+              <option value="gemini-1.5-pro">🔷 Gemini 1.5 Pro (Reliable)</option>
             </select>
           </div>
 
