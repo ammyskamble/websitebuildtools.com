@@ -8,7 +8,7 @@ import {
 import { ICONS_CATALOG, renderLucideToSvgMarkup } from '../../lib/icons-catalog';
 import { GRADIENT_PRESETS, SOLID_PALETTES, ShapeType } from '../../lib/color-presets';
 import { IconPickerModal } from '../ui/IconPickerModal';
-import { GeminiModal } from '../gemini/GeminiModal';
+
 import { renderSvgToBlob, downloadBlob, downloadText } from '../../lib/canvas-renderer';
 import { convertSvgToAstroComponent, downloadAstroFile, toPascalCase } from '../../lib/astro-generator';
 
@@ -126,7 +126,7 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
   });
 
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [isGeminiModalOpen, setIsGeminiModalOpen] = useState(false);
+
   const [copied, setCopied] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [pngResolution, setPngResolution] = useState<number>(1024); // 512, 1024, 2048, 4096
@@ -676,29 +676,81 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
             </div>
           </div>
 
-          {/* Export Quick-Settings Card — compact 1-row strip */}
-          <div className="w-full mt-3 glass-card rounded-xl px-3 py-2 border border-dark-border flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Export Size</span>
-            <div className="flex items-center gap-0.5 bg-dark-surface p-0.5 rounded-lg border border-dark-border">
-              {([512, 1024, 2048, 4096] as const).map((res) => (
-                <button
-                  key={res}
-                  onClick={() => setPngResolution(res)}
-                  className={`px-2 py-0.5 rounded-md text-[10px] font-semibold transition-colors ${
-                    pngResolution === res ? 'bg-brand-500 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
+          {/* ── Export Bar ── */}
+          <div className="w-full mt-3 glass-card rounded-xl px-4 py-3 border border-dark-border space-y-3">
+            {/* Row 1: Format tabs + Export button */}
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              {/* Format pill tabs */}
+              <div className="flex items-center gap-1 bg-dark-surface p-0.5 rounded-lg border border-dark-border">
+                {(
+                  [
+                    { id: 'png',   label: 'PNG' },
+                    { id: 'svg',   label: 'SVG' },
+                    { id: 'astro', label: '.ASTRO' },
+                    { id: 'webp',  label: 'WEBP' },
+                    { id: 'jpeg',  label: 'JPEG' },
+                  ] as const
+                ).map(({ id, label }) => (
+                  <button
+                    key={id}
+                    onClick={() => setExportFormat(id)}
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all ${
+                      exportFormat === id
+                        ? id === 'astro'
+                          ? 'bg-amber-500 text-white shadow-sm'
+                          : 'bg-brand-500 text-white shadow-sm'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Export button */}
+              <button
+                onClick={handleExport}
+                disabled={exporting}
+                className="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-bold text-xs shadow-glow transition-all active:scale-95 disabled:opacity-50"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>{exporting ? 'Exporting…' : `Export ${exportFormat.toUpperCase()}`}</span>
+              </button>
+            </div>
+
+            {/* Row 2: Resolution dropdown (raster only) + JPEG quality */}
+            {exportFormat !== 'svg' && exportFormat !== 'astro' && (
+              <div className="flex items-center gap-3 flex-wrap">
+                {/* Resolution dropdown */}
+                <select
+                  value={pngResolution}
+                  onChange={(e) => setPngResolution(Number(e.target.value))}
+                  className="bg-dark-surface border border-dark-border text-slate-200 text-xs rounded-lg px-3 py-1.5 appearance-none cursor-pointer hover:border-brand-500/50 transition-colors focus:outline-none focus:ring-1 focus:ring-brand-500/40"
                 >
-                  {res === 512 ? '512' : res === 1024 ? '1K' : res === 2048 ? '2K' : '4K'}
-                </button>
-              ))}
-            </div>
-            <div className="ml-auto flex items-center gap-1.5">
-              <span className="text-[10px] text-slate-500">JPEG</span>
-              <input type="range" min={0.5} max={1} step={0.05} value={jpegQuality}
-                onChange={(e) => setJpegQuality(Number(e.target.value))} className="w-14 accent-brand-500" />
-              <span className="text-[10px] text-slate-300 w-7">{Math.round(jpegQuality * 100)}%</span>
-            </div>
+                  <option value={256}>256 × 256 px</option>
+                  <option value={512}>512 × 512 px (1x HD)</option>
+                  <option value={1024}>1024 × 1024 px (2x HD)</option>
+                  <option value={2048}>2048 × 2048 px (4x HD)</option>
+                  <option value={4096}>4096 × 4096 px (8x HD)</option>
+                </select>
+
+                {/* JPEG quality slider */}
+                {exportFormat === 'jpeg' && (
+                  <div className="flex items-center gap-2 ml-auto">
+                    <span className="text-[10px] text-slate-500">Quality</span>
+                    <input
+                      type="range" min={0.5} max={1} step={0.05}
+                      value={jpegQuality}
+                      onChange={(e) => setJpegQuality(Number(e.target.value))}
+                      className="w-20 accent-brand-500"
+                    />
+                    <span className="text-[10px] text-slate-300 w-8">{Math.round(jpegQuality * 100)}%</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
+
         </div>
 
         {/* Right Column: Customization Controls Panel */}
@@ -793,14 +845,6 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setIsGeminiModalOpen(true)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-brand-500/20 to-indigo-500/20 hover:from-brand-500/30 hover:to-indigo-500/30 border border-brand-500/40 text-brand-300 text-xs font-medium transition-all shadow-glow-sm"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-                      <span>Gemini AI</span>
-                    </button>
 
                     <button
                       type="button"
@@ -1533,19 +1577,6 @@ export const LogoStudio: React.FC<{ initialCompact?: boolean; onExportFavicon?: 
         }}
       />
 
-      {/* Gemini AI Modal */}
-      <GeminiModal
-        isOpen={isGeminiModalOpen}
-        onClose={() => setIsGeminiModalOpen(false)}
-        onSelectSvg={(customSvg) => {
-          setState((s) => ({
-            ...s,
-            contentType: 'icon',
-            iconId: 'custom',
-            customSvgMarkup: customSvg,
-          }));
-        }}
-      />
     </div>
   );
 };

@@ -7,7 +7,7 @@ import {
 import { generateFaviconPack, getHtmlHeadSnippet } from '../../lib/zip-generator';
 import { getAstroFaviconLayoutSnippet } from '../../lib/astro-generator';
 import { renderSvgToBlob } from '../../lib/canvas-renderer';
-import { GeminiModal } from '../gemini/GeminiModal';
+
 
 interface FaviconSuiteProps {
   initialSvg?: string;
@@ -38,7 +38,7 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
   const [isBundling, setIsBundling] = useState(false);
   const [activeTabPreview, setActiveTabPreview] = useState<'browser' | 'google' | 'ios' | 'android' | 'taskbar'>('browser');
   const [snippetFormat, setSnippetFormat] = useState<'html' | 'astro'>('html');
-  const [isGeminiModalOpen, setIsGeminiModalOpen] = useState(false);
+
 
   // Restore custom SVG if passed from Gemini Studio
   React.useEffect(() => {
@@ -153,14 +153,6 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
               </span>
 
               <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIsGeminiModalOpen(true)}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-brand-500/15 border border-brand-500/30 text-brand-300 hover:text-white hover:bg-brand-500/25 text-xs font-medium transition-all shadow-glow-sm"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-                  <span>Generate with Gemini</span>
-                </button>
 
                 <label className="text-xs text-slate-400 hover:text-white font-medium cursor-pointer underline flex items-center gap-1">
                   <span>Upload file</span>
@@ -576,11 +568,6 @@ export const FaviconSuite: React.FC<FaviconSuiteProps> = ({ initialSvg }) => {
         </div>
       </div>
 
-      <GeminiModal
-        isOpen={isGeminiModalOpen}
-        onClose={() => setIsGeminiModalOpen(false)}
-        onSelectSvg={(svg) => setSvgSource(svg)}
-      />
     </div>
   );
 };

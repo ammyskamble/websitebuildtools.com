@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/ui/Navbar';
 import { Footer } from './components/ui/Footer';
+import { ScrollToTop } from './components/ui/ScrollToTop';
 import { HomePage } from './pages/HomePage';
 import { LogoMakerPage } from './pages/LogoMakerPage';
 import { FaviconGeneratorPage } from './pages/FaviconGeneratorPage';
 import { SvgOptimizerPage } from './pages/SvgOptimizerPage';
 import { ConverterPage } from './pages/ConverterPage';
-import { GeminiStudioPage } from './pages/GeminiStudioPage';
 import { PicsvgAlternativePage } from './pages/PicsvgAlternativePage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { AboutUsPage } from './pages/AboutUsPage';
@@ -48,15 +48,14 @@ export const App: React.FC = () => {
             <Route path="/tools/logo-maker" element={<LogoMakerPage />} />
             <Route path="/tools/favicon-generator" element={<FaviconGeneratorPage />} />
             <Route path="/tools/svg-optimizer" element={<SvgOptimizerPage />} />
-            <Route path="/tools/gemini-ai" element={<GeminiStudioPage />} />
-            <Route path="/tools/ai-generator" element={<GeminiStudioPage variant="ai-svg" />} />
-
-            {/* Dedicated Programmatic AI & Code Landing Routes */}
-            <Route path="/ai-svg-generator" element={<GeminiStudioPage variant="ai-svg" />} />
-            <Route path="/html-to-svg" element={<GeminiStudioPage variant="html-to-svg" />} />
-            <Route path="/css-to-svg" element={<GeminiStudioPage variant="css-to-svg" />} />
-            <Route path="/canvas-to-svg" element={<GeminiStudioPage variant="canvas-to-svg" />} />
-            <Route path="/svg-to-favicon-pack" element={<GeminiStudioPage variant="svg-to-favicon" />} />
+            {/* Gemini AI routes removed — redirect to 404 */}
+            <Route path="/tools/gemini-ai" element={<NotFoundPage />} />
+            <Route path="/tools/ai-generator" element={<NotFoundPage />} />
+            <Route path="/ai-svg-generator" element={<NotFoundPage />} />
+            <Route path="/html-to-svg" element={<NotFoundPage />} />
+            <Route path="/css-to-svg" element={<NotFoundPage />} />
+            <Route path="/canvas-to-svg" element={<NotFoundPage />} />
+            <Route path="/svg-to-favicon-pack" element={<NotFoundPage />} />
 
             {/* High-Intent Programmatic SEO Conversion Hub */}
             <Route path="/convert" element={<ConverterPage mode="png-to-svg" />} />
@@ -116,6 +115,7 @@ export const App: React.FC = () => {
         </main>
 
         <Footer />
+        <ScrollToTop />
       </div>
     </BrowserRouter>
   );

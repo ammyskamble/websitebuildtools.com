@@ -50,7 +50,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         {
           title: '5. Browser Local Storage',
           items: [
-            'We may store anonymous UI preferences (such as your chosen canvas theme, light/dark mode, or custom API key if you opt to use private Gemini models) in your browser\'s local localStorage. This data stays exclusively on your device.'
+            'We may store anonymous UI preferences (such as your chosen canvas theme or light/dark mode) in your browser\'s local localStorage. This data stays exclusively on your device.'
           ]
         }
       ]

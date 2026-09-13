@@ -59,20 +59,7 @@ export const Navbar: React.FC = () => {
           >
             SVG Optimizer
           </Link>
-          <Link
-            to="/tools/gemini-ai"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-              isActive('/tools/gemini-ai')
-                ? 'bg-gradient-to-r from-brand-500/20 to-indigo-500/20 text-brand-300 border border-brand-500/40 shadow-glow-sm'
-                : 'text-slate-300 hover:text-white hover:bg-dark-hover'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-            <span>Gemini AI</span>
-            <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-brand-500/25 text-brand-300 border border-brand-500/40">
-              NEW
-            </span>
-          </Link>
+
 
           {/* Converters Dropdown */}
           <div
@@ -258,17 +245,6 @@ export const Navbar: React.FC = () => {
             className="block px-3 py-2 rounded-lg text-sm text-slate-200 hover:bg-dark-hover"
           >
             SVG Optimizer
-          </Link>
-          <Link
-            to="/tools/gemini-ai"
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-brand-300 bg-brand-500/10 hover:bg-brand-500/20 border border-brand-500/30"
-          >
-            <span className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-brand-400" />
-              <span>Gemini AI Studio</span>
-            </span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/30 font-bold">NEW</span>
           </Link>
           <div className="pt-2 border-t border-dark-border/60">
             <div className="flex items-center justify-between px-3">

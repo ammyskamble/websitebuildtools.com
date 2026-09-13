@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <Link to="/tools/logo-maker" className="hover:text-brand-400 transition-colors">
-                  Fast Logo & Icon Studio
+                  Fast Logo &amp; Icon Studio
                 </Link>
               </li>
               <li>
@@ -39,44 +39,39 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/tools/svg-optimizer" className="hover:text-brand-400 transition-colors">
-                  SVG Optimizer & Cleaner
-                </Link>
-              </li>
-              <li>
-                <Link to="/tools/gemini-ai" className="hover:text-brand-400 transition-colors">
-                  Gemini Prompt Studio
+                  SVG Optimizer &amp; Cleaner
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* AI & Code to Vector */}
+          {/* More Converters */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">AI & Code to Vector</h4>
+            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">More Converters</h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <Link to="/ai-svg-generator" className="hover:text-brand-400 transition-colors font-medium text-brand-300">
-                  AI SVG Generator (Prompt)
+                <Link to="/svg-to-astro" className="hover:text-brand-400 transition-colors font-medium text-amber-300/90">
+                  SVG to Astro Component
                 </Link>
               </li>
               <li>
-                <Link to="/html-to-svg" className="hover:text-brand-400 transition-colors">
-                  HTML to SVG Vector
+                <Link to="/svg-to-data-uri" className="hover:text-brand-400 transition-colors">
+                  SVG to Data URI
                 </Link>
               </li>
               <li>
-                <Link to="/css-to-svg" className="hover:text-brand-400 transition-colors">
-                  CSS to SVG Badges
+                <Link to="/svg-to-jpg" className="hover:text-brand-400 transition-colors">
+                  SVG to JPG
                 </Link>
               </li>
               <li>
-                <Link to="/canvas-to-svg" className="hover:text-brand-400 transition-colors">
-                  Canvas 2D JS to SVG
+                <Link to="/convert/svg-to-ico" className="hover:text-brand-400 transition-colors">
+                  SVG to Windows ICO
                 </Link>
               </li>
               <li>
-                <Link to="/svg-to-favicon-pack" className="hover:text-brand-400 transition-colors">
-                  SVG to Favicon Pack
+                <Link to="/image-to-svg" className="hover:text-brand-400 transition-colors font-medium text-brand-300/90">
+                  Image to SVG (Cricut)
                 </Link>
               </li>
             </ul>

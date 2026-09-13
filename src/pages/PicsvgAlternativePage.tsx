@@ -57,7 +57,7 @@ export const PicsvgAlternativePage: React.FC = () => {
     },
     {
       feature: 'Integrated Asset Ecosystem',
-      svgfav: 'Favicon Suite, Logo Studio, SVG Optimizer, Gemini AI',
+      svgfav: 'Favicon Suite, Logo Studio, SVG Optimizer',
       picsvg: 'Basic vectorizer only',
       vfWins: true,
     },
@@ -257,7 +257,7 @@ export const PicsvgAlternativePage: React.FC = () => {
           </div>
           <h3 className="font-bold text-white text-base">All-in-One Studio Suite</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Beyond image vectorizing, SvgFav.com gives you a full production Favicon Suite, Logo Studio, SVG Optimizer, and Google Gemini AI generator.
+            Beyond image vectorizing, SvgFav.com gives you a full production Favicon Suite, Logo Studio, and SVG Optimizer.
           </p>
         </div>
       </section>

@@ -335,40 +335,6 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       {/* Active Tool Viewport */}
       <UniversalConverter key={mode} initialMode={mode} />
 
-      {/* Bidirectional Silo Linking: AI Vector & Code Alternative Banner */}
-      <section className="glass-panel rounded-3xl p-6 sm:p-8 border border-indigo-500/30 bg-gradient-to-r from-indigo-950/20 via-dark-card to-brand-950/20">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-bold text-indigo-400 uppercase tracking-wider">
-              <Sparkles className="w-4 h-4" />
-              <span>Need to Create New Artwork from Scratch?</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              Try the Free AI SVG Generator & Code to Vector Studio
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300">
-              Don't have a bitmap image to convert? Describe your icon in plain English to generate scalable SVG vectors with Google Gemini, or convert HTML, CSS, and HTML5 Canvas scripts directly into clean vector files.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <Link
-              to="/ai-svg-generator"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-brand-600 hover:from-indigo-500 hover:to-brand-500 text-white text-xs font-semibold shadow-glow transition-all active:scale-95"
-            >
-              <span>Launch AI SVG Generator</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              to="/html-to-svg"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-dark-surface hover:bg-dark-hover border border-dark-border text-xs font-medium text-slate-300 hover:text-white transition-colors"
-            >
-              <span>HTML to SVG</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Anti-Picsvg Comparison Callout Banner for Vectorizer pages */}
       {isVectorizingMode && (
         <section className="glass-panel rounded-3xl p-6 sm:p-8 border border-brand-500/30 bg-gradient-to-r from-brand-900/20 via-dark-card to-purple-900/20">

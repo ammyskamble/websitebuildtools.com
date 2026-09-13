@@ -52,12 +52,12 @@ export const NotFoundPage: React.FC = () => {
       badge: 'Performance'
     },
     {
-      title: 'Gemini AI SVG Studio',
-      desc: 'Prompt-to-vector generation and code-to-SVG synthesizer.',
-      path: '/tools/gemini-ai',
+      title: 'SVG to Astro',
+      desc: 'Export SVG assets as typed Astro components for your framework.',
+      path: '/svg-to-astro',
       icon: FileCode2,
-      color: 'from-violet-500 to-indigo-500',
-      badge: 'AI Powered'
+      color: 'from-amber-500 to-orange-500',
+      badge: 'Framework'
     },
     {
       title: 'All Converters & Tools',

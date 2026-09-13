@@ -5,7 +5,8 @@
  */
 
 import { createIcoFromPngs, IcoImageSource } from './ico-encoder';
-import { AssetTargetType } from './gemini';
+
+export type AssetTargetType = 'svg' | 'png' | 'canvas' | 'html' | 'css' | 'favicon' | 'webp' | 'jpeg' | 'astro';
 
 export interface CodeRenderResult {
   canvas: HTMLCanvasElement;
