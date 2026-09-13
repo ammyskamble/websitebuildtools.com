@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Zap, Check, ArrowRight, Sparkles, ExternalLink } from 'lucide-react';
+import { Shield, Zap, Check, ArrowRight, Sparkles, ExternalLink, FileCode, Copy, Code2, Scissors } from 'lucide-react';
 import { UniversalConverter } from '../components/converters/UniversalConverter';
 import type { ConverterMode } from '../components/converters/UniversalConverter';
 import { ComparisonTable } from '../components/ui/ComparisonTable';
@@ -13,10 +13,14 @@ interface ConverterPageProps {
 }
 
 export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
+  const [copiedSnippet, setCopiedSnippet] = useState(false);
   const contentConfig: Record<
     ConverterMode,
     {
       pageTitle: string;
+      h1: string;
+      keywords: string;
+      subtitle: string;
       metaDescription: string;
       guideTitle: string;
       steps: { title: string; desc: string }[];
@@ -24,7 +28,10 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
     }
   > = {
     'png-to-svg': {
-      pageTitle: 'Free In-Browser PNG to SVG Converter (100% Private & No Upload)',
+      pageTitle: 'Free PNG to SVG Converter (Client-Side) — SvgFav',
+      h1: 'Convert PNG to SVG Instantly',
+      keywords: 'png to svg, convert png to vector',
+      subtitle: 'Vectorize raster PNG images into clean, scalable SVG paths directly in your browser with zero server uploads and zero data leaks.',
       metaDescription: 'Convert PNG to SVG vector free online with zero server uploads. High-precision vectorizer for logos, sketches, Cricut cut files, and graphics.',
       guideTitle: 'How to vectorize raster PNG images into SVG paths',
       steps: [
@@ -60,7 +67,10 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       ],
     },
     'jpg-to-svg': {
-      pageTitle: 'Free JPG to SVG Converter Online (No 4MB Limit • 100% Client-Side)',
+      pageTitle: 'Free JPG to SVG Converter (Client-Side) — SvgFav',
+      h1: 'Convert JPG to SVG Vector Instantly',
+      keywords: 'jpg to svg, convert jpg to vector',
+      subtitle: 'Trace JPG photos, sketches, and logos into infinitely scalable vectors without 4MB cloud limits or server uploads.',
       metaDescription: 'Convert JPG to SVG vector free online with zero server uploads. Trace photos, sketches, and logos into infinitely scalable vectors.',
       guideTitle: 'How to convert JPG to SVG vector without losing quality',
       steps: [
@@ -96,7 +106,10 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       ],
     },
     'image-to-svg': {
-      pageTitle: 'Universal Image to SVG Vectorizer (Cricut & Laser Cutting Ready)',
+      pageTitle: 'Universal Image to SVG Vectorizer (Client-Side) — SvgFav',
+      h1: 'Convert Any Image to SVG Vector',
+      keywords: 'image to svg, raster to vector',
+      subtitle: 'Convert PNG, JPG, WebP, and BMP images into clean vector paths for design suites, Cricut cut files, and laser cutters.',
       metaDescription: 'Convert any image (PNG, JPG, WebP) to clean SVG vectors for Cricut Design Space, Glowforge laser cutters, and embroidery machines.',
       guideTitle: 'How to convert any image (PNG, JPG, WebP) to SVG for Cricut & Laser Cutters',
       steps: [
@@ -132,7 +145,10 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       ],
     },
     'svg-to-png': {
-      pageTitle: 'Free SVG to High-DPI PNG Transparent Converter (Up to 8x 4096px)',
+      pageTitle: 'Convert SVG to High-DPI PNG (Client-Side) — SvgFav',
+      h1: 'Convert SVG to Transparent High-DPI PNG',
+      keywords: 'svg to png, rasterize svg',
+      subtitle: 'Rasterize vector SVG files into crisp transparent PNGs with up to 8x Ultra HD resolution directly on your GPU canvas.',
       metaDescription: 'Rasterize SVG to high-resolution PNG transparent images. Free client-side converter with 1x to 8x 4K/8K retina multipliers.',
       guideTitle: 'How to convert SVG to High-Resolution PNG with transparency',
       steps: [
@@ -163,126 +179,158 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       ],
     },
     'svg-to-jpg': {
-      pageTitle: 'Free SVG to JPG / JPEG Converter with Background Fill',
-      metaDescription: 'Convert SVG vectors to JPG with custom background colors and quality sliders. 100% client-side conversion with zero compression artifacts.',
-      guideTitle: 'How to convert SVG to JPG with solid background fill',
+      pageTitle: 'Convert SVG to High-Quality JPG with Solid Background | SvgFav',
+      h1: 'Convert SVG to JPG with Solid Background',
+      keywords: 'svg to jpg, svg to jpeg, vector to jpg, convert svg image',
+      subtitle: 'Flatten vector designs onto custom background fills and compress into lightweight, web-optimized JPEG images in browser memory.',
+      metaDescription: 'Convert SVG vectors to JPG with custom background colors and quality tuning. 100% client-side conversion with zero server uploads and sub-pixel quality.',
+      guideTitle: 'How to convert SVG to JPG with solid background color fill',
       steps: [
         {
           title: 'Upload Vector Graphics',
-          desc: 'Select your SVG files. JPG format does not support transparency, so a background color is required.',
+          desc: 'Select or drag SVG files into the tool. Because the JPEG standard lacks an alpha transparency channel, a solid background color is seamlessly blended.',
         },
         {
-          title: 'Choose Background Color',
-          desc: 'Pick your background filler (white, black, or brand color) and adjust the compression quality slider.',
+          title: 'Choose Background Color & Quality',
+          desc: 'Pick a solid background fill (white, black, or custom hex brand color) and set your target JPEG quality between 75% and 100%.',
         },
         {
           title: 'Export Compressed JPGs',
-          desc: 'Save individual files or bulk export a ZIP archive with zero quality loss.',
+          desc: 'Download individual JPEG images or export all batch-processed files in a consolidated .zip package directly to your disk.',
         },
       ],
       faqs: [
         {
-          question: 'Why does JPG require a background color?',
+          question: 'Why does the JPEG format require a solid background color?',
           answer:
-            'The JPEG image format specification does not have an alpha (transparency) channel. SvgFav.com automatically blends your vector onto a solid fill color of your choice.',
+            'The JPEG (Joint Photographic Experts Group) specification uses discrete cosine transform (DCT) compression designed exclusively for 3-channel RGB/YUV color spaces. Because JPEG does not define an alpha channel, transparent SVG paths must be flattened against a solid background fill.',
         },
         {
-          question: 'How does the quality slider affect file size?',
+          question: 'What is the optimal JPEG quality setting for web graphics?',
           answer:
-            'Setting quality to 85-92% reduces file size by over 60% with virtually indistinguishable visual difference for digital displays.',
+            'A quality factor between 82% and 88% delivers the optimal balance: it strips unnoticeable high-frequency color data while cutting file size by 60%–75% with zero visible artifacting on standard or high-DPI displays.',
+        },
+        {
+          question: 'Can I batch convert hundreds of SVG icons to JPG?',
+          answer:
+            'Yes! SvgFav processes your entire vector batch in parallel directly inside your browser memory using HTML5 2D canvas workers, without queue throttling or file size limits.',
         },
       ],
     },
     'svg-to-ico': {
-      pageTitle: 'Free SVG to Multi-Size Windows ICO Favicon Converter',
-      metaDescription: 'Convert SVG to real binary multi-resolution .ico favicon files (16x16, 32x32, 48x48) in your browser with zero server uploads.',
-      guideTitle: 'How to convert SVG to multi-size Windows ICO files',
+      pageTitle: 'Convert SVG to Multi-Size Favicon ICO (16, 32, 48px) | SvgFav',
+      h1: 'Convert SVG to Windows Favicon ICO',
+      keywords: 'svg to ico, favicon ico converter, convert svg to favicon, multi resolution ico',
+      subtitle: 'Compile vector graphics into compliant Microsoft Windows binary ICO packages containing 16×16, 32×32, and 48×48 frames with sub-pixel alpha rendering.',
+      metaDescription: 'Convert SVG to real binary multi-resolution .ico favicon files (16x16, 32x32, 48x48) in your browser with zero server uploads and crisp alpha transparency.',
+      guideTitle: 'How to compile SVG into multi-resolution binary ICO favicon files',
       steps: [
         {
-          title: 'Select Vector or Logo',
-          desc: 'Upload an SVG logo or icon file. The binary encoder will create 16x16, 32x32, and 48x48 versions.',
+          title: 'Select Vector or Brand Logo',
+          desc: 'Upload a square SVG icon or mark. Our engine automatically parses the vector geometry and prepares multi-resolution raster buffers.',
         },
         {
-          title: 'Multi-Resolution Embedding',
-          desc: 'SvgFav.com renders each frame with crisp anti-aliasing and packages them into a single .ico binary.',
+          title: 'Multi-Frame Sub-Pixel Rasterization',
+          desc: 'The vectorizer renders 16×16 (browser tab), 32×32 (Retina bookmark bar), and 48×48 (Windows desktop/taskbar) frames with hardware anti-aliasing.',
         },
         {
-          title: 'Download & Deploy',
-          desc: 'Save your favicon.ico file and place it in the root directory of your website for universal browser support.',
+          title: 'Binary ICO Structure Assembly',
+          desc: 'Encodes an official ICONDIR header, directory index entries, and embedded image chunks into a genuine binary .ico ready to deploy as favicon.ico.',
         },
       ],
       faqs: [
         {
-          question: 'What is a multi-resolution ICO file?',
+          question: 'What is a multi-resolution ICO file and why is it needed?',
           answer:
-            'A true .ico container holds multiple bitmap frames (16x16 for browser tabs, 32x32 for high-DPI retina bookmarks, 48x48 for desktop shortcuts). Windows and browsers automatically pick the sharpest size.',
+            'A genuine .ico container holds multiple resolution frames packed into a single binary stream. When placed at /favicon.ico, browsers and operating systems automatically pick the frame matching the display density (e.g. 16x16 for legacy tabs, 32x32 for high-DPI Retina screens, 48x48 for Windows taskbars), preventing blurry downscaling.',
         },
         {
-          question: 'Is this a fake renamed PNG or real binary ICO?',
+          question: 'Is this a genuine binary ICO or just a renamed PNG file?',
           answer:
-            'SvgFav.com constructs a valid binary ICO header, directory index, and embedded image chunks compliant with the Microsoft Windows ICO file format specification.',
+            'SvgFav compiles an authentic binary ICO file conforming to the Microsoft Windows ICO file format specification. It constructs binary ICONDIR headers, ICONDIRENTRY descriptors, and raw image chunk offsets that pass strict browser and OS validation.',
+        },
+        {
+          question: 'How do I bypass aggressive browser favicon caching when testing?',
+          answer:
+            'Browsers cache favicon.ico aggressively. To see updates immediately, perform a hard refresh (Ctrl+F5 or Cmd+Shift+R) or append a version parameter to your HTML link tag, such as <link rel="icon" href="/favicon.ico?v=2">.',
         },
       ],
     },
     'svg-to-data-uri': {
-      pageTitle: 'Free SVG to CSS / HTML Data URI Generator',
+      pageTitle: 'Convert SVG to CSS Data URI (URL-Encoded & Base64) | SvgFav',
+      h1: 'Convert SVG to CSS Data URI',
+      keywords: 'svg to data uri, svg to css background, data image svg xml, inline svg data uri',
+      subtitle: 'Encode SVG vector markup into URL-safe or Base64 data URIs for zero-HTTP-request CSS backgrounds, mask-image rules, and inline HTML embeds.',
       metaDescription: 'Encode SVG vectors into inline background-image url("data:image/svg+xml,...") and Base64 strings for instant zero-request rendering.',
       guideTitle: 'How to convert SVG into CSS background-image Data URIs',
       steps: [
         {
-          title: 'Select or Paste SVG',
-          desc: 'Upload an SVG file or paste raw vector markup.',
+          title: 'Select or Paste SVG Code',
+          desc: 'Drop an SVG file or paste raw vector code directly into the input editor.',
         },
         {
-          title: 'Choose URL-Encoded or Base64',
-          desc: 'URL-encoded is smaller and gzip-friendly. Base64 is useful for older CSS preprocessors.',
+          title: 'Select Encoding Scheme',
+          desc: 'Choose URL-encoded (UTF-8) for maximum compression and gzip efficiency, or Base64 for legacy CSS preprocessors.',
         },
         {
-          title: '1-Click Copy Code',
-          desc: 'Copy ready-to-use CSS background-image or HTML <img> markup directly to your clipboard.',
+          title: '1-Click Copy CSS or HTML Snippet',
+          desc: 'Instantly copy ready-to-use CSS background-image, mask-image, or HTML <img> markup directly to your clipboard.',
         },
       ],
       faqs: [
         {
-          question: 'Why use a Data URI instead of an external SVG file?',
+          question: 'Why is URL-encoded SVG superior to Base64 for CSS backgrounds?',
           answer:
-            'Data URIs embed the vector graphic directly into your CSS or HTML stylesheet, eliminating an extra HTTP network request and preventing layout shift or flickering during page load.',
+            'URL-encoded SVGs (data:image/svg+xml;utf8,...) are approximately 30% smaller than Base64 equivalents because Base64 expands binary and text data by 33%. Furthermore, URL-encoded vectors remain human-readable in DevTools and achieve superior gzip compression ratios.',
         },
         {
-          question: 'Should I choose URL-encoded or Base64?',
+          question: 'How does SvgFav prevent CSS syntax errors with SVG Data URIs?',
           answer:
-            'URL-encoded (data:image/svg+xml;utf8,...) is almost always recommended because it is ~30% smaller than Base64 and can be gzipped and inspected easily.',
+            'Raw SVGs contain characters like # (used in hex colors) and double quotes that break CSS string parsing. SvgFav automatically percent-encodes dangerous characters (e.g. # becomes %23) so your CSS background-image rules never fail.',
+        },
+        {
+          question: 'When should I use Data URIs instead of external SVG files?',
+          answer:
+            'Data URIs are ideal for critical UI icons, buttons, and spinners because they eliminate additional HTTP network roundtrips and guarantee zero flash of unstyled content (FOUC).',
         },
       ],
     },
     'svg-to-astro': {
-      pageTitle: 'Free SVG to Production Astro (.astro) Component Converter',
+      pageTitle: 'Convert SVG to Astro Component Online (Typed & Inlined) | SvgFav',
+      h1: 'SVG to Astro Component Converter',
+      keywords: 'svg to astro, astro svg inline, astro icon component, svg to astro component',
+      subtitle: 'Transform SVG vector markup into typed, production-grade Astro components with Props interfaces, class:list styling, and zero client-side JavaScript.',
       metaDescription: 'Convert SVG icons into typed, production-ready .astro components with Props interfaces and class:list styling support.',
       guideTitle: 'How to convert SVG to production-ready .astro components',
       steps: [
         {
           title: 'Upload SVG Icons or Illustrations',
-          desc: 'Select one or more SVG files to convert into Astro framework components.',
+          desc: 'Select one or more SVG files to convert into native Astro (.astro) components.',
         },
         {
-          title: 'Automated Component Wrapping',
-          desc: 'SvgFav.com extracts SVG attributes, cleans up XML metadata, and embeds standard Props interfaces with class:list and Astro.props spread.',
+          title: 'Automated AST Component Synthesis',
+          desc: 'Cleans redundant XML metadata, extracts viewBox coordinates, and injects Astro TypeScript Props interfaces with class:list and Astro.props spread.',
         },
         {
           title: 'Save .astro Component or ZIP Bundle',
-          desc: 'Download individual .astro files or batch export as a single ZIP archive to drop directly into your Astro src/components/ folder.',
+          desc: 'Copy component markup directly or download pre-packaged .astro files ready to import into your Astro src/components/ directory.',
         },
       ],
       faqs: [
         {
           question: 'Why convert SVG to an Astro component instead of an <img> tag?',
           answer:
-            'Astro components allow dynamic styling with Tailwind CSS or CSS classes, dynamic size overrides via props, and zero client-side JavaScript overhead since Astro compiles them to pure static HTML at build time.',
+            'An inlined Astro component compiles to static HTML on the server, allowing you to style vector paths directly with Tailwind CSS utilities (e.g. text-blue-500 fill-current hover:text-blue-600) and override dimensions dynamically via props, which <img> tags cannot do.',
         },
         {
-          question: 'Does this work with all Astro versions?',
+          question: 'Does an inlined Astro SVG component add client-side JavaScript overhead?',
           answer:
-            'Yes! The generated .astro template uses standard Astro Props interfaces and class:list syntax compatible with Astro v3, v4, and v5+.',
+            'No! Following Astro\'s zero-JS architecture, .astro components contain zero client-side JavaScript by default. The vector markup is rendered purely into the initial static HTML document, preserving perfect 100/100 Google Lighthouse performance scores.',
+        },
+        {
+          question: 'Does this converter support Astro v3, v4, and v5?',
+          answer:
+            'Yes. The generated templates utilize standard Astro HTML/SVG Props typing (astroHTML.JSX.SVGAttributes) and the class:list directive fully compatible with Astro v3, v4, and the latest Astro v5 release.',
         },
       ],
     },
@@ -292,7 +340,7 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
 
   const breadcrumbsList = [
     { name: 'Converters', path: '/convert' },
-    { name: currentConfig.pageTitle.split('(')[0].trim() },
+    { name: currentConfig.h1 },
   ];
 
   const howToSteps = currentConfig.steps.map((s) => ({
@@ -306,8 +354,9 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       {/* Dynamic SEO Head, Title & Googlebot Structured Data */}
       <SeoHead
-        title={`${currentConfig.pageTitle} — SvgFav.com`}
+        title={currentConfig.pageTitle}
         description={currentConfig.metaDescription}
+        keywords={currentConfig.keywords}
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
           url: b.path || window.location.pathname,
@@ -331,6 +380,16 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
 
       {/* Breadcrumb Navigation */}
       <Breadcrumbs items={breadcrumbsList} />
+
+      {/* Primary Page Header for Programmatic SEO */}
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          {currentConfig.h1}
+        </h1>
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          {currentConfig.subtitle}
+        </p>
+      </div>
 
       {/* Active Tool Viewport */}
       <UniversalConverter key={mode} initialMode={mode} />
@@ -359,6 +418,160 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
               <span>See Picsvg vs SvgFav.com Comparison</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
+          </div>
+        </section>
+      )}
+
+      {/* Dedicated Cricut & Cutter Technical Guide for PNG to SVG */}
+      {mode === 'png-to-svg' && (
+        <section className="glass-panel rounded-3xl p-6 sm:p-10 border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-dark-card to-brand-900/15 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-bold text-emerald-500 dark:text-emerald-400 uppercase tracking-wider mb-1">
+                <Scissors className="w-4 h-4" />
+                <span>Craft &amp; Cutting Machine Workflow Guide</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Cricut Design Space &amp; Laser Cutter Optimization
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                Generate clean, closed vector paths with zero double-cut line errors for vinyl, paper, and laser cutters.
+              </p>
+            </div>
+            <div className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 text-xs font-semibold shrink-0">
+              100% Compatible with Design Space &amp; Glowforge
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div className="glass-card rounded-xl p-5 border border-dark-border/80 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-white text-sm">1. High-Contrast Source</h4>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                Use solid black-and-white or transparent PNG silhouettes. High edge contrast produces precise single-contour boundaries without stray anchor points.
+              </p>
+            </div>
+            <div className="glass-card rounded-xl p-5 border border-dark-border/80 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-white text-sm">2. Threshold &amp; Curve Tuning</h4>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                Adjust the luminance threshold slider to eliminate noise and increase smoothing to reduce blade wear and cut times during vinyl weeding.
+              </p>
+            </div>
+            <div className="glass-card rounded-xl p-5 border border-dark-border/80 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-white text-sm">3. Import into Design Space</h4>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                In Cricut Design Space, click <em>Upload &gt; Upload Image &gt; Vector</em>. The closed vector polygons load as cuttable layers ready for immediate mat placement.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Astro Developer Utility & Code Copy Snippets */}
+      {mode === 'svg-to-astro' && (
+        <section className="glass-panel rounded-3xl p-6 sm:p-10 border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-dark-card to-purple-900/15 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-bold text-amber-500 dark:text-amber-400 uppercase tracking-wider mb-1">
+                <Code2 className="w-4 h-4" />
+                <span>Frontend Developer Utility &bull; Typed Astro Code Snippet</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Production-Ready .astro Component Structure
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                Zero client-side JavaScript, typed TypeScript props, and seamless Tailwind CSS integration.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                const sample = `---
+// Icon.astro - Typed, Zero-JS Astro Component
+interface Props {
+  size?: number | string;
+  class?: string;
+  fill?: string;
+  [key: string]: any;
+}
+
+const {
+  size = 24,
+  class: className,
+  fill = "currentColor",
+  ...rest
+} = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={fill}
+  class:list={["inline-block shrink-0", className]}
+  {...rest}
+>
+  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+</svg>`;
+                navigator.clipboard.writeText(sample);
+                setCopiedSnippet(true);
+                setTimeout(() => setCopiedSnippet(false), 2000);
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-700 dark:text-amber-300 text-xs font-semibold shrink-0 transition-all active:scale-95"
+            >
+              {copiedSnippet ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-500" />
+                  <span>Copied Snippet!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-4 h-4" />
+                  <span>Copy Astro Snippet</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-dark-border bg-slate-900 text-slate-100 font-mono text-xs">
+            <div className="px-4 py-2.5 bg-slate-800/80 border-b border-slate-700/60 flex items-center justify-between text-[11px] text-slate-400">
+              <span className="flex items-center gap-2 text-amber-400">
+                <FileCode className="w-3.5 h-3.5" />
+                <span>src/components/Icon.astro</span>
+              </span>
+              <span className="text-[10px] uppercase tracking-wider text-slate-400">Astro v3 / v4 / v5</span>
+            </div>
+            <pre className="p-4 sm:p-6 overflow-x-auto leading-relaxed text-slate-200">
+              <code>{`---
+// Icon.astro - Typed, Zero-JS Astro Component
+interface Props {
+  size?: number | string;
+  class?: string;
+  fill?: string;
+  [key: string]: any;
+}
+
+const {
+  size = 24,
+  class: className,
+  fill = "currentColor",
+  ...rest
+} = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={fill}
+  class:list={["inline-block shrink-0", className]}
+  {...rest}
+>
+  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+</svg>`}</code>
+            </pre>
           </div>
         </section>
       )}

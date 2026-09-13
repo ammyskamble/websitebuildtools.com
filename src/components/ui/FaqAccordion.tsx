@@ -108,7 +108,6 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
             <details
               key={seoItem.id || `faq-${idx}`}
               className="group glass-card rounded-2xl border border-dark-border overflow-hidden transition-all duration-300 hover:border-brand-500/40 open:border-brand-500/50 open:bg-slate-50/80 dark:open:bg-[#0c101c]/80"
-              {...(idx === 0 ? { open: true } : {})}
             >
               {/* Semantic <summary> Header */}
               <summary className="list-none w-full cursor-pointer px-6 py-4 flex items-center justify-between gap-4 select-none hover:bg-slate-100/50 dark:hover:bg-dark-hover/30 transition-colors">
@@ -119,7 +118,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
                       {seoItem.language === 'pt' ? '🇧🇷 PT' : seoItem.language === 'de' ? '🇩🇪 DE' : '🇺🇸 EN'}
                     </span>
                   )}
-                  <h3 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-300 transition-colors truncate">
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-300 transition-colors leading-snug">
                     {item.question}
                   </h3>
                 </div>

@@ -32,8 +32,9 @@ export const FaviconGeneratorPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <SeoHead
-        title="Production Favicon & App Icon Suite (All Sizes + PWA Manifest) — SvgFav.com"
+        title="Web Favicon Generator: ICO, PNG & Apple Touch Icons — SvgFav"
         description="Generate all web, iOS, Android, and Windows icons in a single click with instant multi-platform live mockups and valid site.webmanifest."
+        keywords="favicon generator, svg to ico"
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
           url: b.path || window.location.pathname,
@@ -51,6 +52,16 @@ export const FaviconGeneratorPage: React.FC = () => {
       />
 
       <Breadcrumbs items={breadcrumbsList} />
+
+      {/* Page Heading for Programmatic SEO */}
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Browser Favicon &amp; App Icon Generator
+        </h1>
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          Create production-ready multi-size favicon.ico binaries, 180x180 Apple Touch Icons, and valid site.webmanifest packages in a single click with zero server uploads.
+        </p>
+      </div>
 
       {/* Favicon Suite Tool */}
       <FaviconSuite />

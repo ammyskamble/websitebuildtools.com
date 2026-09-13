@@ -28,11 +28,13 @@ export interface SeoHeadProps {
   canonicalUrl?: string;
   keywords?: string;
   ogImage?: string;
+  ogLocale?: string;
   noindex?: boolean;
   applicationCategory?: string;
   hreflangAlternates?: HreflangAlternate[];
   breadcrumbs?: BreadcrumbItem[];
   faqs?: FaqItem[];
+  rawSchemaGraph?: any[];
   howTo?: {
     name: string;
     description: string;
@@ -55,10 +57,12 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
   canonicalUrl,
   keywords,
   ogImage,
+  ogLocale,
   noindex,
   hreflangAlternates,
   breadcrumbs,
   faqs,
+  rawSchemaGraph,
   howTo,
   softwareApp,
 }) => {
@@ -130,7 +134,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
       'og:type': 'website',
       'og:site_name': 'SvgFav.com',
       'og:image': ogImageSrc,
-      'og:locale': 'en_US',
+      'og:locale': ogLocale || 'en_US',
       'twitter:card': 'summary_large_image',
       'twitter:site': '@svgfav',
       'twitter:creator': '@svgfav',
@@ -175,83 +179,85 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
       document.head.appendChild(scriptTag);
     }
 
-    const schemaGraph: any[] = [];
+    const schemaGraph: any[] = rawSchemaGraph ? [...rawSchemaGraph] : [];
 
-    // WebApplication / SoftwareApplication Schema
-    if (softwareApp) {
-      schemaGraph.push({
-        '@context': 'https://schema.org',
-        '@type': 'WebApplication',
-        name: softwareApp.name || 'SvgFav.com',
-        description: softwareApp.description || description,
-        url: currentUrl,
-        applicationCategory: softwareApp.applicationCategory || 'DesignApplication',
-        operatingSystem: softwareApp.operatingSystem || 'All',
-        browserRequirements: 'Requires HTML5 Canvas and WebAssembly capable browser',
-        offers: {
-          '@type': 'Offer',
-          price: softwareApp.price || '0',
-          priceCurrency: 'USD',
-          availability: 'https://schema.org/InStock',
-        },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: softwareApp.ratingValue || '4.9',
-          ratingCount: softwareApp.reviewCount || '1420',
-          bestRating: '5',
-          worstRating: '1',
-        },
-      });
-    }
-
-    // FAQPage Schema
-    if (faqs && faqs.length > 0) {
-      schemaGraph.push({
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqs.map((faq) => ({
-          '@type': 'Question',
-          name: faq.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: faq.answer,
+    if (!rawSchemaGraph) {
+      // WebApplication / SoftwareApplication Schema
+      if (softwareApp) {
+        schemaGraph.push({
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          name: softwareApp.name || 'SvgFav.com',
+          description: softwareApp.description || description,
+          url: currentUrl,
+          applicationCategory: softwareApp.applicationCategory || 'DesignApplication',
+          operatingSystem: softwareApp.operatingSystem || 'All',
+          browserRequirements: 'Requires HTML5 Canvas and WebAssembly capable browser',
+          offers: {
+            '@type': 'Offer',
+            price: softwareApp.price || '0',
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
           },
-        })),
-      });
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: softwareApp.ratingValue || '4.9',
+            ratingCount: softwareApp.reviewCount || '1420',
+            bestRating: '5',
+            worstRating: '1',
+          },
+        });
+      }
+
+      // FAQPage Schema
+      if (faqs && faqs.length > 0) {
+        schemaGraph.push({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: faq.answer,
+            },
+          })),
+        });
+      }
+
+      // HowTo Schema
+      if (howTo && howTo.steps.length > 0) {
+        schemaGraph.push({
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: howTo.name,
+          description: howTo.description,
+          step: howTo.steps.map((s, idx) => ({
+            '@type': 'HowToStep',
+            position: idx + 1,
+            name: s.name,
+            text: s.text,
+            url: s.url || currentUrl,
+          })),
+        });
+      }
+
+      // BreadcrumbList Schema
+      if (breadcrumbs && breadcrumbs.length > 0) {
+        schemaGraph.push({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: breadcrumbs.map((b, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            name: b.name,
+            item: b.url.startsWith('http') ? b.url : `${window.location.origin}${b.url}`,
+          })),
+        });
+      }
     }
 
-    // HowTo Schema
-    if (howTo && howTo.steps.length > 0) {
-      schemaGraph.push({
-        '@context': 'https://schema.org',
-        '@type': 'HowTo',
-        name: howTo.name,
-        description: howTo.description,
-        step: howTo.steps.map((s, idx) => ({
-          '@type': 'HowToStep',
-          position: idx + 1,
-          name: s.name,
-          text: s.text,
-          url: s.url || currentUrl,
-        })),
-      });
-    }
-
-    // BreadcrumbList Schema
-    if (breadcrumbs && breadcrumbs.length > 0) {
-      schemaGraph.push({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: breadcrumbs.map((b, idx) => ({
-          '@type': 'ListItem',
-          position: idx + 1,
-          name: b.name,
-          item: b.url.startsWith('http') ? b.url : `${window.location.origin}${b.url}`,
-        })),
-      });
-    }
-
-    scriptTag.textContent = JSON.stringify(schemaGraph.length === 1 ? schemaGraph[0] : { '@graph': schemaGraph });
+    scriptTag.textContent = JSON.stringify(schemaGraph.length === 1 ? schemaGraph[0] : { '@context': 'https://schema.org', '@graph': schemaGraph });
 
     return () => {
       // Cleanup script tag if component unmounts

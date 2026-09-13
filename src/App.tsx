@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Navbar } from './components/ui/Navbar';
 import { Footer } from './components/ui/Footer';
 import { ScrollToTop } from './components/ui/ScrollToTop';
 import { HomePage } from './pages/HomePage';
+import { SvgToPngPage } from './pages/SvgToPngPage';
+import { PortugueseHomePage } from './pages/PortugueseHomePage';
+import { PortugueseSvgToPngPage } from './pages/PortugueseSvgToPngPage';
+import { GermanHomePage } from './pages/GermanHomePage';
 import { LogoMakerPage } from './pages/LogoMakerPage';
 import { FaviconGeneratorPage } from './pages/FaviconGeneratorPage';
 import { SvgOptimizerPage } from './pages/SvgOptimizerPage';
@@ -45,8 +49,26 @@ export const App: React.FC = () => {
         <main className="flex-1">
           <ErrorBoundary>
             <Routes>
-            {/* Core Home & Studios */}
-            <Route path="/" element={<HomePage />} />
+            {/* Core Home & Localized Language Studios */}
+            <Route path="/" element={<SvgToPngPage />} />
+            <Route path="/studio" element={<HomePage />} />
+            <Route path="/vector-studio" element={<HomePage />} />
+            <Route path="/pt" element={<PortugueseHomePage />} />
+            <Route path="/pt/" element={<PortugueseHomePage />} />
+            <Route path="/pt/conversor-png-para-svg" element={<PortugueseHomePage />} />
+            <Route path="/pt/conversor-png-para-svg.html" element={<PortugueseHomePage />} />
+            <Route path="/pt-br/conversor-svg-para-png" element={<PortugueseSvgToPngPage />} />
+            <Route path="/pt-br/conversor-svg-para-png.html" element={<PortugueseSvgToPngPage />} />
+            <Route path="/pt/conversor-svg-para-png" element={<PortugueseSvgToPngPage />} />
+            <Route path="/pt/conversor-svg-para-png.html" element={<PortugueseSvgToPngPage />} />
+            <Route path="/de" element={<GermanHomePage />} />
+            <Route path="/de/" element={<GermanHomePage />} />
+            <Route path="/de/png-in-svg-umwandeln" element={<GermanHomePage />} />
+            <Route path="/de/png-in-svg-umwandeln.html" element={<GermanHomePage />} />
+
+            {/* Standalone Programmatic Utility Tools */}
+            <Route path="/favicon-generator" element={<FaviconGeneratorPage />} />
+            <Route path="/svg-optimizer" element={<SvgOptimizerPage />} />
             <Route path="/tools/logo-maker" element={<LogoMakerPage />} />
             <Route path="/tools/favicon-generator" element={<FaviconGeneratorPage />} />
             <Route path="/tools/svg-optimizer" element={<SvgOptimizerPage />} />
@@ -67,7 +89,7 @@ export const App: React.FC = () => {
             <Route path="/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
             <Route path="/jpg-to-svg" element={<ConverterPage mode="jpg-to-svg" />} />
             <Route path="/image-to-svg" element={<ConverterPage mode="image-to-svg" />} />
-            <Route path="/svg-to-png" element={<ConverterPage mode="svg-to-png" />} />
+            <Route path="/svg-to-png" element={<Navigate to="/" replace />} />
             <Route path="/svg-to-jpg" element={<ConverterPage mode="svg-to-jpg" />} />
             <Route path="/svg-to-ico" element={<ConverterPage mode="svg-to-ico" />} />
             <Route path="/svg-to-data-uri" element={<ConverterPage mode="svg-to-data-uri" />} />
@@ -77,7 +99,7 @@ export const App: React.FC = () => {
             <Route path="/convert/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
             <Route path="/convert/jpg-to-svg" element={<ConverterPage mode="jpg-to-svg" />} />
             <Route path="/convert/image-to-svg" element={<ConverterPage mode="image-to-svg" />} />
-            <Route path="/convert/svg-to-png" element={<ConverterPage mode="svg-to-png" />} />
+            <Route path="/convert/svg-to-png" element={<Navigate to="/" replace />} />
             <Route path="/convert/svg-to-jpg" element={<ConverterPage mode="svg-to-jpg" />} />
             <Route path="/convert/svg-to-ico" element={<ConverterPage mode="svg-to-ico" />} />
             <Route path="/convert/svg-to-data-uri" element={<ConverterPage mode="svg-to-data-uri" />} />

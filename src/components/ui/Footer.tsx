@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Shield, Cpu, Zap, Heart } from 'lucide-react';
+import { Sparkles, Shield, Cpu, Zap, Heart, Home } from 'lucide-react';
 import { SvgFavLogo } from './SvgFavLogo';
 
 export const Footer: React.FC = () => {
@@ -28,17 +28,23 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs font-semibold text-slate-900 dark:text-slate-200 uppercase tracking-wider mb-3">Core Studios</h4>
             <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
               <li>
+                <Link to="/" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors font-medium flex items-center gap-1.5">
+                  <Home className="w-3.5 h-3.5 text-brand-500" />
+                  <span>Home (SVG to PNG)</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/tools/logo-maker" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                   Fast Logo &amp; Icon Studio
                 </Link>
               </li>
               <li>
-                <Link to="/tools/favicon-generator" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                <Link to="/favicon-generator" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                   Production Favicon Suite
                 </Link>
               </li>
               <li>
-                <Link to="/tools/svg-optimizer" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                <Link to="/svg-optimizer" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                   SVG Optimizer &amp; Cleaner
                 </Link>
               </li>
@@ -170,13 +176,13 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="font-semibold text-slate-700 dark:text-slate-400">International Editions:</span>
             <div className="flex flex-wrap items-center gap-2">
-              <Link to="/privacy-policy" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇺🇸 United States (EN)</Link>
+              <Link to="/" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇺🇸 English (US)</Link>
               <span>·</span>
-              <Link to="/de/privacy-policy" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇩🇪 Deutschland (DE)</Link>
+              <Link to="/pt/" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors font-medium">🇧🇷 Português (Brasil)</Link>
+              <span>·</span>
+              <Link to="/de/" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors font-medium">🇩🇪 Deutsch (DE)</Link>
               <span>·</span>
               <Link to="/fr/privacy-policy" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇫🇷 France (FR)</Link>
-              <span>·</span>
-              <Link to="/pt/privacy-policy" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇧🇷 Brasil (PT)</Link>
               <span>·</span>
               <Link to="/es/privacy-policy" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇪🇸 España (ES)</Link>
             </div>

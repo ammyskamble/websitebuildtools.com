@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, ChevronDown, Wand2, Menu, X, Sun, Moon } from 'lucide-react';
+import { Shield, ChevronDown, Wand2, Menu, X, Sun, Moon, Home } from 'lucide-react';
 import { SvgFavLogo } from './SvgFavLogo';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -59,6 +59,17 @@ export const Navbar: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
           <Link
+            to="/"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              isActive('/')
+                ? 'bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30 font-semibold'
+                : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-hover border border-transparent'
+            }`}
+          >
+            <Home className="w-4 h-4" />
+            <span>Home</span>
+          </Link>
+          <Link
             to="/tools/logo-maker"
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
               isActive('/tools/logo-maker')
@@ -69,9 +80,9 @@ export const Navbar: React.FC = () => {
             Logo Studio
           </Link>
           <Link
-            to="/tools/favicon-generator"
+            to="/favicon-generator"
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-              isActive('/tools/favicon-generator')
+              isActive('/favicon-generator') || isActive('/tools/favicon-generator')
                 ? 'bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30 font-semibold'
                 : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-hover border border-transparent'
             }`}
@@ -79,9 +90,9 @@ export const Navbar: React.FC = () => {
             Favicon Suite
           </Link>
           <Link
-            to="/tools/svg-optimizer"
+            to="/svg-optimizer"
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-              isActive('/tools/svg-optimizer')
+              isActive('/svg-optimizer') || isActive('/tools/svg-optimizer')
                 ? 'bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30 font-semibold'
                 : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-hover border border-transparent'
             }`}
@@ -151,12 +162,12 @@ export const Navbar: React.FC = () => {
                   Vector To Raster &amp; Code
                 </span>
                 <Link
-                  to="/convert/svg-to-png"
+                  to="/"
                   onClick={() => setDropdownOpen(false)}
                   className="group flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium hover:bg-slate-100 dark:hover:bg-dark-hover transition-colors"
                 >
                   <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
-                  <span className="text-slate-800 dark:text-slate-200 group-hover:text-brand-600 dark:group-hover:text-brand-300 font-medium">SVG to PNG (High-DPI 8x)</span>
+                  <span className="text-slate-800 dark:text-slate-200 group-hover:text-brand-600 dark:group-hover:text-brand-300 font-medium">SVG to PNG (Home Studio)</span>
                 </Link>
                 <Link
                   to="/convert/svg-to-jpg"
@@ -229,7 +240,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           <Link
-            to="/tools/favicon-generator"
+            to="/favicon-generator"
             className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white text-xs font-semibold shadow-glow-sm hover:shadow-glow transition-all"
           >
             <Wand2 className="w-3.5 h-3.5 text-white" />
@@ -287,6 +298,19 @@ export const Navbar: React.FC = () => {
           </div>
 
           <Link
+            to="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              isActive('/')
+                ? 'bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30 font-semibold'
+                : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-dark-hover'
+            }`}
+          >
+            <Home className="w-4 h-4 text-brand-500" />
+            <span>Home</span>
+          </Link>
+
+          <Link
             to="/tools/logo-maker"
             onClick={() => setMobileMenuOpen(false)}
             className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -298,10 +322,10 @@ export const Navbar: React.FC = () => {
             Logo Studio
           </Link>
           <Link
-            to="/tools/favicon-generator"
+            to="/favicon-generator"
             onClick={() => setMobileMenuOpen(false)}
             className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-              isActive('/tools/favicon-generator')
+              isActive('/favicon-generator') || isActive('/tools/favicon-generator')
                 ? 'bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30'
                 : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-dark-hover'
             }`}
@@ -309,10 +333,10 @@ export const Navbar: React.FC = () => {
             Favicon Suite
           </Link>
           <Link
-            to="/tools/svg-optimizer"
+            to="/svg-optimizer"
             onClick={() => setMobileMenuOpen(false)}
             className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-              isActive('/tools/svg-optimizer')
+              isActive('/svg-optimizer') || isActive('/tools/svg-optimizer')
                 ? 'bg-brand-500/15 text-brand-600 dark:text-brand-400 border border-brand-500/30'
                 : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-dark-hover'
             }`}
@@ -335,7 +359,7 @@ export const Navbar: React.FC = () => {
               <Link to="/png-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-brand-600 dark:text-brand-300 font-medium hover:bg-slate-100 dark:hover:bg-dark-hover rounded-lg">PNG to SVG</Link>
               <Link to="/jpg-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-brand-600 dark:text-brand-300 font-medium hover:bg-slate-100 dark:hover:bg-dark-hover rounded-lg">JPG to SVG</Link>
               <Link to="/image-to-svg" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-brand-600 dark:text-brand-300 font-medium hover:bg-slate-100 dark:hover:bg-dark-hover rounded-lg">Image to SVG</Link>
-              <Link to="/convert/svg-to-png" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-dark-hover rounded-lg">SVG to PNG</Link>
+              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-dark-hover rounded-lg">SVG to PNG</Link>
               <Link to="/svg-to-ico" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-dark-hover rounded-lg">SVG to ICO</Link>
               <Link to="/svg-to-astro" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-amber-600 dark:text-amber-300 hover:bg-slate-100 dark:hover:bg-dark-hover rounded-lg">SVG to Astro</Link>
             </div>
