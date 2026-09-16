@@ -504,10 +504,11 @@ export const SvgToPngPage: React.FC = () => {
         hreflangAlternates={[
           { lang: 'x-default', url: 'https://svgfav.com/' },
           { lang: 'en', url: 'https://svgfav.com/' },
+          { lang: 'pt', url: 'https://svgfav.com/pt/' },
           { lang: 'pt-BR', url: 'https://svgfav.com/pt-br/conversor-svg-para-png' },
           { lang: 'de', url: 'https://svgfav.com/de/' },
-          { lang: 'fr', url: 'https://svgfav.com/fr/privacy-policy' },
-          { lang: 'es', url: 'https://svgfav.com/es/privacy-policy' },
+          { lang: 'fr', url: 'https://svgfav.com/fr/' },
+          { lang: 'es', url: 'https://svgfav.com/es/' },
         ]}
         rawSchemaGraph={[
           {
@@ -535,29 +536,53 @@ export const SvgToPngPage: React.FC = () => {
           {
             "@type": "HowTo",
             "@id": "https://svgfav.com/#howto",
-            "name": "How to Convert SVG to High-Resolution PNG Online",
-            "description": "Step-by-step guide to converting vector SVG files into crisp, high-resolution PNG images with transparent background in your browser.",
+            "name": "How to Convert SVG to High-Resolution PNG in 3 Steps",
+            "description": "Step-by-step workflow guide to converting vector SVG files into crisp, high-resolution PNG images with transparent background in your browser.",
             "step": [
               {
                 "@type": "HowToStep",
                 "position": 1,
-                "name": "Upload or Drop SVG Vector Files",
-                "text": "Drag and drop your SVG files into the dropzone, click to browse, paste SVG markup from your clipboard (Ctrl+V), or test with a sample icon.",
+                "name": "Drop Vector",
+                "text": "Upload .svg markup or files, drag & drop folders, or press Ctrl+V to paste clipboard vectors directly.",
                 "url": "https://svgfav.com/#step1"
               },
               {
                 "@type": "HowToStep",
                 "position": 2,
-                "name": "Configure Scale, Resolution & Transparency",
-                "text": "Choose a scale multiplier (1x to 4x), custom pixel dimensions, DPI density (72 to 300 DPI), and select transparent alpha or solid background fill.",
+                "name": "Select Dimensions",
+                "text": "Pick preset web icon sizes (16x16, 32x32, 512x512), apply 1x-4x retina scaling multipliers, or enter custom dimensions with aspect-ratio lock.",
                 "url": "https://svgfav.com/#step2"
               },
               {
                 "@type": "HowToStep",
                 "position": 3,
-                "name": "Download PNG or Bulk ZIP Archive",
-                "text": "Inspect the live canvas preview and download individual PNG images or export all batch-processed files in an auto-bundled .zip file.",
+                "name": "Download PNG",
+                "text": "Instant high-resolution raster output with transparent alpha channel or solid background fill. Download individually or as an auto-bundled .zip file.",
                 "url": "https://svgfav.com/#step3"
+              }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://svgfav.com/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://svgfav.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Converters",
+                "item": "https://svgfav.com/convert"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "SVG to PNG Converter",
+                "item": "https://svgfav.com/"
               }
             ]
           },
@@ -570,7 +595,7 @@ export const SvgToPngPage: React.FC = () => {
                 "name": "Why convert SVG to PNG?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "While SVG is optimal for web code, raster formats like PNG with an alpha channel are necessary for social media cards, email clients, native iOS/Android apps, Word documents, and digital print workflows that do not support vector rendering."
+                  "text": "While SVG is the modern standard for scalable web code, many platforms do not support vector rendering. Social media platforms (such as OpenGraph preview cards for Twitter, Facebook, and LinkedIn), email newsletter clients (like Gmail and Outlook), legacy graphic software, and Word processors require raster PNG files with transparent backgrounds to display illustrations properly."
                 }
               },
               {
@@ -578,7 +603,7 @@ export const SvgToPngPage: React.FC = () => {
                 "name": "How are vector paths rasterized without quality loss?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "SvgFav utilizes the browser's hardware-accelerated 2D Canvas rendering context with high-precision sub-pixel Bézier curve antialiasing, ensuring every stroke and shape scales crisply to your target pixel resolution."
+                  "text": "Our engine leverages the browser's native HTML5 Canvas 2D context and GPU rasterization pipeline. Because SVG defines geometric primitives using mathematical Bézier curves and coordinate vectors rather than pixel grids, the browser calculates crisp edges at whatever resolution multiplier you specify (1x up to 4x / 4096px+). Sub-pixel anti-aliasing ensures perfectly smooth borders with zero pixelation or blurry edges."
                 }
               },
               {
@@ -586,7 +611,7 @@ export const SvgToPngPage: React.FC = () => {
                 "name": "Are my sensitive design files uploaded to a remote server?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Never. All parsing, canvas rasterization, and image generation occur 100% locally inside your client browser. Your graphics and proprietary logos never leave your computer."
+                  "text": "No, absolutely never. SvgFav executes 100% locally on your computer using in-browser JavaScript and HTML5 Canvas APIs. Your proprietary logos, client brand designs, and confidential illustrations never leave your device, meaning zero cloud data transmission, zero server logs, and complete privacy compliance."
                 }
               },
               {
@@ -1243,7 +1268,7 @@ export const SvgToPngPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 space-y-2.5">
+            <div id="step1" className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 space-y-2.5">
               <div className="w-8 h-8 rounded-lg bg-brand-500/15 text-brand-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
                 1
               </div>
@@ -1255,7 +1280,7 @@ export const SvgToPngPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 space-y-2.5">
+            <div id="step2" className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 space-y-2.5">
               <div className="w-8 h-8 rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-sm">
                 2
               </div>
@@ -1267,7 +1292,7 @@ export const SvgToPngPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 space-y-2.5">
+            <div id="step3" className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 space-y-2.5">
               <div className="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
                 3
               </div>
@@ -1384,6 +1409,17 @@ export const SvgToPngPage: React.FC = () => {
           </summary>
           <div className="mt-3 text-slate-700 dark:text-neutral-300 leading-relaxed text-sm">
             No, absolutely never. SvgFav executes 100% locally on your computer using in-browser JavaScript and HTML5 Canvas APIs. Your proprietary logos, client brand designs, and confidential illustrations never leave your device, meaning zero cloud data transmission, zero server logs, and complete privacy compliance.
+          </div>
+        </details>
+
+        {/* FAQ Item 4 */}
+        <details className="group border border-slate-200 dark:border-neutral-700 rounded-lg p-4 mb-3 bg-white/80 dark:bg-neutral-900/50 open:bg-white dark:open:bg-neutral-900 transition-colors shadow-sm">
+          <summary className="cursor-pointer font-medium text-base sm:text-lg list-none flex justify-between items-center text-slate-900 dark:text-neutral-100 select-none">
+            <span>Can I convert multiple SVG files in batch and export a ZIP?</span>
+            <span className="transition-transform group-open:rotate-180 text-slate-400 dark:text-neutral-400 text-xs">▼</span>
+          </summary>
+          <div className="mt-3 text-slate-700 dark:text-neutral-300 leading-relaxed text-sm">
+            Yes. You can drag and drop multiple SVG files simultaneously. Our engine processes them in parallel via browser canvas workers and lets you download a compiled .zip bundle with a single click.
           </div>
         </details>
       </section>

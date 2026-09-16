@@ -480,9 +480,13 @@ export const PortugueseSvgToPngPage: React.FC = () => {
         canonicalUrl="https://svgfav.com/pt-br/conversor-svg-para-png"
         ogLocale="pt_BR"
         hreflangAlternates={[
-          { lang: 'x-default', url: 'https://svgfav.com/svg-to-png' },
+          { lang: 'x-default', url: 'https://svgfav.com/' },
+          { lang: 'en', url: 'https://svgfav.com/' },
+          { lang: 'pt', url: 'https://svgfav.com/pt/' },
           { lang: 'pt-BR', url: 'https://svgfav.com/pt-br/conversor-svg-para-png' },
-          { lang: 'en', url: 'https://svgfav.com/svg-to-png' }
+          { lang: 'de', url: 'https://svgfav.com/de/' },
+          { lang: 'fr', url: 'https://svgfav.com/fr/' },
+          { lang: 'es', url: 'https://svgfav.com/es/' }
         ]}
         rawSchemaGraph={rawSchemaPt}
       />

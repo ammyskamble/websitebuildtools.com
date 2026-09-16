@@ -286,7 +286,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
         metaRobots.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
       }
     };
-  }, [title, description, canonicalUrl, keywords, ogImage, noindex, hreflangAlternates, breadcrumbs, faqs, howTo, softwareApp]);
+  }, [title, description, canonicalUrl, keywords, ogImage, noindex, hreflangAlternates, breadcrumbs, faqs, rawSchemaGraph, howTo, softwareApp]);
 
   return null;
 };

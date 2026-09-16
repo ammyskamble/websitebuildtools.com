@@ -100,6 +100,34 @@ const ROUTE_METADATA = {
     title: 'Contact Us | SvgFav.com',
     description: 'Get in touch with the SvgFav.com team for inquiries, bug reports, feature requests, or partnership opportunities.',
   },
+  '/studio': {
+    title: 'SvgFav Vector Studio & Logo Suite (Client-Side)',
+    description: 'Free in-browser vector & favicon studio. Convert PNG to SVG, generate multi-resolution favicon.ico packs, and optimize SVG code with zero server uploads.',
+  },
+  '/pt': {
+    title: 'SvgFav.com — Conversor PNG para SVG e Gerador de Favicon Online',
+    description: 'Conversor SVG online gratuito e gerador de favicon. Converta PNG em SVG, JPG em SVG e gere pacotes favicon.ico 100% no navegador com total privacidade.',
+  },
+  '/pt-br/conversor-svg-para-png': {
+    title: 'Conversor SVG para PNG Grátis em Alta Resolução (300 DPI) | SvgFav',
+    description: 'Converta arquivos SVG para PNG com fundo transparente ou sólido, resolução de até 300 DPI e conversão em lote. 100% privado no navegador.',
+  },
+  '/de': {
+    title: 'SvgFav.com — Kostenloser Online SVG-Konverter & Favicon Generator',
+    description: 'Kostenloser Online SVG-Konverter und Favicon Generator. PNG zu SVG, JPG zu SVG konvertieren und Favicon-Pakete 100% im Browser erstellen. DSGVO-konform.',
+  },
+  '/de/png-in-svg-umwandeln': {
+    title: 'PNG in SVG umwandeln kostenlos online — SvgFav',
+    description: 'Wandeln Sie PNG-Bilder und Fotos in scharfe SVG-Vektoren um. Ohne Registrierung, 100% im Browser und DSGVO-konform.',
+  },
+  '/es': {
+    title: 'SvgFav.com — Convertidor SVG y Generador de Favicon Gratis Online',
+    description: 'Convertidor SVG y generador de favicons online gratis. Convierte PNG a SVG, JPG a SVG y crea paquetes de favicons 100% en el navegador con privacidad total.',
+  },
+  '/fr': {
+    title: 'SvgFav.com — Convertisseur SVG et Générateur de Favicon Gratuit en Ligne',
+    description: 'Convertisseur SVG et générateur de favicons en ligne gratuit. Convertissez PNG en SVG, JPG en SVG et créez des packs favicon 100% dans votre navigateur. Privé et conforme RGPD.',
+  },
 };
 
 class MetaRewriter {

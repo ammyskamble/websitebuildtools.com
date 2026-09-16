@@ -146,6 +146,16 @@ const routes = [
     description: 'Converta arquivos vetoriais SVG em imagens PNG nítidas com fundo transparente diretamente no seu navegador.',
   },
   {
+    path: 'es',
+    title: 'Convertidor SVG a PNG y Estudio Vectorial Gratis | SvgFav',
+    description: 'Convierte archivos vectoriales SVG en imágenes PNG transparentes de alta resolución directamente en tu navegador.',
+  },
+  {
+    path: 'fr',
+    title: 'Convertisseur SVG vers PNG et Studio Vectoriel Gratuit | SvgFav',
+    description: 'Convertissez des fichiers vectoriels SVG en images PNG nettes avec fond transparent directement dans votre navigateur.',
+  },
+  {
     path: 'privacy-policy',
     title: 'Privacy Policy | SvgFav.com',
     description: 'Read the privacy policy for SvgFav.com. All vector processing, rasterization, and conversion happen 100% client-side in your browser.',
