@@ -505,7 +505,6 @@ export const SvgToPngPage: React.FC = () => {
           { lang: 'x-default', url: 'https://svgfav.com/' },
           { lang: 'en', url: 'https://svgfav.com/' },
           { lang: 'pt', url: 'https://svgfav.com/pt/' },
-          { lang: 'pt-BR', url: 'https://svgfav.com/pt-br/conversor-svg-para-png' },
           { lang: 'de', url: 'https://svgfav.com/de/' },
           { lang: 'fr', url: 'https://svgfav.com/fr/' },
           { lang: 'es', url: 'https://svgfav.com/es/' },
