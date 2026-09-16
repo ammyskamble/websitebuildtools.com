@@ -8,6 +8,8 @@ import { SvgToPngPage } from './pages/SvgToPngPage';
 import { PortugueseHomePage } from './pages/PortugueseHomePage';
 import { PortugueseSvgToPngPage } from './pages/PortugueseSvgToPngPage';
 import { GermanHomePage } from './pages/GermanHomePage';
+import { SpanishHomePage } from './pages/SpanishHomePage';
+import { FrenchHomePage } from './pages/FrenchHomePage';
 import { LogoMakerPage } from './pages/LogoMakerPage';
 import { FaviconGeneratorPage } from './pages/FaviconGeneratorPage';
 import { SvgOptimizerPage } from './pages/SvgOptimizerPage';
@@ -65,6 +67,13 @@ export const App: React.FC = () => {
             <Route path="/de/" element={<GermanHomePage />} />
             <Route path="/de/png-in-svg-umwandeln" element={<GermanHomePage />} />
             <Route path="/de/png-in-svg-umwandeln.html" element={<GermanHomePage />} />
+            <Route path="/es" element={<SpanishHomePage />} />
+            <Route path="/es/" element={<SpanishHomePage />} />
+            <Route path="/es/conversor-png-para-svg" element={<SpanishHomePage />} />
+            <Route path="/es/conversor-png-a-svg" element={<SpanishHomePage />} />
+            <Route path="/fr" element={<FrenchHomePage />} />
+            <Route path="/fr/" element={<FrenchHomePage />} />
+            <Route path="/fr/convertisseur-png-en-svg" element={<FrenchHomePage />} />
 
             {/* Standalone Programmatic Utility Tools */}
             <Route path="/favicon-generator" element={<FaviconGeneratorPage />} />

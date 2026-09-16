@@ -2,7 +2,7 @@ export interface SeoFaqItem {
   id: string;
   question: string;
   category: 'svg' | 'favicon' | 'converter';
-  language: 'pt' | 'de' | 'en';
+  language: 'pt' | 'de' | 'en' | 'es' | 'fr';
   answer: string; // Clean text for Schema.org JSON-LD
   photoshopSteps?: string[];
   illustratorSteps?: string[];
@@ -470,5 +470,63 @@ export const SEO_FAQS: SeoFaqItem[] = [
       'Im Pfade-Bedienfeld auf "Arbeitspfad aus Auswahl erstellen" klicken.',
       'Wählen Sie Datei > Exportieren > Pfade -> Illustrator, oder nutzen Sie direkt den kostenlosen Konverter auf SvgFav.com.'
     ]
+  },
+  // --- Spanish FAQs ---
+  {
+    id: 'que-es-un-archivo-svg',
+    question: '¿Qué es un archivo SVG y por qué es superior a formatos rasterizados?',
+    category: 'svg',
+    language: 'es',
+    answer: 'Un archivo SVG (Scalable Vector Graphics) es un estándar vectorial abierto basado en código XML estándar de la W3C. A diferencia de PNG o JPG que se forman con cuadrículas fijas de píxeles, el SVG define formas geométricas y curvas de Bézier mediante fórmulas matemáticas, lo que permite escalarlo a cualquier resolución sin pérdida de calidad.',
+  },
+  {
+    id: 'como-convertir-png-a-svg-es',
+    question: '¿Cómo convertir PNG o JPG a SVG en línea gratis?',
+    category: 'converter',
+    language: 'es',
+    answer: 'Con SvgFav puedes convertir imágenes PNG y JPG a vectores SVG directamente en tu navegador. El motor utiliza Canvas y WebAssembly en tu propio dispositivo para calcular los contornos y generar código SVG limpio sin subir archivos a ningún servidor externo.',
+  },
+  {
+    id: 'que-es-un-favicon-es',
+    question: '¿Qué es un favicon y qué tamaños son necesarios?',
+    category: 'favicon',
+    language: 'es',
+    answer: 'Un favicon es el icono de identidad visual que los navegadores muestran en las pestañas, marcadores y accesos directos móviles. El conjunto estándar moderno incluye favicon.ico binario multi-resolución (16x16, 32x32, 48x48), SVG para pantallas Retina y apple-touch-icon (180x180) para dispositivos Apple.',
+  },
+  {
+    id: 'privacidad-svgfav-es',
+    question: '¿SvgFav almacena mis archivos o imágenes en sus servidores?',
+    category: 'converter',
+    language: 'es',
+    answer: 'No, bajo ninguna circunstancia. Todas las operaciones de rasterización, optimización y vectorización se ejecutan 100% en el navegador del cliente. Ninguna imagen, logotipo o archivo SVG sale de tu computadora, garantizando total privacidad y cumplimiento del RGPD.',
+  },
+  // --- French FAQs ---
+  {
+    id: 'quest-ce-qu-un-fichier-svg',
+    question: "Qu'est-ce qu'un fichier SVG et pourquoi est-il supérieur aux formats matriciels ?",
+    category: 'svg',
+    language: 'fr',
+    answer: "Un fichier SVG (Scalable Vector Graphics) est un format vectoriel ouvert basé sur XML recommandé par le W3C. Contrairement aux images matricielles PNG ou JPEG composées de pixels fixes, le SVG décrit des lignes, courbes de Bézier et formes par des équations mathématiques, permettant un redimensionnement infini sans aucune dégradation de netteté.",
+  },
+  {
+    id: 'comment-convertir-png-en-svg-fr',
+    question: 'Comment convertir une image PNG ou JPG en SVG gratuitement en ligne ?',
+    category: 'converter',
+    language: 'fr',
+    answer: "Grâce à SvgFav, vous pouvez vectoriser vos images PNG et JPG directement dans votre navigateur. Le moteur analyse les contours via HTML5 Canvas et WebAssembly sur votre processeur local pour créer des tracés vectoriels parfaits sans envoyer le moindre fichier sur un serveur distant.",
+  },
+  {
+    id: 'quest-ce-qu-un-favicon-fr',
+    question: "Qu'est-ce qu'un favicon et quels formats sont recommandés ?",
+    category: 'favicon',
+    language: 'fr',
+    answer: "Un favicon est la petite icône d'identité visuelle affichée dans les onglets de navigateur, les favoris et les résultats de recherche. Un pack complet moderne requiert un fichier binaire favicon.ico multi-tailles (16x16, 32x32, 48x48), un fichier vectoriel favicon.svg et une icône apple-touch-icon de 180x180 pixels.",
+  },
+  {
+    id: 'confidentialite-svgfav-fr',
+    question: 'Mes fichiers graphiques sont-ils envoyés sur un serveur distant ?',
+    category: 'converter',
+    language: 'fr',
+    answer: "Absolument jamais. SvgFav fonctionne à 100% côté client au sein de votre navigateur web. Vos créations, marques et logos sensibles ne quittent jamais votre machine, assurant une conformité totale avec le RGPD européen.",
   }
 ];

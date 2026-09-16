@@ -486,18 +486,28 @@ export const SvgToPngPage: React.FC = () => {
     { name: 'SVG to PNG' }
   ];
 
+  const seoBreadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Converters', url: '/convert' },
+    { name: 'SVG to PNG Converter', url: 'https://svgfav.com/' }
+  ];
+
   return (
     <div className="w-full space-y-16">
       {/* Exact High-CTR SEO Head & JSON-LD Suite */}
       <SeoHead
-        title="SVG to PNG Converter (High Resolution &amp; Free) | SvgFav"
-        description="Convert SVG to high-res PNG (up to 300 DPI) right in your browser. 100% private, transparent background support, batch processing, and no file size limits."
-        keywords="svg to png, convert svg to png, svg to raster, transparent png, high dpi png, client-side converter"
+        title="SVG to PNG Converter – Free, High-DPI &amp; In-Browser | SvgFav"
+        description="Convert SVG to PNG with no upload needed. Free in-browser tool with transparent background support, bulk SVG conversion, and high-DPI 300 DPI output for print and web."
+        keywords="svg to png, convert svg to png, svg to transparent png, svg to 300 dpi png, batch convert svg folder to png, client-side converter"
         canonicalUrl="https://svgfav.com/"
+        breadcrumbs={seoBreadcrumbs}
         hreflangAlternates={[
           { lang: 'x-default', url: 'https://svgfav.com/' },
-          { lang: 'pt-BR', url: 'https://svgfav.com/pt-br/conversor-svg-para-png' },
           { lang: 'en', url: 'https://svgfav.com/' },
+          { lang: 'pt-BR', url: 'https://svgfav.com/pt-br/conversor-svg-para-png' },
+          { lang: 'de', url: 'https://svgfav.com/de/' },
+          { lang: 'fr', url: 'https://svgfav.com/fr/privacy-policy' },
+          { lang: 'es', url: 'https://svgfav.com/es/privacy-policy' },
         ]}
         rawSchemaGraph={[
           {
@@ -1168,7 +1178,7 @@ export const SvgToPngPage: React.FC = () => {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-            High-Performance In-Browser Rasterization
+            Batch SVG to PNG &amp; High-Resolution Raster Engine
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2">
             Engineered for developers, web designers, and print workflows with zero cloud latency.
@@ -1182,7 +1192,7 @@ export const SvgToPngPage: React.FC = () => {
               <Printer className="w-5 h-5" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-              High-DPI &amp; Retina Ready
+              SVG to 300 DPI / 4K PNG for Print
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
               Crisp rasterization at custom DPI (72 DPI for web, 150 DPI for tablets, and 300 DPI for ultra-high-resolution print media) with sub-pixel Bézier curve smoothing.
@@ -1195,7 +1205,7 @@ export const SvgToPngPage: React.FC = () => {
               <Layers className="w-5 h-5" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-              Batch Conversion Engine
+              Batch Convert SVG Folder to PNG
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
               Drag an entire folder of vector icons and convert in parallel via browser canvas workers. Export individual transparent assets or auto-bundled .zip archives instantly.
@@ -1208,10 +1218,10 @@ export const SvgToPngPage: React.FC = () => {
               <Code className="w-5 h-5" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-              CSS &amp; Web Font Handling
+              SVG to Transparent PNG &amp; Styling
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-neutral-400 leading-relaxed">
-              Automatically inlines external SVG styles, gradient defs, and custom font glyphs before rendering to the GPU canvas, preventing blank text artifacts.
+              Automatically inlines external SVG styles, gradient defs, custom font glyphs, and alpha channel transparency before GPU canvas rendering.
             </p>
           </div>
         </div>
@@ -1268,6 +1278,67 @@ export const SvgToPngPage: React.FC = () => {
                 Instant high-resolution raster output with transparent alpha channel or solid background fill. Download individually or as an auto-bundled .zip file.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3B. FORMAT SPECIFICATIONS COMPARISON TABLE (SVG VS PNG) */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-3xl p-6 sm:p-10 shadow-xl space-y-6">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-blue-400">
+              Format Specification Comparison
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              SVG vs PNG Format Comparison Matrix
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-neutral-400">
+              Technical breakdown comparing vector SVG markup against rasterized PNG bitmap images.
+            </p>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs sm:text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200 dark:border-neutral-800 bg-slate-50 dark:bg-neutral-800/60 text-slate-900 dark:text-white font-bold">
+                  <th className="p-3 sm:p-4 rounded-tl-xl">Technical Attribute</th>
+                  <th className="p-3 sm:p-4 text-brand-600 dark:text-blue-400">Vector SVG (.svg)</th>
+                  <th className="p-3 sm:p-4 text-emerald-600 dark:text-emerald-400 rounded-tr-xl">Raster PNG (.png)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-neutral-800/80 text-slate-700 dark:text-neutral-300">
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-neutral-100">Image Type</td>
+                  <td className="p-3 sm:p-4">Resolution-independent vector path math</td>
+                  <td className="p-3 sm:p-4 font-medium">Fixed pixel grid bitmap matrix</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-neutral-100">Scalability &amp; Zoom</td>
+                  <td className="p-3 sm:p-4">Infinite crisp scaling without blur or loss</td>
+                  <td className="p-3 sm:p-4">Pixelates when zoomed beyond target bounds</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-neutral-100">Transparency Support</td>
+                  <td className="p-3 sm:p-4">Alpha channels &amp; clipping path masks</td>
+                  <td className="p-3 sm:p-4 font-medium">8-bit &amp; 24-bit full alpha channel transparency</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-neutral-100">File Size Profile</td>
+                  <td className="p-3 sm:p-4">Ultra-lightweight for simple icons &amp; logos</td>
+                  <td className="p-3 sm:p-4">Optimal for complex graphics &amp; pre-rendered previews</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-neutral-100">Platform Compatibility</td>
+                  <td className="p-3 sm:p-4">Modern web browsers, Figma, Illustrator</td>
+                  <td className="p-3 sm:p-4 font-medium">100% universal across all apps, social media, print &amp; OS</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-neutral-100">Best Use Case</td>
+                  <td className="p-3 sm:p-4">Responsive web UI icons, logos, Cricut vectors</td>
+                  <td className="p-3 sm:p-4 font-medium">Social preview cards (OG), email clients, Word, 300 DPI print</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

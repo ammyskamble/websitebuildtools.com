@@ -34,6 +34,12 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/studio" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors font-medium flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-500" />
+                  <span>Vector Studio &amp; Logo Maker</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/tools/logo-maker" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                   Fast Logo &amp; Icon Studio
                 </Link>
@@ -71,13 +77,13 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/convert/svg-to-ico" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
-                  SVG to Windows ICO
+                <Link to="/pt-br/conversor-svg-para-png" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors font-medium text-brand-600 dark:text-brand-300/90">
+                  🇧🇷 SVG para PNG (Brasil)
                 </Link>
               </li>
               <li>
-                <Link to="/image-to-svg" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors font-medium text-brand-600 dark:text-brand-300/90">
-                  Image to SVG (Cricut)
+                <Link to="/de/png-in-svg-umwandeln" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors font-medium text-brand-600 dark:text-brand-300/90">
+                  🇩🇪 PNG in SVG (Deutsch)
                 </Link>
               </li>
             </ul>
@@ -100,11 +106,6 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/image-to-svg" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors font-medium text-brand-600 dark:text-brand-300/90">
                   Image to SVG (Cricut)
-                </Link>
-              </li>
-              <li>
-                <Link to="/svg-to-png" className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
-                  SVG to PNG (High-DPI 4K)
                 </Link>
               </li>
               <li>
@@ -182,9 +183,9 @@ export const Footer: React.FC = () => {
               <span>·</span>
               <Link to="/de/" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors font-medium">🇩🇪 Deutsch (DE)</Link>
               <span>·</span>
-              <Link to="/fr/privacy-policy" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇫🇷 France (FR)</Link>
+              <Link to="/fr/" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors font-medium">🇫🇷 France (FR)</Link>
               <span>·</span>
-              <Link to="/es/privacy-policy" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors">🇪🇸 España (ES)</Link>
+              <Link to="/es/" className="hover:text-slate-900 dark:hover:text-slate-300 transition-colors font-medium">🇪🇸 España (ES)</Link>
             </div>
           </div>
 

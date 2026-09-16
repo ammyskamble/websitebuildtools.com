@@ -603,6 +603,26 @@ const {
         </div>
       </section>
 
+      {/* Cross-Link Callout to Primary SVG to PNG Converter */}
+      {mode !== 'svg-to-png' && (
+        <section className="rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-brand-900/40 via-blue-900/30 to-purple-900/40 border border-brand-500/30 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="space-y-1.5 text-center sm:text-left">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-400">Need High-DPI Raster Outputs?</span>
+            <h3 className="text-lg sm:text-xl font-extrabold text-white">Convert SVG to High-Resolution PNG (300 DPI &amp; 4K)</h3>
+            <p className="text-xs text-slate-300 max-w-xl">
+              Free in-browser tool with transparent background support, bulk SVG conversion, custom dimensions, and zero server uploads.
+            </p>
+          </div>
+          <Link
+            to="/"
+            className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shrink-0 shadow-lg transition-all active:scale-95 flex items-center gap-2"
+          >
+            <span>SVG to PNG Converter</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </section>
+      )}
+
       {/* Comparison Matrix */}
       <ComparisonTable />
 

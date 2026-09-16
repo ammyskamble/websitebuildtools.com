@@ -181,6 +181,24 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
 
     const schemaGraph: any[] = rawSchemaGraph ? [...rawSchemaGraph] : [];
 
+    // Always inject BreadcrumbList if breadcrumbs prop is passed and not already in rawSchemaGraph
+    if (breadcrumbs && breadcrumbs.length > 0) {
+      const hasBreadcrumbInGraph = schemaGraph.some((item) => item['@type'] === 'BreadcrumbList');
+      if (!hasBreadcrumbInGraph) {
+        const origin = typeof window !== 'undefined' ? window.location.origin : 'https://svgfav.com';
+        schemaGraph.push({
+          '@type': 'BreadcrumbList',
+          '@id': `${currentUrl}#breadcrumb`,
+          itemListElement: breadcrumbs.map((b, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            name: b.name,
+            item: b.url.startsWith('http') ? b.url : `${origin}${b.url}`,
+          })),
+        });
+      }
+    }
+
     if (!rawSchemaGraph) {
       // WebApplication / SoftwareApplication Schema
       if (softwareApp) {
@@ -190,7 +208,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({
           name: softwareApp.name || 'SvgFav.com',
           description: softwareApp.description || description,
           url: currentUrl,
-          applicationCategory: softwareApp.applicationCategory || 'DesignApplication',
+          applicationCategory: softwareApp.applicationCategory || 'MultimediaApplication',
           operatingSystem: softwareApp.operatingSystem || 'All',
           browserRequirements: 'Requires HTML5 Canvas and WebAssembly capable browser',
           offers: {
