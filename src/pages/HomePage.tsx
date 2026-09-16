@@ -13,42 +13,58 @@ export const HomePage: React.FC = () => {
   const rawSchemaGraph = [
     {
       '@type': 'WebApplication',
-      '@id': 'https://svgfav.com/#app',
-      name: 'SvgFav Vector Studio',
+      '@id': 'https://svgfav.com/#webapp',
+      name: 'SvgFav Logo & Vector Studio',
       url: 'https://svgfav.com/',
-      applicationCategory: 'DesignApplication',
+      applicationCategory: 'MultimediaApplication',
       operatingSystem: 'All',
-      browserRequirements: 'HTML5 Canvas, WebAssembly',
       offers: {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
       },
-      featureList: [
-        'Client-side raster to vector conversion',
-        'Multi-size favicon generation',
-        'Real-time SVG code minification',
-        'Zero server data transfer',
+    },
+    {
+      '@type': 'HowTo',
+      name: 'How to craft a modern vector logo in under 60 seconds',
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'Drop Vector',
+          text: 'Upload or drag your SVG file directly into the workspace canvas.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'Select Dimensions & Styling',
+          text: 'Choose custom target dimensions, high-DPI scaling, and background transparency.',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'Export High-DPI Assets',
+          text: 'Download the rasterized PNG or export clean production-ready code instantly.',
+        },
       ],
     },
     {
       '@type': 'FAQPage',
-      '@id': 'https://svgfav.com/#faq',
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'What is an SVG file and why is it preferred over raster formats?',
+          name: 'Are my sensitive design files uploaded to a remote server?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'An SVG is an XML-based vector format using geometric primitives like paths and curves instead of pixel grids, allowing infinite scaling without quality degradation.',
+            text: 'No. All rasterization and conversion processes run entirely client-side inside your browser canvas.',
           },
         },
         {
           '@type': 'Question',
-          name: 'How does client-side vector tracing work?',
+          name: 'How does the high-DPI export maintain sharp edges?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Image pixel buffers are processed locally using Canvas API and WebAssembly to generate Bézier coordinate curves directly inside your browser without uploading files to any server.',
+            text: 'Vector paths are mathematically rendered directly at your target pixel density without scaling artifacts.',
           },
         },
       ],
