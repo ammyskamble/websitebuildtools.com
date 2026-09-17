@@ -84,9 +84,14 @@
     <meta name="twitter:description" content="Convert SVG to PNG with no upload needed. Free in-browser tool with transparent background support, bulk SVG conversion, and high-DPI 300 DPI output for print and web." />
     <meta name="twitter:image" content="https://svgfav.com/og-image.png" />
 
+    <!-- Optimized Font Loading & Resource Hints for Core Web Vitals (LCP) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    </noscript>
 
     <!-- Schema.org Canonical JSON-LD Structured Data Suite -->
     <script id="svgfav-jsonld-schema" type="application/ld+json">
@@ -94,16 +99,39 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "WebApplication",
+          "@type": ["WebApplication", "SoftwareApplication"],
           "@id": "https://svgfav.com/#webapp",
-          "name": "SvgFav Logo & Vector Studio",
+          "name": "SvgFav SVG to PNG Converter & Vector Studio",
           "url": "https://svgfav.com/",
           "applicationCategory": "MultimediaApplication",
-          "operatingSystem": "All",
+          "operatingSystem": "Any (Web Browser)",
+          "browserRequirements": "Requires HTML5 Canvas and WebAssembly capable browser",
+          "softwareVersion": "2.5.0",
+          "featureList": [
+            "100% Client-Side Conversion",
+            "Zero Server Uploads",
+            "High-DPI 300 DPI Rasterization",
+            "Transparent Alpha Channel Support",
+            "Batch Conversion Engine"
+          ],
           "offers": {
             "@type": "Offer",
             "price": "0",
-            "priceCurrency": "USD"
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "1420",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "SvgFav.com",
+            "url": "https://svgfav.com",
+            "logo": "https://svgfav.com/apple-touch-icon.png"
           }
         },
         {

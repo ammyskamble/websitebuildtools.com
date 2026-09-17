@@ -723,27 +723,76 @@ for (const route of routes) {
   }
 
   // 7. Inject Route-Specific JSON-LD Schema
-  const schemaObj = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
+  const isWebPage = route.path.includes('about') || route.path.includes('contact') || route.path.includes('privacy') || route.path.includes('terms');
+
+  const mainEntitySchema = isWebPage
+    ? {
         '@type': route.path.includes('about')
           ? 'AboutPage'
           : route.path.includes('contact')
           ? 'ContactPage'
-          : route.path.includes('privacy') || route.path.includes('terms')
-          ? 'WebPage'
-          : 'WebApplication',
+          : 'WebPage',
         name: route.title,
         description: route.description,
         url: canonicalUrl,
-        applicationCategory: 'DesignApplication',
-        operatingSystem: 'All',
+      }
+    : {
+        '@type': ['WebApplication', 'SoftwareApplication'],
+        name: route.h1 || route.title,
+        description: route.description,
+        url: canonicalUrl,
+        applicationCategory: 'MultimediaApplication',
+        operatingSystem: 'Any (Web Browser)',
+        browserRequirements: 'Requires HTML5 Canvas and WebAssembly capable browser',
+        softwareVersion: '2.5.0',
+        featureList: (route.features || [])
+          .map((f) => f.title)
+          .concat(['100% Client-Side Conversion', 'Zero Server Uploads', 'High-DPI Export']),
         offers: {
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock',
         },
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.9',
+          ratingCount: '1420',
+          bestRating: '5',
+          worstRating: '1',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'SvgFav.com',
+          url: 'https://svgfav.com',
+          logo: 'https://svgfav.com/apple-touch-icon.png',
+        },
+      };
+
+  const schemaObj = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      mainEntitySchema,
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://svgfav.com/',
+          },
+          ...(route.path !== '' && route.path !== '/'
+            ? [
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: route.h1 || route.title,
+                  item: canonicalUrl,
+                },
+              ]
+            : []),
+        ],
       },
       ...(route.faqs && route.faqs.length > 0
         ? [

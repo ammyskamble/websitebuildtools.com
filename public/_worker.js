@@ -178,49 +178,51 @@ class MetaRewriter {
 
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
+    try {
+      const url = new URL(request.url);
+      const host = url.hostname.toLowerCase();
 
-    // 1. Redirect all *.pages.dev subdomains to the primary custom domain https://svgfav.com
-    if (url.hostname.endsWith('.pages.dev')) {
-      url.hostname = 'svgfav.com';
-      url.protocol = 'https:';
-      return Response.redirect(url.toString(), 301);
-    }
-
-    // 2. Canonical redirect for legacy /svg-to-png aliases to root
-    const cleanPath = (url.pathname.length > 1 && url.pathname.endsWith('/'))
-      ? url.pathname.slice(0, -1)
-      : url.pathname;
-
-    if (cleanPath === '/svg-to-png' || cleanPath === '/convert/svg-to-png') {
-      return Response.redirect('https://svgfav.com/', 301);
-    }
-
-    const REDIRECT_MAP = {
-      '/tools/favicon-generator': '/favicon-generator',
-      '/tools/svg-optimizer': '/svg-optimizer',
-      '/picsvg-alternative': '/alternatives/picsvg',
-      '/converters': '/convert',
-      '/convert/png-to-svg': '/png-to-svg',
-      '/convert/jpg-to-svg': '/jpg-to-svg',
-      '/convert/image-to-svg': '/image-to-svg',
-      '/convert/svg-to-jpg': '/svg-to-jpg',
-      '/convert/svg-to-ico': '/svg-to-ico',
-      '/convert/svg-to-data-uri': '/svg-to-data-uri',
-      '/convert/svg-to-astro': '/svg-to-astro',
-    };
-    if (REDIRECT_MAP[cleanPath]) {
-      return Response.redirect(`https://svgfav.com${REDIRECT_MAP[cleanPath]}`, 301);
-    }
-
-    // 3. Safeguard: Ensure /robots.txt is served cleanly as text/plain without HTML injection
-    if (url.pathname === '/robots.txt') {
-      const assetRes = await env.ASSETS.fetch(request);
-      const contentType = assetRes.headers.get('content-type') || '';
-      if (assetRes.status === 200 && contentType.includes('text/plain')) {
-        return assetRes;
+      // 1. Redirect www.svgfav.com and all *.pages.dev subdomains to the primary domain https://svgfav.com
+      if (host === 'www.svgfav.com' || host.endsWith('.pages.dev')) {
+        url.hostname = 'svgfav.com';
+        url.protocol = 'https:';
+        return Response.redirect(url.toString(), 301);
       }
-      return new Response(
+
+      // 2. Canonical redirect for legacy /svg-to-png aliases to root
+      const cleanPath = (url.pathname.length > 1 && url.pathname.endsWith('/'))
+        ? url.pathname.slice(0, -1)
+        : url.pathname;
+
+      if (cleanPath === '/svg-to-png' || cleanPath === '/convert/svg-to-png') {
+        return Response.redirect('https://svgfav.com/', 301);
+      }
+
+      const REDIRECT_MAP = {
+        '/tools/favicon-generator': '/favicon-generator',
+        '/tools/svg-optimizer': '/svg-optimizer',
+        '/picsvg-alternative': '/alternatives/picsvg',
+        '/converters': '/convert',
+        '/convert/png-to-svg': '/png-to-svg',
+        '/convert/jpg-to-svg': '/jpg-to-svg',
+        '/convert/image-to-svg': '/image-to-svg',
+        '/convert/svg-to-jpg': '/svg-to-jpg',
+        '/convert/svg-to-ico': '/svg-to-ico',
+        '/convert/svg-to-data-uri': '/svg-to-data-uri',
+        '/convert/svg-to-astro': '/svg-to-astro',
+      };
+      if (REDIRECT_MAP[cleanPath]) {
+        return Response.redirect(`https://svgfav.com${REDIRECT_MAP[cleanPath]}`, 301);
+      }
+
+      // 3. Safeguard: Ensure /robots.txt is served cleanly as text/plain without HTML injection
+      if (url.pathname === '/robots.txt') {
+        const assetRes = await env.ASSETS.fetch(request);
+        const contentType = assetRes.headers.get('content-type') || '';
+        if (assetRes.status === 200 && contentType.includes('text/plain')) {
+          return assetRes;
+        }
+        return new Response(
 `# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
@@ -245,72 +247,95 @@ Disallow: /
 Sitemap: https://svgfav.com/sitemap.xml
 Sitemap: https://svgfav.com/sitemap_index.xml
 `,
-        {
-          headers: {
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Cache-Control': 'public, max-age=86400',
-          },
-        }
-      );
-    }
+          {
+            headers: {
+              'Content-Type': 'text/plain; charset=utf-8',
+              'Cache-Control': 'public, max-age=86400',
+            },
+          }
+        );
+      }
 
-    // 4. Ensure sitemaps are served with correct XML Content-Type and caching
-    if (url.pathname.endsWith('.xml')) {
-      const sitemapRes = await env.ASSETS.fetch(request);
-      if (sitemapRes.status === 200) {
-        const newHeaders = new Headers(sitemapRes.headers);
-        newHeaders.set('Content-Type', 'application/xml; charset=utf-8');
-        newHeaders.set('Cache-Control', 'public, max-age=86400');
-        return new Response(sitemapRes.body, {
-          status: sitemapRes.status,
-          headers: newHeaders,
+      // 4. Ensure sitemaps are served with correct XML Content-Type and caching
+      if (url.pathname.endsWith('.xml')) {
+        const sitemapRes = await env.ASSETS.fetch(request);
+        if (sitemapRes.status === 200) {
+          const newHeaders = new Headers(sitemapRes.headers);
+          newHeaders.set('Content-Type', 'application/xml; charset=utf-8');
+          newHeaders.set('Cache-Control', 'public, max-age=86400');
+          return new Response(sitemapRes.body, {
+            status: sitemapRes.status,
+            headers: newHeaders,
+          });
+        }
+        return sitemapRes;
+      }
+
+      // 5. Try fetching the asset directly
+      const assetResponse = await env.ASSETS.fetch(request);
+
+      // If the physical asset exists (e.g. static assets, images, icons, robots, exact HTML files)
+      if (assetResponse.status !== 404) {
+        return assetResponse;
+      }
+
+      // 6. SPA Route Fallback:
+      // If status is 404, check if the request was for a missing static file with an extension
+      const isStaticFile = /\.(?:js|css|png|jpg|jpeg|gif|webp|svg|ico|json|xml|txt|woff|woff2|ttf|eot|wasm|map|webmanifest)$/i.test(url.pathname);
+      if (isStaticFile) {
+        return assetResponse;
+      }
+
+      // 7. For SPA routes, fetch index.html cleanly
+      const isHead = request.method === 'HEAD';
+      const indexRequest = new Request(new URL('/', request.url), {
+        method: isHead ? 'GET' : request.method,
+        headers: request.headers,
+      });
+      const indexResponse = await env.ASSETS.fetch(indexRequest);
+
+      if (!indexResponse || indexResponse.status !== 200 || !indexResponse.body || isHead) {
+        if (isHead && indexResponse && indexResponse.status === 200) {
+          return new Response(null, {
+            status: 200,
+            headers: indexResponse.headers,
+          });
+        }
+        return indexResponse || assetResponse;
+      }
+
+      // 8. Rewrite head tags via HTMLRewriter for dynamic SEO metadata
+      const meta = ROUTE_METADATA[cleanPath];
+      const canonicalUrl = `https://svgfav.com${cleanPath}`;
+
+      const rewriter = new HTMLRewriter()
+        .on('title', new MetaRewriter(meta, canonicalUrl))
+        .on('meta[name="description"]', new MetaRewriter(meta, canonicalUrl))
+        .on('meta[property="og:title"]', new MetaRewriter(meta, canonicalUrl))
+        .on('meta[property="og:description"]', new MetaRewriter(meta, canonicalUrl))
+        .on('meta[property="og:url"]', new MetaRewriter(meta, canonicalUrl))
+        .on('meta[name="twitter:title"]', new MetaRewriter(meta, canonicalUrl))
+        .on('meta[name="twitter:description"]', new MetaRewriter(meta, canonicalUrl))
+        .on('link[rel="canonical"]', new MetaRewriter(meta, canonicalUrl));
+
+      if (cleanPath !== '/' && cleanPath !== '') {
+        rewriter.on('link[rel="alternate"][hreflang]', {
+          element(e) {
+            e.remove();
+          },
         });
       }
-      return sitemapRes;
+
+      return rewriter.transform(indexResponse);
+    } catch (err) {
+      console.error('Cloudflare Worker Exception caught:', err);
+      try {
+        return await env.ASSETS.fetch(request);
+      } catch (assetErr) {
+        return new Response('Internal Server Error', { status: 500 });
+      }
     }
-
-    // 5. Try fetching the asset directly
-    const assetResponse = await env.ASSETS.fetch(request);
-
-    // If the physical asset exists (e.g. static assets, images, icons, robots, exact HTML files)
-    if (assetResponse.status !== 404) {
-      return assetResponse;
-    }
-
-    // 6. SPA Route Fallback:
-    // If status is 404, check if the request was for a missing static file with an extension
-    const isStaticFile = /\.(?:js|css|png|jpg|jpeg|gif|webp|svg|ico|json|xml|txt|woff|woff2|ttf|eot|wasm|map|webmanifest)$/i.test(url.pathname);
-    if (isStaticFile) {
-      return assetResponse;
-    }
-
-    // 7. For SPA routes (like /png-to-svg, /tools/favicon-generator, /pt, /de, etc.), fetch index.html
-    const indexRequest = new Request(new URL('/', request.url), request);
-    const indexResponse = await env.ASSETS.fetch(indexRequest);
-
-    // If metadata exists or canonical is needed, rewrite head tags via HTMLRewriter
-    const meta = ROUTE_METADATA[cleanPath];
-    const canonicalUrl = `https://svgfav.com${cleanPath}`;
-
-    const rewriter = new HTMLRewriter()
-      .on('title', new MetaRewriter(meta, canonicalUrl))
-      .on('meta[name="description"]', new MetaRewriter(meta, canonicalUrl))
-      .on('meta[property="og:title"]', new MetaRewriter(meta, canonicalUrl))
-      .on('meta[property="og:description"]', new MetaRewriter(meta, canonicalUrl))
-      .on('meta[property="og:url"]', new MetaRewriter(meta, canonicalUrl))
-      .on('meta[name="twitter:title"]', new MetaRewriter(meta, canonicalUrl))
-      .on('meta[name="twitter:description"]', new MetaRewriter(meta, canonicalUrl))
-      .on('link[rel="canonical"]', new MetaRewriter(meta, canonicalUrl));
-
-    if (cleanPath !== '/' && cleanPath !== '') {
-      rewriter.on('link[rel="alternate"][hreflang]', {
-        element(e) {
-          e.remove();
-        },
-      });
-    }
-
-    return rewriter.transform(indexResponse);
   }
 };
+
 
