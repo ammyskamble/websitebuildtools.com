@@ -5,7 +5,7 @@ import { SeoHead } from '../components/seo/SeoHead';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 
 export const SvgOptimizerPage: React.FC = () => {
-  const breadcrumbsList = [{ name: 'Tools', path: '/tools/svg-optimizer' }, { name: 'SVG Optimizer & Cleaner' }];
+  const breadcrumbsList = [{ name: 'Tools', path: '/svg-optimizer' }, { name: 'SVG Optimizer & Cleaner' }];
   const faqs = [
     {
       question: 'Why do SVGs exported from Figma, Illustrator, or Inkscape have so much bloat?',
@@ -34,9 +34,10 @@ export const SvgOptimizerPage: React.FC = () => {
       <SeoHead
         title="SVG Optimizer & Code Cleaner (Minify, Precision & Astro Export) — SvgFav.com"
         description="Minify SVG code, strip unnecessary editor junk and metadata, round coordinates, and convert to .astro components. Boost Google Lighthouse scores."
+        canonicalUrl="https://svgfav.com/svg-optimizer"
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
-          url: b.path || window.location.pathname,
+          url: b.path || 'https://svgfav.com/svg-optimizer',
         }))}
         faqs={faqs}
         softwareApp={{

@@ -5,7 +5,7 @@ import { SeoHead } from '../components/seo/SeoHead';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 
 export const FaviconGeneratorPage: React.FC = () => {
-  const breadcrumbsList = [{ name: 'Tools', path: '/tools/favicon-generator' }, { name: 'Production Favicon Suite' }];
+  const breadcrumbsList = [{ name: 'Tools', path: '/favicon-generator' }, { name: 'Production Favicon Suite' }];
   const faqs = [
     {
       question: 'Why do I need both favicon.ico and favicon.svg?',
@@ -35,9 +35,10 @@ export const FaviconGeneratorPage: React.FC = () => {
         title="Web Favicon Generator: ICO, PNG & Apple Touch Icons — SvgFav"
         description="Generate all web, iOS, Android, and Windows icons in a single click with instant multi-platform live mockups and valid site.webmanifest."
         keywords="favicon generator, svg to ico"
+        canonicalUrl="https://svgfav.com/favicon-generator"
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
-          url: b.path || window.location.pathname,
+          url: b.path || 'https://svgfav.com/favicon-generator',
         }))}
         faqs={faqs}
         softwareApp={{

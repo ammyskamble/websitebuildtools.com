@@ -5,7 +5,7 @@
   <!-- Core Home & Flagship Studio -->
   <url>
     <loc>https://svgfav.com/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/" />
@@ -16,81 +16,73 @@
   <!-- Core Creative Studios & Tools -->
   <url>
     <loc>https://svgfav.com/favicon-generator</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://svgfav.com/tools/favicon-generator</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
     <loc>https://svgfav.com/tools/logo-maker</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://svgfav.com/svg-optimizer</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-  <url>
-    <loc>https://svgfav.com/tools/svg-optimizer</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
 
-  <!-- Vector & Raster Converters -->
+  <!-- Vector & Raster Converters Hub & Tools -->
   <url>
     <loc>https://svgfav.com/convert</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://svgfav.com/png-to-svg</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/png-in-svg-umwandeln" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/conversor-png-para-svg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
   </url>
   <url>
     <loc>https://svgfav.com/jpg-to-svg</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://svgfav.com/image-to-svg</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://svgfav.com/svg-to-ico</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://svgfav.com/svg-to-jpg</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://svgfav.com/svg-to-data-uri</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://svgfav.com/svg-to-astro</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -98,7 +90,7 @@
   <!-- Competitor Comparison (Canonical) -->
   <url>
     <loc>https://svgfav.com/alternatives/picsvg</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -106,7 +98,7 @@
   <!-- Brazilian Portuguese Localized Pages -->
   <url>
     <loc>https://svgfav.com/pt-br/conversor-svg-para-png</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt-br/conversor-svg-para-png" />
@@ -115,20 +107,22 @@
   </url>
   <url>
     <loc>https://svgfav.com/pt/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/" />
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/" />
   </url>
   <url>
     <loc>https://svgfav.com/pt/conversor-png-para-svg</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/conversor-png-para-svg" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/conversor-png-para-svg" />
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/png-in-svg-umwandeln" />
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
@@ -137,41 +131,67 @@
   <!-- German Localized Pages -->
   <url>
     <loc>https://svgfav.com/de/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/" />
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/" />
   </url>
   <url>
     <loc>https://svgfav.com/de/png-in-svg-umwandeln</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/png-in-svg-umwandeln" />
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://svgfav.com/pt/conversor-png-para-svg" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/conversor-png-para-svg" />
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/png-to-svg" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/png-to-svg" />
+  </url>
+
+  <!-- Spanish & French Hubs -->
+  <url>
+    <loc>https://svgfav.com/es/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/" />
+  </url>
+  <url>
+    <loc>https://svgfav.com/fr/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/" />
   </url>
 
   <!-- About Us (Hreflangs) -->
   <url>
     <loc>https://svgfav.com/about-us</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/about-us" />
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/about-us" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/about-us" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/about-us" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/about-us" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/about-us" />
   </url>
   <url>
     <loc>https://svgfav.com/de/about-us</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/about-us" />
@@ -181,7 +201,7 @@
   </url>
   <url>
     <loc>https://svgfav.com/pt/about-us</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/about-us" />
@@ -193,19 +213,17 @@
   <!-- Privacy Policy (Hreflangs) -->
   <url>
     <loc>https://svgfav.com/privacy-policy</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/privacy-policy" />
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/privacy-policy" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/privacy-policy" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/privacy-policy" />
   </url>
   <url>
     <loc>https://svgfav.com/de/privacy-policy</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/privacy-policy" />
@@ -215,7 +233,7 @@
   </url>
   <url>
     <loc>https://svgfav.com/pt/privacy-policy</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/privacy-policy" />
@@ -227,19 +245,17 @@
   <!-- Terms & Conditions (Hreflangs) -->
   <url>
     <loc>https://svgfav.com/terms-and-conditions</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/terms-and-conditions" />
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/terms-and-conditions" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/terms-and-conditions" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/terms-and-conditions" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/terms-and-conditions" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/terms-and-conditions" />
   </url>
   <url>
     <loc>https://svgfav.com/de/terms-and-conditions</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/terms-and-conditions" />
@@ -249,7 +265,7 @@
   </url>
   <url>
     <loc>https://svgfav.com/pt/terms-and-conditions</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/terms-and-conditions" />
@@ -261,19 +277,17 @@
   <!-- Contact Us (Hreflangs) -->
   <url>
     <loc>https://svgfav.com/contact-us</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/contact-us" />
     <xhtml:link rel="alternate" hreflang="de" href="https://svgfav.com/de/contact-us" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://svgfav.com/fr/contact-us" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://svgfav.com/pt/contact-us" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://svgfav.com/es/contact-us" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://svgfav.com/contact-us" />
   </url>
   <url>
     <loc>https://svgfav.com/de/contact-us</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/contact-us" />
@@ -283,7 +297,7 @@
   </url>
   <url>
     <loc>https://svgfav.com/pt/contact-us</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://svgfav.com/contact-us" />

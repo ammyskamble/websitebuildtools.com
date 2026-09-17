@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Shield, Zap, Check, ArrowRight, Sparkles, ExternalLink, FileCode, Copy, Code2, Scissors } from 'lucide-react';
 import { UniversalConverter } from '../components/converters/UniversalConverter';
 import type { ConverterMode } from '../components/converters/UniversalConverter';
@@ -13,6 +13,8 @@ interface ConverterPageProps {
 }
 
 export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
+  const location = useLocation();
+  const isHubPage = location.pathname === '/convert' || location.pathname === '/converters';
   const [copiedSnippet, setCopiedSnippet] = useState(false);
   const contentConfig: Record<
     ConverterMode,
@@ -338,10 +340,22 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
 
   const currentConfig = contentConfig[mode] || contentConfig['png-to-svg'];
 
-  const breadcrumbsList = [
-    { name: 'Converters', path: '/convert' },
-    { name: currentConfig.h1 },
-  ];
+  const pageTitle = isHubPage
+    ? 'Free Online Vector & Favicon Converters | SvgFav'
+    : currentConfig.pageTitle;
+  const metaDescription = isHubPage
+    ? 'High-speed browser-based SVG, PNG, JPG, and ICO converters with zero server uploads and complete privacy.'
+    : currentConfig.metaDescription;
+  const canonicalUrl = isHubPage
+    ? 'https://svgfav.com/convert'
+    : `https://svgfav.com/${mode}`;
+
+  const breadcrumbsList = isHubPage
+    ? [{ name: 'Converters', path: '/convert' }]
+    : [
+        { name: 'Converters', path: '/convert' },
+        { name: currentConfig.h1 },
+      ];
 
   const howToSteps = currentConfig.steps.map((s) => ({
     name: s.title,
@@ -354,9 +368,10 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       {/* Dynamic SEO Head, Title & Googlebot Structured Data */}
       <SeoHead
-        title={currentConfig.pageTitle}
-        description={currentConfig.metaDescription}
+        title={pageTitle}
+        description={metaDescription}
         keywords={currentConfig.keywords}
+        canonicalUrl={canonicalUrl}
         breadcrumbs={breadcrumbsList.map((b) => ({
           name: b.name,
           url: b.path || window.location.pathname,
@@ -364,12 +379,12 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
         faqs={currentConfig.faqs}
         howTo={{
           name: currentConfig.guideTitle,
-          description: currentConfig.metaDescription,
+          description: metaDescription,
           steps: howToSteps,
         }}
         softwareApp={{
-          name: currentConfig.pageTitle,
-          description: currentConfig.metaDescription,
+          name: pageTitle,
+          description: metaDescription,
           applicationCategory: 'DesignApplication',
           operatingSystem: 'All',
           price: '0',
@@ -384,10 +399,12 @@ export const ConverterPage: React.FC<ConverterPageProps> = ({ mode }) => {
       {/* Primary Page Header for Programmatic SEO */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          {currentConfig.h1}
+          {isHubPage ? 'Online Vector Converters & Code Studio' : currentConfig.h1}
         </h1>
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          {currentConfig.subtitle}
+          {isHubPage
+            ? 'High-speed browser-based SVG, PNG, JPG, and ICO converters with zero server uploads and complete privacy.'
+            : currentConfig.subtitle}
         </p>
       </div>
 

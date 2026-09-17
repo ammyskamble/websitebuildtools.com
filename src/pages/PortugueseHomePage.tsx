@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Sparkles, Wand2, Zap, Cpu, ChevronRight, Globe, FileImage, ShieldCheck, CheckCircle2, ArrowRight, Lock, Layers
 } from 'lucide-react';
@@ -11,16 +11,30 @@ import { SEO_FAQS } from '../data/seoFaqs';
 
 export const PortugueseHomePage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isPngToSvgRoute = location.pathname.includes('conversor-png-para-svg');
 
   // Filtrar FAQs apenas em português
   const ptFaqs = SEO_FAQS.filter((f) => f.language === 'pt');
 
+  const pageTitle = isPngToSvgRoute
+    ? 'Conversor PNG para SVG Grátis (100% no Navegador) — SvgFav'
+    : 'SvgFav.com — Conversor PNG para SVG e Gerador de Favicon Online';
+
+  const pageDescription = isPngToSvgRoute
+    ? 'Converta imagens PNG para SVG vetor grátis diretamente no navegador. Sem upload para servidores, 100% privado e com precisão geométrica instantânea.'
+    : 'Conversor SVG online gratuito e gerador de favicon. Converta PNG em SVG, JPG em SVG e gere pacotes favicon.ico 100% no navegador com total privacidade.';
+
+  const canonicalUrl = isPngToSvgRoute
+    ? 'https://svgfav.com/pt/conversor-png-para-svg'
+    : 'https://svgfav.com/pt/';
+
   const rawSchemaGraph = [
     {
       '@type': 'WebApplication',
-      '@id': 'https://svgfav.com/pt/#webapp',
-      name: 'SvgFav Studio Vetorial e Gerador de Favicon',
-      url: 'https://svgfav.com/pt/',
+      '@id': `${canonicalUrl}#webapp`,
+      name: isPngToSvgRoute ? 'SvgFav Conversor PNG para SVG' : 'SvgFav Studio Vetorial e Gerador de Favicon',
+      url: canonicalUrl,
       inLanguage: 'pt-BR',
       applicationCategory: 'DesignApplication',
       operatingSystem: 'All',
@@ -38,7 +52,7 @@ export const PortugueseHomePage: React.FC = () => {
     },
     {
       '@type': 'FAQPage',
-      '@id': 'https://svgfav.com/pt/#faq',
+      '@id': `${canonicalUrl}#faq`,
       mainEntity: ptFaqs.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
@@ -50,22 +64,29 @@ export const PortugueseHomePage: React.FC = () => {
     },
   ];
 
-  const hreflangAlternates = [
-    { lang: 'en', url: 'https://svgfav.com/' },
-    { lang: 'pt', url: 'https://svgfav.com/pt/' },
-    { lang: 'de', url: 'https://svgfav.com/de/' },
-    { lang: 'fr', url: 'https://svgfav.com/fr/' },
-    { lang: 'es', url: 'https://svgfav.com/es/' },
-    { lang: 'x-default', url: 'https://svgfav.com/' },
-  ];
+  const hreflangAlternates = isPngToSvgRoute
+    ? [
+        { lang: 'en', url: 'https://svgfav.com/png-to-svg' },
+        { lang: 'pt', url: 'https://svgfav.com/pt/conversor-png-para-svg' },
+        { lang: 'de', url: 'https://svgfav.com/de/png-in-svg-umwandeln' },
+        { lang: 'x-default', url: 'https://svgfav.com/png-to-svg' },
+      ]
+    : [
+        { lang: 'en', url: 'https://svgfav.com/' },
+        { lang: 'pt', url: 'https://svgfav.com/pt/' },
+        { lang: 'de', url: 'https://svgfav.com/de/' },
+        { lang: 'fr', url: 'https://svgfav.com/fr/' },
+        { lang: 'es', url: 'https://svgfav.com/es/' },
+        { lang: 'x-default', url: 'https://svgfav.com/' },
+      ];
 
   return (
     <div className="w-full space-y-16">
       <SeoHead
-        title="SvgFav.com — Conversor PNG para SVG e Gerador de Favicon Online"
-        description="Conversor SVG online gratuito e gerador de favicon. Converta PNG em SVG, JPG em SVG e gere pacotes favicon.ico 100% no navegador com total privacidade."
+        title={pageTitle}
+        description={pageDescription}
         keywords="conversor png em svg, png para svg, conversor svg, gerador de favicon, favicon o que é, o que é svg, arquivo svg o que é, pmdf svg, svg pmdf, svg para png"
-        canonicalUrl="https://svgfav.com/pt/"
+        canonicalUrl={canonicalUrl}
         hreflangAlternates={hreflangAlternates}
         rawSchemaGraph={rawSchemaGraph}
       />

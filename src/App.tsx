@@ -79,8 +79,8 @@ export const App: React.FC = () => {
             <Route path="/favicon-generator" element={<FaviconGeneratorPage />} />
             <Route path="/svg-optimizer" element={<SvgOptimizerPage />} />
             <Route path="/tools/logo-maker" element={<LogoMakerPage />} />
-            <Route path="/tools/favicon-generator" element={<FaviconGeneratorPage />} />
-            <Route path="/tools/svg-optimizer" element={<SvgOptimizerPage />} />
+            <Route path="/tools/favicon-generator" element={<Navigate to="/favicon-generator" replace />} />
+            <Route path="/tools/svg-optimizer" element={<Navigate to="/svg-optimizer" replace />} />
             {/* Gemini AI routes removed — redirect to 404 */}
             <Route path="/tools/gemini-ai" element={<NotFoundPage />} />
             <Route path="/tools/ai-generator" element={<NotFoundPage />} />
@@ -92,7 +92,7 @@ export const App: React.FC = () => {
 
             {/* High-Intent Programmatic SEO Conversion Hub */}
             <Route path="/convert" element={<ConverterPage mode="png-to-svg" />} />
-            <Route path="/converters" element={<ConverterPage mode="png-to-svg" />} />
+            <Route path="/converters" element={<Navigate to="/convert" replace />} />
 
             {/* Direct High-Value SEO Landing Pages */}
             <Route path="/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
@@ -104,19 +104,19 @@ export const App: React.FC = () => {
             <Route path="/svg-to-data-uri" element={<ConverterPage mode="svg-to-data-uri" />} />
             <Route path="/svg-to-astro" element={<ConverterPage mode="svg-to-astro" />} />
 
-            {/* Canonical /convert/* sub-routes */}
-            <Route path="/convert/png-to-svg" element={<ConverterPage mode="png-to-svg" />} />
-            <Route path="/convert/jpg-to-svg" element={<ConverterPage mode="jpg-to-svg" />} />
-            <Route path="/convert/image-to-svg" element={<ConverterPage mode="image-to-svg" />} />
+            {/* Canonical /convert/* sub-routes redirecting to primary paths */}
+            <Route path="/convert/png-to-svg" element={<Navigate to="/png-to-svg" replace />} />
+            <Route path="/convert/jpg-to-svg" element={<Navigate to="/jpg-to-svg" replace />} />
+            <Route path="/convert/image-to-svg" element={<Navigate to="/image-to-svg" replace />} />
             <Route path="/convert/svg-to-png" element={<Navigate to="/" replace />} />
-            <Route path="/convert/svg-to-jpg" element={<ConverterPage mode="svg-to-jpg" />} />
-            <Route path="/convert/svg-to-ico" element={<ConverterPage mode="svg-to-ico" />} />
-            <Route path="/convert/svg-to-data-uri" element={<ConverterPage mode="svg-to-data-uri" />} />
-            <Route path="/convert/svg-to-astro" element={<ConverterPage mode="svg-to-astro" />} />
+            <Route path="/convert/svg-to-jpg" element={<Navigate to="/svg-to-jpg" replace />} />
+            <Route path="/convert/svg-to-ico" element={<Navigate to="/svg-to-ico" replace />} />
+            <Route path="/convert/svg-to-data-uri" element={<Navigate to="/svg-to-data-uri" replace />} />
+            <Route path="/convert/svg-to-astro" element={<Navigate to="/svg-to-astro" replace />} />
 
             {/* Competitor Alternative Landing Page */}
             <Route path="/alternatives/picsvg" element={<PicsvgAlternativePage />} />
-            <Route path="/picsvg-alternative" element={<PicsvgAlternativePage />} />
+            <Route path="/picsvg-alternative" element={<Navigate to="/alternatives/picsvg" replace />} />
 
             {/* Standard Legal & Informational Pages with i18n Routing */}
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

@@ -6,11 +6,9 @@ import {
 } from 'lucide-react';
 import { UniversalConverter } from '../components/converters/UniversalConverter';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
+import { SeoHead } from '../components/seo/SeoHead';
 
 export const PicsvgAlternativePage: React.FC = () => {
-  useEffect(() => {
-    document.title = 'Best Free Picsvg Alternative (100% Client-Side & Private) — SvgFav.com';
-  }, []);
 
   const comparisonRows = [
     {
@@ -129,10 +127,13 @@ export const PicsvgAlternativePage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
-      {/* Dynamic JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      <SeoHead
+        title="Best Picsvg Alternative — Ad-Free, No 4MB Limit & 100% Private | SvgFav"
+        description="Looking for a Picsvg alternative? SvgFav offers ad-free in-browser SVG vectorization with no 4MB limit and zero server uploads."
+        canonicalUrl="https://svgfav.com/alternatives/picsvg"
+        keywords="picsvg alternative, free vectorizer, image to svg, client-side vectorizer"
+        faqs={faqs}
+        rawSchemaGraph={schemaData['@graph']}
       />
 
       {/* Hero Header */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Sparkles, Wand2, Zap, Cpu, ChevronRight, Globe, FileImage, ShieldCheck, CheckCircle2, ArrowRight, Lock, Layers
 } from 'lucide-react';
@@ -11,16 +11,30 @@ import { SEO_FAQS } from '../data/seoFaqs';
 
 export const GermanHomePage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isPngToSvgRoute = location.pathname.includes('png-in-svg-umwandeln');
 
   // Filter FAQs auf Deutsch
   const deFaqs = SEO_FAQS.filter((f) => f.language === 'de');
 
+  const pageTitle = isPngToSvgRoute
+    ? 'PNG in SVG umwandeln kostenlos online — SvgFav'
+    : 'SvgFav.com — Kostenloser Online SVG-Konverter & Favicon Generator';
+
+  const pageDescription = isPngToSvgRoute
+    ? 'Wandeln Sie PNG-Bilder und Fotos in scharfe SVG-Vektoren um. Ohne Registrierung, 100% im Browser und DSGVO-konform.'
+    : 'Kostenloser Online SVG-Konverter und Favicon Generator. PNG zu SVG, JPG zu SVG konvertieren und Favicon-Pakete 100% im Browser erstellen. DSGVO-konform.';
+
+  const canonicalUrl = isPngToSvgRoute
+    ? 'https://svgfav.com/de/png-in-svg-umwandeln'
+    : 'https://svgfav.com/de/';
+
   const rawSchemaGraph = [
     {
       '@type': 'WebApplication',
-      '@id': 'https://svgfav.com/de/#webapp',
-      name: 'SvgFav Vektor- & Favicon-Studio',
-      url: 'https://svgfav.com/de/',
+      '@id': `${canonicalUrl}#webapp`,
+      name: isPngToSvgRoute ? 'SvgFav PNG in SVG Konverter' : 'SvgFav Vektor- & Favicon-Studio',
+      url: canonicalUrl,
       inLanguage: 'de-DE',
       applicationCategory: 'DesignApplication',
       operatingSystem: 'All',
@@ -38,7 +52,7 @@ export const GermanHomePage: React.FC = () => {
     },
     {
       '@type': 'FAQPage',
-      '@id': 'https://svgfav.com/de/#faq',
+      '@id': `${canonicalUrl}#faq`,
       mainEntity: deFaqs.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
@@ -50,22 +64,29 @@ export const GermanHomePage: React.FC = () => {
     },
   ];
 
-  const hreflangAlternates = [
-    { lang: 'en', url: 'https://svgfav.com/' },
-    { lang: 'pt', url: 'https://svgfav.com/pt/' },
-    { lang: 'de', url: 'https://svgfav.com/de/' },
-    { lang: 'fr', url: 'https://svgfav.com/fr/' },
-    { lang: 'es', url: 'https://svgfav.com/es/' },
-    { lang: 'x-default', url: 'https://svgfav.com/' },
-  ];
+  const hreflangAlternates = isPngToSvgRoute
+    ? [
+        { lang: 'en', url: 'https://svgfav.com/png-to-svg' },
+        { lang: 'pt', url: 'https://svgfav.com/pt/conversor-png-para-svg' },
+        { lang: 'de', url: 'https://svgfav.com/de/png-in-svg-umwandeln' },
+        { lang: 'x-default', url: 'https://svgfav.com/png-to-svg' },
+      ]
+    : [
+        { lang: 'en', url: 'https://svgfav.com/' },
+        { lang: 'pt', url: 'https://svgfav.com/pt/' },
+        { lang: 'de', url: 'https://svgfav.com/de/' },
+        { lang: 'fr', url: 'https://svgfav.com/fr/' },
+        { lang: 'es', url: 'https://svgfav.com/es/' },
+        { lang: 'x-default', url: 'https://svgfav.com/' },
+      ];
 
   return (
     <div className="w-full space-y-16">
       <SeoHead
-        title="SvgFav.com — Kostenloser Online SVG-Konverter & Favicon Generator"
-        description="Kostenloser Online SVG-Konverter und Favicon Generator. PNG zu SVG, JPG zu SVG konvertieren und Favicon-Pakete 100% im Browser erstellen. DSGVO-konform."
+        title={pageTitle}
+        description={pageDescription}
         keywords="was ist eine svg datei, was ist svg, ist svg eine vektordatei, PNG zu SVG, SVG-Datei, was ist ein favicon, favicon was ist das, Wie konvertiert man PNG in SVG, svg konvertieren"
-        canonicalUrl="https://svgfav.com/de/"
+        canonicalUrl={canonicalUrl}
         hreflangAlternates={hreflangAlternates}
         rawSchemaGraph={rawSchemaGraph}
       />
